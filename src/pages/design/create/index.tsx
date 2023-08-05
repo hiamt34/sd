@@ -1,4 +1,6 @@
-const CreatePage = () => {
+import ClientLayout from "@/layouts";
 
-}
-export default CreatePage
+const CreatePage = () => {
+  return;
+};
+export default CreatePage;
