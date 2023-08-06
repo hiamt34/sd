@@ -14,8 +14,9 @@ const Home = ({ }) => {
             <SectionHero />
             <SectionCategory />
             {/* <SectionIntro /> */}
+            <SectionItems props={{ type: 'hot', type_carousel: 'items-carousel-hot' }} />
             <SectionCollections />
-            <SectionItems />
+            <SectionItems props={{ type: 'mới', type_carousel: 'items-carousel' }} />
             {/* <SectionPopular /> */}
         </ClientLayout>
 

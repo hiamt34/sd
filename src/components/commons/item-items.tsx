@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 export const ItemItems = () => {
     return (
         <div className="nft__item style-2">
@@ -42,14 +44,14 @@ export const ItemItems = () => {
                         </div> */}
                     </div>
                 </div>
-                <a href="04_retro-item-details.html">
+                <Link href={{ pathname: 'products/1' }}>
                     <div className="d-placeholder" />
                     <img
                         src="images/items/anim-4.webp"
                         className="lazy nft__item_preview"
                         alt=""
                     />
-                </a>
+                </Link>
             </div>
             <div className="nft__item_info">
                 <a href="04_retro-item-details.html">

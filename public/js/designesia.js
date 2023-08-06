@@ -268,25 +268,56 @@
       * --------------------------------------------------*/
      function load_owl() {
         jQuery("#items-carousel").owlCarousel({
-            center: false,
-            items:4,
-            rewind:true,
-            margin:25,
-            nav:true,
-            navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
-            dots:false,
-            responsive:{
-                1000:{
-                    items:4
-                },
-                600:{
-                    items:2
-                },
-                0:{
-                    items:1
-                }
-            }
-         });
+          center: false,
+          items: 4,
+          rewind: true,
+          margin: 25,
+          nav: true,
+          loop: true,
+          animateOut: "fadeOut",
+          animateIn: "flipInY",
+          navText: [
+            "<i class='fa fa-chevron-left'></i>",
+            "<i class='fa fa-chevron-right'></i>",
+          ],
+          dots: false,
+          responsive: {
+            1000: {
+              items: 4,
+            },
+            600: {
+              items: 2,
+            },
+            0: {
+              items: 1,
+            },
+          },
+        });
+
+        jQuery("#items-carousel-hot").owlCarousel({
+          center: false,
+          items: 4,
+          rewind: true,
+          margin: 25,
+          nav: true,
+          loop: true,
+          navText: [
+            "<i class='fa fa-chevron-left'></i>",
+            "<i class='fa fa-chevron-right'></i>",
+          ],
+          dots: false,
+          responsive: {
+            1000: {
+              items: 4,
+            },
+            600: {
+              items: 2,
+            },
+            0: {
+              items: 1,
+            },
+          },
+        });
 
         jQuery("#items-carousel-s2").owlCarousel({
             center: false,
