@@ -1,4 +1,4 @@
-import { ItemItems } from "@/components/commons/item-items"
+import { ItemItems } from "@/components/commons/item-patten"
 import { SideBar } from "@/components/products/sidebar"
 import ClientLayout from "@/layouts"
 
@@ -8,10 +8,19 @@ const ProductsPage = () => {
             <section aria-label="section">
                 <div className="container">
                     <div className="row wow fadeIn">
-                        <SideBar />
+
                         <div className="col-md-9">
                             <div className="row">
                                 {/* nft item begin */}
+                                <div className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                    <ItemItems />
+                                </div>
+                                <div className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                    <ItemItems />
+                                </div>
+                                <div className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                    <ItemItems />
+                                </div>
                                 <div className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                     <ItemItems />
                                 </div>
@@ -23,6 +32,7 @@ const ProductsPage = () => {
                                 </div>
                             </div>
                         </div>
+                        <SideBar />
                     </div>
                 </div>
             </section>

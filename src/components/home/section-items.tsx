@@ -1,4 +1,6 @@
-import { ItemItems } from "../commons/item-items"
+import { ItemDesign } from "../commons/item-design"
+import { ItemItems } from "../commons/item-patten"
+
 interface ISectionItem {
     props?: {
         type: string

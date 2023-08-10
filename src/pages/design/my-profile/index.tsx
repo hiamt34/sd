@@ -1,4 +1,5 @@
-import { ItemItems } from "@/components/commons/item-items";
+
+import { CollectionDesign } from "@/components/commons/collection-design";
 import { Paginate } from "@/components/commons/paginate";
 import { FilterMyProfile } from "@/components/design/my-profile.tsx/filter";
 import { TableMyProfile } from "@/components/design/my-profile.tsx/table";
@@ -62,17 +63,27 @@ const MyProfilePage = () => {
                   <div className="tab-1">
                     <div className="row">
                       <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <ItemItems />
+                        <CollectionDesign showProfileAvatar={false} />
+                      </div>
+                      <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <CollectionDesign showProfileAvatar={false} />
                       </div>
                     </div>
                   </div>
                   <div className="tab-2">
                     <div className="row">
                       <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <ItemItems />
+                        <CollectionDesign showProfileAvatar={false} />
+                      </div>
+                      <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <CollectionDesign showProfileAvatar={false} />
+                      </div>
+                      <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                        <CollectionDesign showProfileAvatar={false} />
                       </div>
                     </div>
                   </div>
+
                   <div className="tab-3">
                     <div className="row">
                       <div className="col-md-12">

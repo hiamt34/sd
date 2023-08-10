@@ -1,5 +1,5 @@
-import { ItemCollection } from "../commons/item-collections"
-import { ItemItems } from "../commons/item-items"
+import { CollectionDesign } from "../commons/collection-design"
+
 
 export const SectionCollections = () => {
     return (<section id="section-collections" className="no-bottom">
@@ -14,7 +14,7 @@ export const SectionCollections = () => {
                 <div id="collection-carousel" className="owl-carousel wow fadeIn">
                     {
                         // eslint-disable-next-line react/jsx-key
-                        [1, 2, 3, 4, 5, 6,].map(() => { return (<ItemCollection />) })
+                        [1, 2, 3, 4, 5, 6,].map(() => { return (<CollectionDesign showProfileAvatar={true} />) })
                     }
                 </div>
             </div>
