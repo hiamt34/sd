@@ -1,7 +1,7 @@
 import { ButtonBase } from "@mui/material"
 import Link from "next/link"
 
-export const ItemItems = () => {
+export const ItemCustomer = () => {
     return (
         <div className="nft__item style-2">
             <div className="nft__item_wrap">

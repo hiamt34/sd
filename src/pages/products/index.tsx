@@ -1,4 +1,4 @@
-import { ItemItems } from "@/components/commons/item-patten"
+import { ItemCustomer } from "@/components/commons/item-customer"
 import { SideBar } from "@/components/products/sidebar"
 import ClientLayout from "@/layouts"
 
@@ -13,16 +13,16 @@ const ProductsPage = () => {
                             <div className="row">
                                 {/* nft item begin */}
                                 <div className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                    <ItemItems />
+                                    <ItemCustomer />
                                 </div>
                                 <div className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                    <ItemItems />
+                                    <ItemCustomer />
                                 </div>
                                 <div className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                    <ItemItems />
+                                    <ItemCustomer />
                                 </div>
                                 <div className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                    <ItemItems />
+                                    <ItemCustomer />
                                 </div>
 
                                 <div className="col-md-12 text-center">

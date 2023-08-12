@@ -1,6 +1,6 @@
+import { Api } from "@/api/http";
 import { CollectionDesign } from "@/components/commons/collection-design";
 import { ItemDesign } from "@/components/commons/item-design";
-import { ItemItems } from "@/components/commons/item-patten";
 import DialogCreateOneDesign from "@/components/pogup/create_prod";
 import ClientLayout from "@/layouts";
 import { ButtonBase } from "@mui/material";
@@ -55,7 +55,8 @@ const CreatePage = () => {
                                                       type="button"
                                                       className="btn-main"
                                                       style={{ margin: 5, borderRadius: 10 }}
-                                                      onClick={() => console.log(array)}
+                                                      onClick={async () => console.log(await Api.getOneProductDesign("1"))
+                                                      }
                                                 >
                                                       Anime
                                                 </ButtonBase>

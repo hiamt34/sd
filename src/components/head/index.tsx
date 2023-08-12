@@ -15,7 +15,10 @@ const Header = () => {
                                     {/* logo begin */}
                                     <div id="logo">
                                         <Link href={{ pathname: navLink.home.path }}>
-                                            <img alt="" src="images/logo-retro.png" />
+                                            <img
+                                                height={70}
+                                                width={300}
+                                                alt="" src="images/SDlogo.png" />
                                         </Link>
                                     </div>
                                     {/* logo close */}

@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export const ItemCollection = () => {
+export const CollectionCustomer = () => {
     return (
         <div className="nft_coll">
             <div className="nft_wrap">

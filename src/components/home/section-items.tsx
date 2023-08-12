@@ -1,5 +1,5 @@
+import { ItemCustomer } from "../commons/item-customer"
 import { ItemDesign } from "../commons/item-design"
-import { ItemItems } from "../commons/item-patten"
 
 interface ISectionItem {
     props?: {
@@ -22,7 +22,7 @@ export const SectionItems: React.FC<ISectionItem> = ({ props }) => {
                     <div id={props?.type_carousel} className="owl-carousel wow fadeIn">
                         {
                             // eslint-disable-next-line react/jsx-key
-                            [1, 2, 3, 4, 5, 6,].map(() => { return (<ItemItems />) })
+                            [1, 2, 3, 4, 5, 6,].map(() => { return (<ItemCustomer />) })
                         }
 
                     </div>
