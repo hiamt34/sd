@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { Product } from "./inteface/product.inteface";
+import { ProductDetail } from "./inteface/product.inteface";
 Axios.defaults.baseURL = process.env.baseUrl ?? "http://localhost:4000"
 Axios.interceptors.response.use(
       (value) => value,
@@ -7,7 +7,7 @@ Axios.interceptors.response.use(
       //todo: Hiện toast err
 )
 export class Api {
-      static getOneProductDesign = async (id: string): Promise<Product> => await Axios.get(Url.getOneProductDesign(id))
+      static getOneProductDesign = async (id: string): Promise<ProductDetail> => await Axios.get(Url.getOneProductDesign(id))
 
 }
 

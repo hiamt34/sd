@@ -1,7 +1,10 @@
 import { ButtonBase } from "@mui/material"
 import Link from "next/link"
-
-export const ItemDesign = () => {
+import { User } from "./product"
+interface props {
+      type: User
+}
+export const ProductDetail = (prop: props) => {
       return (
             <div className="nft__item style-2">
                   <h5>Thiết kế số 1</h5>

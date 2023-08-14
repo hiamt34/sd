@@ -1,5 +1,5 @@
 
-import { CollectionDesign } from "@/components/commons/collection-design";
+import { Product, User } from "@/components/commons/product";
 import { Paginate } from "@/components/commons/paginate";
 import { FilterMyProfile } from "@/components/design/my-profile.tsx/filter";
 import { TableMyProfile } from "@/components/design/my-profile.tsx/table";
@@ -10,7 +10,7 @@ import { useState } from "react";
 import { ButtonBase } from "@mui/material";
 
 const MyProfilePage = () => {
-  const [array, setArray] = useState<Array<Item>>([{
+  const [array1, setArray1] = useState<Array<Item>>([{
     id: '1234',
     order: 1,
     imgBefor: "",
@@ -18,11 +18,49 @@ const MyProfilePage = () => {
     imgAfter: "",
     imgDesignAfter: "",
     status: "",
-  }])
+  },
+  {
+    id: '1234',
+    order: 1,
+    imgBefor: "",
+    imgDesignBefor: "",
+    imgAfter: "",
+    imgDesignAfter: "",
+    status: "",
+  }
+  ])
+  const [array2, setArray2] = useState<Array<Item>>([{
+    id: '1234',
+    order: 1,
+    imgBefor: "",
+    imgDesignBefor: "",
+    imgAfter: "",
+    imgDesignAfter: "",
+    status: "",
+  },
+  {
+    id: '1234',
+    order: 1,
+    imgBefor: "",
+    imgDesignBefor: "",
+    imgAfter: "",
+    imgDesignAfter: "",
+    status: "",
+  },
+  {
+    id: '1234',
+    order: 1,
+    imgBefor: "",
+    imgDesignBefor: "",
+    imgAfter: "",
+    imgDesignAfter: "",
+    status: "",
+  }
+  ])
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const handleSubmitOneDesign = (data: Item) => {
     data.order++;
-    setArray([...array, data]);
+    setArray2([...array2, data]);
   }
   return (
     <ClientLayout type_class="no-bottom">
@@ -34,7 +72,7 @@ const MyProfilePage = () => {
                 <div className="de-flex-col">
                   <div className="profile_avatar">
                     <img
-                      src="images/author_single/author_thumbnail.jpg"
+                      src="images/author/author-1.jpg"
                       alt=""
                     />
 
@@ -78,31 +116,40 @@ const MyProfilePage = () => {
                 <div className="de_tab_content">
                   <div className="tab-1">
                     <div className="row">
-                      <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <CollectionDesign showProfileAvatar={false} />
-                      </div>
-                      <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <CollectionDesign showProfileAvatar={false} />
-                      </div>
+                      {array1.map((x) =>
+                        <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                          <Product
+                            showProfileAvatar={false}
+                            type={User.Designer}
+                            img='images/mau_ao/ao_don/aodon-1.jpg'
+                            name="Unisex Yellow"
+                            price={200.000}
+                          />
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="tab-2">
                     <div className="row">
-                      <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <CollectionDesign showProfileAvatar={false} />
-                      </div>
-                      <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <CollectionDesign showProfileAvatar={false} />
-                      </div>
-                      <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                        <CollectionDesign showProfileAvatar={false} />
-                      </div>
+                      {
+                        array2.map((x) =>
+                          <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <Product
+                              showProfileAvatar={false}
+                              type={User.Designer}
+                              img='images/mau_ao/ao_don/aodon-1.jpg'
+                              name="Unisex Yellow"
+                              price={200.000}
+                            />
+                          </div>
+                        )
+                      }
                     </div>
                   </div>
 
                   <div className="tab-3">
                     <div className="row">
-                      <div className="col-md-12">
+                      <div className="col-md-12" >
                         <FilterMyProfile />
                         <TableMyProfile />
                         <div className="spacer-double" />

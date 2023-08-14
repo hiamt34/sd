@@ -1,6 +1,6 @@
 import { Api } from "@/api/http";
-import { CollectionDesign } from "@/components/commons/collection-design";
-import { ItemDesign } from "@/components/commons/item-design";
+import { Product, User } from "@/components/commons/product";
+import { ProductDetail } from "@/components/commons/product_detail";
 import DialogCreateOneDesign from "@/components/pogup/create_prod";
 import ClientLayout from "@/layouts";
 import { ButtonBase } from "@mui/material";
@@ -42,7 +42,7 @@ const CreatePage = () => {
                               <div className="container">
                                     <div className="row wow fadeIn">
                                           <div className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12" >
-                                                <CollectionDesign showProfileAvatar={false} />
+                                                <Product showProfileAvatar={false} img="images/mau_ao/ao_doi/aodoi-1.jpg" type={User.Designer} />
                                           </div>
                                           <div className="d-item col-lg-9 col-md-6 col-sm-6 col-xs-12" >
                                                 <h1>Mẫu thiết kế Blackping</h1>
@@ -84,7 +84,7 @@ const CreatePage = () => {
                                                       {
                                                             array.map((x) =>
                                                                   <div key={Math.random()} className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                                                        <ItemDesign />
+                                                                        <ProductDetail type={User.Designer} />
                                                                   </div>
                                                             )
                                                       }

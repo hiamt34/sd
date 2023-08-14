@@ -16,22 +16,14 @@ const Header = () => {
                                     <div id="logo">
                                         <Link href={{ pathname: navLink.home.path }}>
                                             <img
-                                                height={70}
-                                                width={300}
+                                                height={55}
+                                                width={400}
                                                 alt="" src="images/SDlogo.png" />
                                         </Link>
                                     </div>
                                     {/* logo close */}
                                 </div>
-                                <div className="de-flex-col">
-                                    <input
-                                        id="quick_search"
-                                        className="xs-hide"
-                                        name="quick_search"
-                                        placeholder="search item here..."
-                                        type="text"
-                                    />
-                                </div>
+
                             </div>
                             <div className="de-flex-col header-col-mid">
                                 {/* mainmenu begin */}

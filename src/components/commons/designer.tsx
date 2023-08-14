@@ -1,12 +1,15 @@
 import Link from "next/link"
-
-export const CollectionCustomer = () => {
+interface props {
+    img_carosel: string
+    avatar: string
+}
+export const Designer = (prop: props) => {
     return (
         <div className="nft_coll">
             <div className="nft_wrap">
                 <Link href={{ pathname: `/design/product-detail` }}>
                     <img
-                        src="images/collections/coll-1.jpg"
+                        src={prop.img_carosel}
                         className="lazy img-fluid"
                         alt=""
                     />
@@ -14,7 +17,7 @@ export const CollectionCustomer = () => {
             </div>
             <div className="nft_coll_pp">
                 <Link href={{ pathname: `/design/my-profile` }}>
-                    <img className="lazy pp-coll" src="images/author/author-1.jpg" alt="" />
+                    <img className="lazy pp-coll" src={prop.avatar} alt="" />
                 </Link>
                 <i className="fa fa-check" />
             </div>

@@ -13569,10 +13569,11 @@ a.read_more i {
 }
 
 .nft_coll:hover img {
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .nft_coll {
+
     text-align: center;
 }
 
