@@ -5,12 +5,10 @@ export const SectionHero = () => {
                 <div className="row align-items-center">
                     <div className="col-md-6">
                         <div className="spacer-single" />
-                        <h6 className="wow fadeInUp" data-wow-delay=".5s">
-                            <span className="text-uppercase id-color-2">Scarlet Design</span>
-                        </h6>
+
                         <div className="spacer-10" />
                         <h1 className="wow fadeInUp" data-wow-delay=".75s">
-                            Cung cấp mẫu áo thiết kế chuyên nghiệp.
+                            Cung cấp mẫu áo thiết kế chuyên nghiệp
                         </h1>
                         <p className="wow fadeInUp lead" data-wow-delay="1s">
                             Unit of data stored on a digital ledger, called a blockchain, that
@@ -27,7 +25,7 @@ export const SectionHero = () => {
                                 >
                                     <div className="de_count text-left">
                                         <h3>
-                                            <span>10000</span>
+                                            <span>1000</span>
                                         </h3>
                                         <h5 className="id-color">Mẫu sản phẩm</h5>
                                     </div>

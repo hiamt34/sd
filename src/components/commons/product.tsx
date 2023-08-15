@@ -9,6 +9,8 @@ export interface prop {
       type: User
       name: string
       price: number
+      height?: number
+      is_none_name: boolean
 }
 export const Product = (prop: prop) => {
       return (
@@ -21,7 +23,7 @@ export const Product = (prop: prop) => {
                                                 src={prop.img}
                                                 className=""
                                                 alt=""
-                                                height={300}
+                                                height={prop?.height ?? 300}
                                                 style={{ borderRadius: 100 }}
                                           />
                                     </Link>
@@ -36,14 +38,17 @@ export const Product = (prop: prop) => {
                                           <i className="fa fa-check" />
                                     </div>
                               }
+                              {
+                                    prop.is_none_name &&
+                                    <div className="nft_coll_info" style={{ marginTop: 10 }}>
+                                          <Link href={{ pathname: `collection/+${1}` }}>
+                                                <h5>{prop.name}</h5>
+                                                <br />
+                                                <span>Giá: {prop.price}.000 đ</span>
+                                          </Link>
+                                    </div>
+                              }
 
-                              <div className="nft_coll_info" style={{ marginTop: 10 }}>
-                                    <Link href={{ pathname: `collection/+${1}` }}>
-                                          <h5>{prop.name}</h5>
-                                          <br />
-                                          <span>Giá: {prop.price}.000 đ</span>
-                                    </Link>
-                              </div>
                         </div>
                   }
                   {prop.type === User.Designer &&

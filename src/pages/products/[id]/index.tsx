@@ -1,4 +1,11 @@
+import { Designer } from "@/components/commons/designer";
+import { Product, User } from "@/components/commons/product";
 import ClientLayout from "@/layouts"
+import { Checkbox, TextField, withStyles } from "@mui/material"
+
+type IProps = {
+    backgroundColor?: string;
+}
 
 const ProductDetailPage = () => {
     return (
@@ -78,13 +85,27 @@ const ProductDetailPage = () => {
                                 <div className="de_tab tab_simple">
 
 
-                                    <div className="spacer-10" />
-                                    <h6>Giá:</h6>
-                                    <div className="nft-item-price">
-                                        <img src="images/misc/ethereum.svg" alt="" />
-                                        <span>200.000 đ</span>
+                                    <h5>Hãy lựa chọn thiết kế:</h5>
+                                    <div id="collection-carousel" className="owl-carousel wow fadeIn">
+                                        {
+                                            [1, 2, 3, 4, 5, 6,].map((x) => { return (<Product is_none_name={false} height={150} name={`Unisex look is the best ${x}`} price={180.000} showProfileAvatar={false} img={`images/mau_ao/ao_don/aodon-${x}.jpg`} type={User.Customer} />) })
+                                        }
                                     </div>
-                                    {/* Button trigger modal */}
+                                    <br />
+                                    Số lượng: <TextField
+                                        style={{ width: 80 }}
+                                        className=""
+                                        variant="outlined"
+                                        size="small"
+
+                                    />
+                                    <br />
+                                    Size:  X<Checkbox></Checkbox> L<Checkbox></Checkbox> XL<Checkbox></Checkbox>
+                                    <div className="spacer-10" />
+
+                                    <br />
+                                    <h6>Giá: 120.000 đ</h6>
+                                    <h6>Tổng: 200.000 đ</h6>
                                     <a
                                         href="#"
                                         className="btn-main btn-lg"
@@ -94,14 +115,7 @@ const ProductDetailPage = () => {
                                         Mua ngay
                                     </a>
                                     &nbsp;
-                                    <a
-                                        href="#"
-                                        className="btn-main btn-lg btn-light"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#place_a_bid"
-                                    >
-                                        Hướng dẫn chọn size
-                                    </a>
+
                                 </div>
                             </div>
                         </div>
@@ -115,7 +129,7 @@ const ProductDetailPage = () => {
                 aria-labelledby="buy_now"
                 aria-hidden="true"
             >
-                <div className="modal-dialog modal-dialog-centered de-modal">
+                <div className="modal-dialog modal-dialog-centered de-modal" >
                     <div className="modal-content">
                         <button
                             type="button"
@@ -123,39 +137,36 @@ const ProductDetailPage = () => {
                             data-bs-dismiss="modal"
                             aria-label="Close"
                         />
-                        <div className="modal-body">
+                        <div className="modal-body" style={{ margin: 20 }}>
                             <div className="p-3 form-border">
-                                <h3>Checkout</h3>
-                                You are about to purchase a <b>The Era of 90s</b> from{" "}
-                                <b>Monica Lucas</b>
+                                <h3>Thông tin đơn hàng</h3>
+                                Bạn đã đạt mua mẫu số: <b>3</b>
+                                <br />
+                                Số lượng: <b>10</b>
+                                <br />
+                                Size: <b>Xl</b>
+                                <br />
+                                Desinger: <b>Đinh Thiện Quang</b>
                                 <div className="spacer-single" />
-                                <h6>
-                                    Enter quantity. <span className="id-color-2">10 available</span>
-                                </h6>
-                                <input
-                                    type="text"
-                                    name="buy_now_qty"
-                                    id="buy_now_qty"
-                                    className="form-control"
-                                    defaultValue={1}
-                                />
+                                <b>Vui lòng điền thông tin liên hệ để chúng tôi chăm sóc bạn tốt hơn</b>
                                 <div className="spacer-single" />
                                 <div className="de-flex">
-                                    <div>Your balance</div>
+                                    <div>Số điện thoại</div>
                                     <div>
-                                        <b>10.67856 ETH</b>
+                                        <input
+                                            className=""
+                                            style={{ height: 30 }}
+
+                                        />
                                     </div>
                                 </div>
-                                <div className="de-flex">
-                                    <div>Service fee 2.5%</div>
+                                <div className="de-flex" style={{ marginTop: 10 }}>
+                                    <div>Địa chỉ</div>
                                     <div>
-                                        <b>0.00325 ETH</b>
-                                    </div>
-                                </div>
-                                <div className="de-flex">
-                                    <div>You will pay</div>
-                                    <div>
-                                        <b>0.013325 ETH</b>
+                                        <input
+                                            className=""
+                                            style={{ height: 30 }}
+                                        />
                                     </div>
                                 </div>
                                 <div className="spacer-single" />

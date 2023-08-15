@@ -7,7 +7,7 @@ export const Designer = (prop: props) => {
     return (
         <div className="nft_coll">
             <div className="nft_wrap">
-                <Link href={{ pathname: `/design/product-detail` }}>
+                <Link href={{ pathname: `/products/design` }}>
                     <img
                         src={prop.img_carosel}
                         className="lazy img-fluid"
@@ -16,7 +16,7 @@ export const Designer = (prop: props) => {
                 </Link>
             </div>
             <div className="nft_coll_pp">
-                <Link href={{ pathname: `/design/my-profile` }}>
+                <Link href={{ pathname: `/products/design` }}>
                     <img className="lazy pp-coll" src={prop.avatar} alt="" />
                 </Link>
                 <i className="fa fa-check" />

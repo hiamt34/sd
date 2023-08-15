@@ -1,4 +1,5 @@
 import { navLink } from "@/constants/link.constants"
+import { ButtonBase } from "@mui/material"
 import Link from "next/link"
 
 const Header = () => {
@@ -7,7 +8,7 @@ const Header = () => {
     return (
         <header className="transparent header-light scroll-light">
             <div className="container">
-                <div className="row">
+                <div className="row" >
                     <div className="col-md-12">
                         <div className="de-flex sm-pt10">
                             <div className="de-flex-col">
@@ -17,7 +18,7 @@ const Header = () => {
                                         <Link href={{ pathname: navLink.home.path }}>
                                             <img
                                                 height={55}
-                                                width={400}
+                                                width='100%'
                                                 alt="" src="images/SDlogo.png" />
                                         </Link>
                                     </div>
@@ -42,7 +43,7 @@ const Header = () => {
 
                                     </li>
                                     <li>
-                                        <a href="design/my-profile">
+                                        <a href="products/design">
                                             Designer
                                             <span />
                                         </a>
@@ -57,9 +58,9 @@ const Header = () => {
                                 </ul>
                                 {/* mainmenu close */}
                                 <div className="menu_side_area">
-                                    <Link href={{ pathname: navLink.login.path }} className="btn-main btn-wallet" passHref>
-                                        <i className="icon_wallet_alt" />
-                                        <span>{navLink.login.text}</span>
+                                    <Link href={{ pathname: navLink.login.path }} className=" btn-wallet" passHref>
+                                        {/* <i className="icon_wallet_alt" /> */}
+                                        {/* <span>{navLink.login.text}</span> */}
                                     </Link>
                                     <span id="menu-btn" />
                                 </div>
