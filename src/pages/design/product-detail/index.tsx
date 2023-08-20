@@ -2,8 +2,7 @@ import { Api } from "@/api/http";
 import { Product, User } from "@/components/commons/product";
 import { ProductDetail } from "@/components/commons/product_detail";
 import DialogCreateOneDesign from "@/components/pogup/create_prod";
-import ClientLayout from "@/layouts";
-import { ButtonBase } from "@mui/material";
+import CustomerLayout from "@/layouts/customer_layouts";
 import { useState } from "react";
 export enum Location {
       BEFOR = "Befor",
@@ -37,12 +36,12 @@ const CreatePage = () => {
 
       return (
             <>
-                  <ClientLayout>
+                  <CustomerLayout>
                         <section aria-label="section">
                               <div className="container">
                                     <div className="row wow fadeIn">
                                           <div className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12" >
-                                                <Product showProfileAvatar={false} img="images/mau_ao/ao_doi/aodoi-1.jpg" type={User.Designer} />
+                                                <Product name="Anime Blackping" price={180.000} is_none_name={true} showProfileAvatar={false} img="images/mau_ao/ao_doi/aodoi-1.jpg" type={User.Designer} />
                                           </div>
                                           <div className="d-item col-lg-9 col-md-6 col-sm-6 col-xs-12" >
                                                 <h1>Mẫu thiết kế Blackping</h1>
@@ -51,7 +50,7 @@ const CreatePage = () => {
                                                 <h5>Lượt mua: 10</h5>
                                                 <br />
                                                 <h5>Chủ đề:</h5>
-                                                <ButtonBase
+                                                <button
                                                       type="button"
                                                       className="btn-main"
                                                       style={{ margin: 5, borderRadius: 10 }}
@@ -59,21 +58,21 @@ const CreatePage = () => {
                                                       }
                                                 >
                                                       Anime
-                                                </ButtonBase>
-                                                <ButtonBase
+                                                </button>
+                                                <button
                                                       type="button"
                                                       className="btn-main"
                                                       style={{ margin: 5, borderRadius: 10 }}
                                                 >
                                                       Áo đôi
-                                                </ButtonBase>
-                                                <ButtonBase
+                                                </button>
+                                                <button
                                                       type="button"
                                                       className="btn-main"
                                                       style={{ margin: 5, borderRadius: 10 }}
                                                 >
                                                       Áo đôi
-                                                </ButtonBase>
+                                                </button>
 
                                           </div>
 
@@ -93,14 +92,14 @@ const CreatePage = () => {
 
                                                                   <h5 style={{ display: 'flex', justifyContent: 'center' }}></h5>
                                                                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'dashed', width: '240px', height: '300px' }}>
-                                                                        <ButtonBase
+                                                                        <button
                                                                               type="button"
                                                                               className="btn-main"
                                                                               onClick={() => setIsPopupOpen(true)}
                                                                               style={{ borderRadius: 10 }}
                                                                         >
                                                                               Upload
-                                                                        </ButtonBase>
+                                                                        </button>
 
                                                                         <input type="file" id="upload_file" />
 
@@ -115,7 +114,7 @@ const CreatePage = () => {
                                     </div>
                               </div>
                         </section>
-                  </ClientLayout >
+                  </CustomerLayout >
                   <DialogCreateOneDesign
                         onSubmit={(data: Item) => handleSubmitOneDesign(data)}
                         isOpen={isPopupOpen}

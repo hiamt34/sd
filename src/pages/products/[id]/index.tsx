@@ -1,6 +1,6 @@
 import { Designer } from "@/components/commons/designer";
 import { Product, User } from "@/components/commons/product";
-import ClientLayout from "@/layouts"
+import CustomerLayout from "@/layouts/customer_layouts"
 import { Checkbox, TextField, withStyles } from "@mui/material"
 
 type IProps = {
@@ -9,7 +9,7 @@ type IProps = {
 
 const ProductDetailPage = () => {
     return (
-        <ClientLayout is_no_footer={true} type_class="no-top no-bottom">
+        <CustomerLayout is_no_footer={true} type_class="no-top no-bottom">
             <section id="nft-item-details" aria-label="section" className="sm-mt-0">
                 <div className="container">
                     <div className="row g-5">
@@ -261,7 +261,7 @@ const ProductDetailPage = () => {
                     </div>
                 </div>
             </div>
-        </ClientLayout>
+        </CustomerLayout>
     )
 }
 

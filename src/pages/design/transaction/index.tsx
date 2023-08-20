@@ -1,8 +1,8 @@
-import ClientLayout from "@/layouts"
+import CustomerLayout from "@/layouts/customer_layouts"
 
 const TransactionPage = () => {
     return (
-        <ClientLayout >
+        <CustomerLayout >
             <>
                 <section id="subheader">
                     <div className="center-y relative text-center">
@@ -140,7 +140,7 @@ const TransactionPage = () => {
                 </section>
             </>
 
-        </ClientLayout>
+        </CustomerLayout>
     )
 
 }

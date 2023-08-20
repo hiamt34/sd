@@ -1,6 +1,6 @@
 export const TableMyProfile = () => {
     return (
-        <table className="table de-table table-rank">
+        <table className="table de-table table-rank " style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
             <thead>
                 <tr>
                     <th scope="col">Sản Phẩm</th>

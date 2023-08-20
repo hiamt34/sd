@@ -1,4 +1,10 @@
+import { designerAction } from "@/store/designer/designerSlice"
+import { RootState } from "@/store/store"
+import { useDispatch, useSelector } from "react-redux"
+
 export const Login = () => {
+    const designerState = useSelector((state: RootState) => state.designer)
+    const dispatch = useDispatch()
     return (
         <form
             name="contactForm"
@@ -25,25 +31,15 @@ export const Login = () => {
             </div>
             <div className="field-set">
                 <input
-                    type="submit"
-                    id="send_message"
-                    defaultValue="Submit"
+                    style={{ borderRadius: 10 }}
+                    type="button"
+                    onClick={() => dispatch(designerAction.login("oke"))}
+                    defaultValue="Đăng nhập"
                     className="btn btn-main btn-fullwidth color-2"
                 />
             </div>
             <div className="clearfix" />
             <div className="spacer-single" />
-            {/* social icons */}
-            {/* <ul className="list s3">
-                                                <li>Login with:</li>
-                                                <li>
-                                                    <a href="#">Facebook</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Google</a>
-                                                </li>
-                                            </ul> */}
-            {/* social icons close */}
         </form>
     )
 }

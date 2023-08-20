@@ -1,8 +1,10 @@
 import { navLink } from "@/constants/link.constants"
 import { ButtonBase } from "@mui/material"
 import Link from "next/link"
-
-const Header = () => {
+interface Props {
+    is_designer: boolean
+}
+const Header = (prop: Props) => {
 
 
     return (
@@ -27,36 +29,51 @@ const Header = () => {
 
                             </div>
                             <div className="de-flex-col header-col-mid">
-                                {/* mainmenu begin */}
-                                <ul id="mainmenu">
-                                    <li>
-                                        <a href="/">
-                                            Trang chủ
-                                            <span />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/products">
-                                            Sản phẩm
-                                            <span />
-                                        </a>
+                                {
+                                    !prop.is_designer &&
+                                    <ul id="mainmenu">
+                                        <li>
+                                            <a href="/" onBlur={() => console.log('hover')}>
+                                                Trang chủ
+                                                <span />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/products">
+                                                Sản phẩm
+                                                <span />
+                                            </a>
 
-                                    </li>
-                                    <li>
-                                        <a href="products/design">
-                                            Designer
-                                            <span />
-                                        </a>
+                                        </li>
+                                        <li>
+                                            <a href="customer" className="">
+                                                Giỏ hàng
+                                                <span />
+                                            </a>
+                                        </li>
+                                    </ul>
 
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            Giỏ hàng
-                                            <span />
-                                        </a>
-                                    </li>
-                                </ul>
-                                {/* mainmenu close */}
+                                }
+                                {
+                                    prop.is_designer &&
+                                    <ul id="mainmenu">
+                                        <li>
+                                            <a href="customer" className="">
+                                                Thông báo
+                                                <span />
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="customer" className="">
+                                                Đăng xuất
+                                                <span />
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                }
+
+
                                 <div className="menu_side_area">
                                     <Link href={{ pathname: navLink.login.path }} className=" btn-wallet" passHref>
                                         {/* <i className="icon_wallet_alt" /> */}

@@ -52,39 +52,26 @@ export const Product = (prop: prop) => {
                         </div>
                   }
                   {prop.type === User.Designer &&
-                        <div className="nft_coll" style={{ borderRadius: 20 }} >
-                              <div className="nft_wrap">
-                                    <Link href={{ pathname: `/design/product-detail` }}>
-                                          <img
-                                                src={prop.img}
-                                                className=""
-                                                alt=""
-                                                height={300}
-                                                style={{ borderRadius: 100 }}
-                                          />
-                                    </Link>
-
-                              </div>
-
-                              {
-                                    prop.showProfileAvatar &&
-                                    <div className="nft_coll_pp">
-                                          <Link href={{ pathname: `/design/my-profile/` }}>
-                                                <img className="lazy pp-coll" src="images/author/author-1.jpg" alt="" />
+                        <>
+                              <div className="nft_coll" style={{ borderRadius: 10, height: '350px', marginTop: 10, marginBottom: 10 }} >
+                                    <div className="nft_wrap">
+                                          <Link href={{ pathname: `/design/product-detail` }}>
+                                                <img
+                                                      src={prop.img}
+                                                      className=""
+                                                      alt=""
+                                                      height='250px'
+                                                      style={{ marginTop: 20 }}
+                                                />
                                           </Link>
-                                          <i className="fa fa-check" />
-                                    </div>
-                              }
-
-                              <div className="nft_coll_info" style={{ marginTop: 10 }}>
-                                    <Link href={{ pathname: `collection/+${1}` }}>
-                                          <span>{prop.name}</span>
                                           <br />
-                                          <span>Giá: {prop.price} đ</span>
-
-                                    </Link>
+                                          <br />
+                                          <h6>{prop.name}</h6>
+                                    </div>
                               </div>
-                        </div>
+
+                        </>
+
                   }
             </>
 

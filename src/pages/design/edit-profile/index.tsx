@@ -1,9 +1,10 @@
 import { TapEditProfile } from "@/components/design/edit-profile/tap-edit"
-import ClientLayout from "@/layouts"
+import CustomerLayout from "@/layouts/customer_layouts"
 
 const EditProfilePage = () => {
+
     return (
-        <ClientLayout type_class="no-bottom no-top" >
+        <CustomerLayout type_class="no-bottom no-top" >
             <>
                 <section id="subheader">
                     <div className="center-y relative text-center">
@@ -61,7 +62,7 @@ const EditProfilePage = () => {
                 </section>
             </>
 
-        </ClientLayout>
+        </CustomerLayout>
     )
 }
 export default EditProfilePage

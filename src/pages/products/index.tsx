@@ -1,13 +1,13 @@
 
 import { Product, User } from "@/components/commons/product"
 import { SideBar } from "@/components/products/sidebar"
-import ClientLayout from "@/layouts"
+import CustomerLayout from "@/layouts/customer_layouts"
 import { useState } from "react"
 
 const ProductsPage = () => {
     const [arr, setArr] = useState([1, 2, 3, 4, 5, 6])
     return (
-        <ClientLayout>
+        <CustomerLayout>
             <section aria-label="section">
                 <div className="container">
                     <div className="row wow fadeIn">
@@ -18,8 +18,9 @@ const ProductsPage = () => {
                                 {arr.map((x) =>
                                     <div className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                         <Product
+                                            is_none_name={true}
                                             showProfileAvatar={false}
-                                            type={User.Designer}
+                                            type={User.Customer}
                                             img='images/mau_ao/ao_don/aodon-1.jpg'
                                             name="Unisex RedFlag"
                                             price={180.000}
@@ -37,7 +38,7 @@ const ProductsPage = () => {
                     </div>
                 </div>
             </section>
-        </ClientLayout>
+        </CustomerLayout>
     )
 }
 

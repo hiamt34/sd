@@ -5183,6 +5183,18 @@ i.font60 {
     content: "\f0e3";
 }
 
+.activity-list li.act_check:after {
+    content: "\f00c";
+}
+
+.activity-list li.act_truck:after {
+    content: "\f0d1";
+}
+
+.activity-list li.act_close:after {
+    content: "\f00d";
+}
+
 .activity-filter,
 .activity-filter li {
     margin: 0;
@@ -5250,6 +5262,24 @@ i.font60 {
 .activity-list .act_like img,
 .activity-list .act_sale img,
 .activity-list .act_offer img {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.activity-list .act_check img {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.activity-list .act_truck img {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.activity-list .act_close img {
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -13529,12 +13559,10 @@ a.read_more i {
 
 .nft_coll {
     background: #ffffff;
-    padding-bottom: 10px;
     border: solid 1px #dddddd;
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    margin-bottom: 10px;
 }
 
 .nft_coll.style-2 {
@@ -13561,7 +13589,7 @@ a.read_more i {
 .nft_wrap {
     position: relative;
     width: 100%;
-    height: 200%;
+    /* height: 200%; */
     overflow: hidden;
     border-radius: 10px 10px 0 0;
     -moz-border-radius: 10px 10px 0 0;

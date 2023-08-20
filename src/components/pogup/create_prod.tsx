@@ -92,10 +92,10 @@ const DialogCreateOneDesign = (prop: props) => {
 
       }
       let array = [
-            { type: "Mặt trước áo", img: imgBefor, ref: imgBeforRef },
-            { type: "Mặt sau áo", img: imgAfter, ref: imgAfterRef },
-            { type: "Hình mặt trước áo", img: designBefor, ref: designBeforRef },
-            { type: "Hình mặt sau áo", img: designAfter, ref: designAfterRef }
+            { type: "Mặt trước", img: imgBefor, ref: imgBeforRef },
+            { type: "Mặt sau ", img: imgAfter, ref: imgAfterRef },
+            { type: "Hình  trước", img: designBefor, ref: designBeforRef },
+            { type: "Hình  sau", img: designAfter, ref: designAfterRef }
       ]
 
 
@@ -103,23 +103,21 @@ const DialogCreateOneDesign = (prop: props) => {
             <Dialog
                   open={prop.isOpen}
                   onClose={() => prop.onClose()}
-
-
             >
                   <DialogTitle style={{ display: 'flex', justifyContent: 'center' }}>
                         <h5>Tạo thiết kế mới</h5>
                   </DialogTitle>
                   <DialogContent >
-                        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+                        <div className='row justify-content-center align-content-center '  >
                               {
                                     array.map((x) =>
-                                          <div key={Math.random()} className="" style={{ margin: 15, width: '40%', height: '45%' }} >
+                                          <div key={Math.random()} className="" style={{ width: '50%', height: '100%', marginTop: 5 }} >
 
                                                 <h5 style={{ display: 'flex', justifyContent: 'center' }}>{x.type}</h5>
-                                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'dashed', width: '240px', height: '300px' }}>
+                                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'dashed', width: '96%', height: '280px' }}>
                                                       {
                                                             x.img === "" &&
-                                                            <ButtonBase
+                                                            <button
                                                                   type="button"
                                                                   id="get_file"
                                                                   className="btn-main"
@@ -127,7 +125,7 @@ const DialogCreateOneDesign = (prop: props) => {
                                                                   onClick={() => clickUploadFile(x.type)}
                                                             >
                                                                   Upload
-                                                            </ButtonBase>
+                                                            </button>
                                                       }
 
                                                       {
@@ -148,8 +146,8 @@ const DialogCreateOneDesign = (prop: props) => {
                               }
 
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                              <ButtonBase
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 10 }}>
+                              <button
                                     type="button"
                                     id="get_file"
                                     className="btn-main"
@@ -176,9 +174,9 @@ const DialogCreateOneDesign = (prop: props) => {
                                           { type: "Hình mặt sau áo", img: designAfter, ref: designAfterRef }]
                                     }}
                               >
-                                    Tạo thiếT kế
-                              </ButtonBase>
-                              <ButtonBase
+                                    Tạo mới
+                              </button>
+                              <button
                                     type="button"
                                     id="get_file"
                                     className="btn-main"
@@ -186,7 +184,7 @@ const DialogCreateOneDesign = (prop: props) => {
                                     style={{ marginLeft: 20, borderRadius: 10 }}
                               >
                                     Thoát
-                              </ButtonBase>
+                              </button>
                         </div>
 
 

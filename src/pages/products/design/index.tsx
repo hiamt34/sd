@@ -4,7 +4,7 @@ import { Paginate } from "@/components/commons/paginate";
 import { FilterMyProfile } from "@/components/design/my-profile.tsx/filter";
 import { TableMyProfile } from "@/components/design/my-profile.tsx/table";
 import DialogCreateOneDesign from "@/components/pogup/create_prod";
-import ClientLayout from "@/layouts";
+import CustomerLayout from "@/layouts/customer_layouts";
 import { useState } from "react";
 import { ButtonBase } from "@mui/material";
 import { Item } from "@/pages/design/product-detail";
@@ -35,7 +35,7 @@ const DesignPage = () => {
     setArray([...array, data]);
   }
   return (
-    <ClientLayout type_class="no-bottom">
+    <CustomerLayout type_class="no-bottom">
       <section aria-label="section" className="pt40">
         <div className="container">
           <div className="row">
@@ -53,7 +53,7 @@ const DesignPage = () => {
                         Đinh Thiện Quang
                         <span className="profile_username">Designer số 1 việt nam</span>
                         <span id="wallet" className="profile_wallet">
-                          Mẫu thiết kế : 120
+                          Mẫu thiết kế :120
                         </span>
                       </h4>
                     </div>
@@ -71,6 +71,7 @@ const DesignPage = () => {
                       {array.map((x) =>
                         <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                           <Product
+                            is_none_name={true}
                             showProfileAvatar={false}
                             type={User.Customer}
                             img='images/mau_ao/ao_don/aodon-1.jpg'
@@ -95,7 +96,7 @@ const DesignPage = () => {
         onClose={() => setIsPopupOpen(false)}
 
       />
-    </ClientLayout>
+    </CustomerLayout>
   );
 };
 export default DesignPage;

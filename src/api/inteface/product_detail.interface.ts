@@ -1,4 +1,4 @@
-export class Product {
+export class ProductDetail {
       id: string = ""
       user_id: string = ""
       status: string = ""
@@ -10,8 +10,8 @@ export class Product {
       name: string = ""
       count: number = 0
       created_at: Date = new Date
-      static createObj = (src?: Partial<Product>): Product => {
-            const obj = new Product();
+      static createObj = (src?: Partial<ProductDetail>): ProductDetail => {
+            const obj = new ProductDetail();
 
             return {
                   ...obj,
