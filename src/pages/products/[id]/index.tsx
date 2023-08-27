@@ -19,7 +19,7 @@ const ProductDetailPage = () => {
                                     id="item-carousel-big-type-2"
                                     className="owl-carousel wow fadeIn"
                                 >
-                                    <div className="nft_pic style-2" >
+                                    <div className="nft_pic style-2" style={{ borderRadius: 5 }} >
                                         <div className="nft_pic_wrap">
                                             <img
                                                 src="images/mau_ao/ao_don/aodon-1.jpg"
@@ -29,7 +29,7 @@ const ProductDetailPage = () => {
                                             />
                                         </div>
                                     </div>
-                                    <div className="nft_pic style-2">
+                                    <div className="nft_pic style-2" style={{ borderRadius: 5 }}>
                                         <div className="nft_pic_wrap">
                                             <img
                                                 src="images/mau_ao/ao_don/aodon-2.jpg"
@@ -86,9 +86,9 @@ const ProductDetailPage = () => {
 
 
                                     <h5>Hãy lựa chọn thiết kế:</h5>
-                                    <div id="collection-carousel" className="owl-carousel wow fadeIn">
+                                    <div id="collection-carousel-4-cols" className="owl-carousel wow fadeIn">
                                         {
-                                            [1, 2, 3, 4, 5, 6,].map((x) => { return (<Product is_none_name={false} height={150} name={`Unisex look is the best ${x}`} price={180.000} showProfileAvatar={false} img={`images/mau_ao/ao_don/aodon-${x}.jpg`} type={User.Customer} />) })
+                                            [1, 2, 3, 4, 5, 6,].map((x) => { return (<Product is_show_info={false} is_none_name={false} height={200} name={`Unisex look is the best ${x}`} price={180.000} img={`images/mau_ao/ao_don/aodon-${x}.jpg`} type={User.Customer} />) })
                                         }
                                     </div>
                                     <br />

@@ -4,48 +4,38 @@ export enum User {
       Designer = "Designer"
 }
 export interface prop {
-      showProfileAvatar: boolean
       img: string
       type: User
       name: string
-      price: number
       height?: number
+      price: number
       is_none_name: boolean
+      is_show_info?: boolean
 }
 export const Product = (prop: prop) => {
+      const clickItem = () => window.location.href = "/"
       return (
             <>
                   {prop.type === User.Customer &&
-                        <div className="nft_coll" style={{ borderRadius: 20 }}>
+                        <div className="nft_coll" style={{ marginTop: 20 }}>
                               <div className="nft_wrap">
                                     <Link href={{ pathname: `/products/1` }}>
                                           <img
                                                 src={prop.img}
-                                                className=""
+                                                className="lazy img-fluid"
                                                 alt=""
-                                                height={prop?.height ?? 300}
-                                                style={{ borderRadius: 100 }}
+                                                style={{ height: `${prop.height ? prop.height : 270}px`, width: '100%' }}
                                           />
                                     </Link>
                               </div>
+                              {
+                                    prop.is_show_info ??
+                                    <div className="nft_coll_info" style={{ backgroundColor: 'rgb(210, 210, 210)', height: '80px' }}>
+                                          <div style={{ height: 10 }}></div>
+                                          <span style={{ fontSize: '18px', fontFamily: 'fantasy', fontStyle: 'normal', marginTop: 20 }}>Unisex blackping</span>
+                                          <br />
+                                          <span style={{ color: 'rgb(150, 0, 0)', fontSize: '18px', fontFamily: 'fantasy', fontStyle: 'oblique' }}>250.000 đ</span>
 
-                              {
-                                    prop.showProfileAvatar &&
-                                    <div className="nft_coll_pp">
-                                          <Link href={{ pathname: `/design/my-profile/` }}>
-                                                <img className="lazy pp-coll" src="images/author/author-1.jpg" alt="" />
-                                          </Link>
-                                          <i className="fa fa-check" />
-                                    </div>
-                              }
-                              {
-                                    prop.is_none_name &&
-                                    <div className="nft_coll_info" style={{ marginTop: 10 }}>
-                                          <Link href={{ pathname: `collection/+${1}` }}>
-                                                <h5>{prop.name}</h5>
-                                                <br />
-                                                <span>Giá: {prop.price}.000 đ</span>
-                                          </Link>
                                     </div>
                               }
 
@@ -53,21 +43,29 @@ export const Product = (prop: prop) => {
                   }
                   {prop.type === User.Designer &&
                         <>
-                              <div className="nft_coll" style={{ borderRadius: 10, height: '350px', marginTop: 10, marginBottom: 10 }} >
+                              <div className="nft_coll" style={{ marginTop: 15, marginBottom: 10 }} >
                                     <div className="nft_wrap">
                                           <Link href={{ pathname: `/design/product-detail` }}>
                                                 <img
                                                       src={prop.img}
-                                                      className=""
+                                                      className="lazy img-fluid"
                                                       alt=""
-                                                      height='250px'
-                                                      style={{ marginTop: 20 }}
+                                                      style={{ height: `${prop.height ? prop.height : 270}px`, width: '100%' }}
                                                 />
                                           </Link>
-                                          <br />
-                                          <br />
-                                          <h6>{prop.name}</h6>
+
                                     </div>
+                                    {
+                                          prop.is_show_info &&
+                                          <div className="nft_coll_info" style={{ backgroundColor: 'rgb(210, 210, 210)', height: '80px' }}>
+                                                <div style={{ height: 20 }}></div>
+                                                <span style={{ fontSize: '18px', fontFamily: 'fantasy', fontStyle: 'normal', marginTop: 20 }}>
+                                                      {prop.name}
+                                                </span>
+
+                                          </div>
+                                    }
+
                               </div>
 
                         </>

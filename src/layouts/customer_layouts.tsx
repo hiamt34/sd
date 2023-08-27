@@ -36,7 +36,7 @@ const CustomerLayout: React.FC<LayoutProps> = ({ children, is_no_footer = false,
                 {!is_no_footer ? <Footer /> : null}
 
             </div>
-            {/* <Script strategy="afterInteractive" src="js/plugins.js" /> */}
+
         </>
     )
 }

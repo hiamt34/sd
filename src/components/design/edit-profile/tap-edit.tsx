@@ -4,7 +4,7 @@ export const TapEditProfile = () => {
             <div className="row wow fadeIn">
                 <div className="col-lg-8 mb-sm-20">
                     <div className="field-set">
-                        <h5>Username</h5>
+                        <h6>Username</h6>
                         <input
                             type="text"
                             name="username"
@@ -12,41 +12,9 @@ export const TapEditProfile = () => {
                             className="form-control"
                             placeholder="Enter username"
                         />
-                        <div className="spacer-20" />
-
-                        <div className="spacer-20" />
-                        <h5>Bio</h5>
-                        <textarea
-                            name="bio"
-                            id="bio"
-                            className="form-control"
-                            placeholder="Tell the world who you are!"
-                            defaultValue={""}
-                        />
-                        <div className="spacer-20" />
-                        <h5><i className="fa fa-google" /> Gmail</h5>
-                        <input
-                            type="text"
-                            name="email_address"
-                            id="email_address"
-                            className="form-control"
-                            placeholder="Enter gmail"
-                        />
-                        <div className="spacer-20" />
-                        <h5>
-                            <i className="fa fa-phone" /> Số điện thoại
-                        </h5>
-                        <input
-                            type="text"
-                            name="your_site"
-                            id="your_site"
-                            className="form-control"
-                            placeholder="Enter phone number"
-                        />
-                        <div className="spacer-20" />
-                        <h5>
-                            <i className="fa fa-key" /> Mật khẩu mới
-                        </h5>
+                        <h6>
+                            <i className="fa" /> Password
+                        </h6>
                         <input
                             type="password"
                             name="password"
@@ -54,10 +22,9 @@ export const TapEditProfile = () => {
                             className="form-control"
                             placeholder="Enter Password"
                         />
-                        <div className="spacer-20" />
-                        <h5>
-                            <i className="fa fa-key" /> Nhập lại mật khẩu
-                        </h5>
+                        <h6>
+                            <i className="fa" /> Nhập lại mật khẩu
+                        </h6>
                         <input
                             type="password"
                             name="instagram_username"
@@ -65,42 +32,59 @@ export const TapEditProfile = () => {
                             className="form-control"
                             placeholder="Enter Password compare"
                         />
+                        <h6><i className="fa" /> Gmail</h6>
+                        <input
+                            type="text"
+                            name="email_address"
+                            id="email_address"
+                            className="form-control"
+                            placeholder="Enter gmail"
+                        />
+                        <h6>
+                            <i className="fa" /> Số điện thoại
+                        </h6>
+                        <input
+                            type="text"
+                            name="your_site"
+                            id="your_site"
+                            className="form-control"
+                            placeholder="Enter phone number"
+                        />
+
+
                     </div>
                 </div>
                 <div id="sidebar" className="col-lg-4">
                     <h5>
-                        Profile image{" "}
-                        <i
-                            className="fa fa-info-circle id-color-2"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="top"
-                            title="Recommend 400 x 400. Max size: 50MB. Click the image to upload."
-                        />
+                        Avatar
                     </h5>
-                    <img
-                        src="images/author_single/author_thumbnail.jpg"
-                        id="click_profile_img"
-                        className="d-profile-img-edit img-fluid"
-                        alt=""
-                    />
+
+                    <div className="profile_avatar">
+                        <img
+                            src="images/author/author-2.jpg"
+                            alt=""
+                        />
+                        <i id="click_avatar_img" className="fa fa-edit"></i>
+                    </div>
                     <input type="file" id="upload_profile_img" />
                     <div className="spacer-30" />
                     <h5>
-                        Profile banner{" "}
-                        <i
-                            className="fa fa-info-circle id-color-2"
-                            data-bs-toggle="tooltip"
-                            data-bs-placement="top"
-                            title="Recommend 1500 x 500. Max size: 50MB. Click the image to upload."
-                        />
+                        Profile banner
                     </h5>
-                    <img
-                        src="images/author_single/author_banner.jpg"
-                        id="click_banner_img"
-                        className="d-banner-img-edit img-fluid"
-                        alt=""
-                    />
+                    <div className="profile_avatar" style={{}}>
+                        <img
+                            src="images/author_single/author_banner.jpg"
+                            id=""
+                            className=""
+                            alt=""
+                            style={{ borderRadius: 10, height: '150px', width: '200px' }}
+                        />
+                        <i id="click_banner_img" className="fa fa-edit" style={{ marginLeft: 150 }}></i>
+
+                    </div>
+
                     <input type="file" id="upload_banner_img" />
+                    <input type="file" id="upload_avatar_img" />
                 </div>
             </div>
         </div>

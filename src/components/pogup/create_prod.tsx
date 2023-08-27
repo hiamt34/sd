@@ -19,22 +19,22 @@ const DialogCreateOneDesign = (prop: props) => {
 
       const clickUploadFile = (type: string) => {
             switch (type) {
-                  case "Mặt trước áo":
+                  case "Mặt trước":
                         if (imgBeforRef.current) {
                               imgBeforRef.current.click()
                         }
                         break;
-                  case "Mặt sau áo":
+                  case "Mặt sau":
                         if (imgAfterRef.current) {
                               imgAfterRef.current.click()
                         }
                         break;
-                  case "Hình mặt trước áo":
+                  case "Hình mặt trước":
                         if (designBeforRef.current) {
                               designBeforRef.current.click()
                         }
                         break;
-                  case "Hình mặt sau áo":
+                  case "Hình mặt sau":
                         if (designAfterRef.current) {
                               designAfterRef.current.click()
                         }
@@ -76,16 +76,16 @@ const DialogCreateOneDesign = (prop: props) => {
             const formData = new FormData()
             formData.append('files', file)
             switch (type) {
-                  case "Mặt trước áo":
+                  case "Mặt trước":
                         setImgBefor(URL.createObjectURL(file))
                         break;
-                  case "Mặt sau áo":
+                  case "Mặt sau":
                         setImgAfter(URL.createObjectURL(file))
                         break;
-                  case "Hình mặt trước áo":
+                  case "Hình mặt trước":
                         setDesignBefor(URL.createObjectURL(file))
                         break;
-                  case "Hình mặt sau áo":
+                  case "Hình mặt sau":
                         setDesignAfter(URL.createObjectURL(file))
                         break;
             }
@@ -93,9 +93,9 @@ const DialogCreateOneDesign = (prop: props) => {
       }
       let array = [
             { type: "Mặt trước", img: imgBefor, ref: imgBeforRef },
-            { type: "Mặt sau ", img: imgAfter, ref: imgAfterRef },
-            { type: "Hình  trước", img: designBefor, ref: designBeforRef },
-            { type: "Hình  sau", img: designAfter, ref: designAfterRef }
+            { type: "Mặt sau", img: imgAfter, ref: imgAfterRef },
+            { type: "Hình mặt trước", img: designBefor, ref: designBeforRef },
+            { type: "Hình mặt sau", img: designAfter, ref: designAfterRef }
       ]
 
 
@@ -105,15 +105,16 @@ const DialogCreateOneDesign = (prop: props) => {
                   onClose={() => prop.onClose()}
             >
                   <DialogTitle style={{ display: 'flex', justifyContent: 'center' }}>
-                        <h5>Tạo thiết kế mới</h5>
+                        <h5 style={{ fontWeight: 1 }}>Tạo thiết kế mới</h5>
+
                   </DialogTitle>
                   <DialogContent >
-                        <div className='row justify-content-center align-content-center '  >
+                        <div className='row wow'  >
                               {
                                     array.map((x) =>
-                                          <div key={Math.random()} className="" style={{ width: '50%', height: '100%', marginTop: 5 }} >
+                                          <div className="" style={{ width: '50%', height: '100%', marginTop: 5 }} >
 
-                                                <h5 style={{ display: 'flex', justifyContent: 'center' }}>{x.type}</h5>
+                                                <h5 style={{ display: 'flex', justifyContent: 'center', fontWeight: 1 }}>{x.type}</h5>
                                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'dashed', width: '96%', height: '280px' }}>
                                                       {
                                                             x.img === "" &&
@@ -125,6 +126,8 @@ const DialogCreateOneDesign = (prop: props) => {
                                                                   onClick={() => clickUploadFile(x.type)}
                                                             >
                                                                   Upload
+                                                                  <input type="file" id="upload_file" ref={x.ref} onChange={(event) => handleFileSeclet(event, x.type)} />
+
                                                             </button>
                                                       }
 
@@ -138,7 +141,6 @@ const DialogCreateOneDesign = (prop: props) => {
                                                             />
 
                                                       }
-                                                      <input type="file" id="upload_file" ref={x.ref} onChange={(event) => handleFileSeclet(event, x.type)} />
 
                                                 </div>
 

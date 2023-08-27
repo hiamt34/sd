@@ -8853,6 +8853,11 @@ img.img-rounded {
     display: none;
 }
 
+#upload_profile_img,
+#upload_avatar_img {
+    display: none;
+}
+
 .d-profile-img-edit:active,
 .d-banner-img-edit:active,
 .de-menu-profile:active img,
@@ -14844,6 +14849,23 @@ img.nft__item_preview {
     -webkit-border-radius: 100%;
 }
 
+.profile_banner i {
+    color: #ffffff;
+    margin: 110px 0 0 110px;
+    display: block;
+    position: absolute;
+    padding: 10px;
+    border-radius: 10%;
+    -moz-border-radius: 10%;
+    -webkit-border-radius: 10%;
+}
+
+.d_coll .profile_banner img {
+    display: inline-block;
+    margin-top: -100px;
+    margin-bottom: 30px;
+}
+
 .profile_name {
     margin-left: 20px;
 }
@@ -15342,7 +15364,6 @@ header:not(.header-light) #quick_search::-webkit-input-placeholder {
 
 .items_filter {
     font-size: 14px;
-    margin-bottom: 30px;
 }
 
 .items_filter .dropdown {

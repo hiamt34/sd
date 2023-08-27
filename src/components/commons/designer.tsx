@@ -12,6 +12,7 @@ export const Designer = (prop: props) => {
                         src={prop.img_carosel}
                         className="lazy img-fluid"
                         alt=""
+                        style={{ height: 150 }}
                     />
                 </Link>
             </div>

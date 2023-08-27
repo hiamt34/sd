@@ -269,7 +269,9 @@
      function load_owl() {
         jQuery("#items-carousel").owlCarousel({
           center: false,
-          items: 4,
+          autoplay: true,
+            autoplayTimeout: 4000,
+          items: 5,
           rewind: true,
           margin: 25,
           nav: true,
@@ -283,7 +285,7 @@
           dots: false,
           responsive: {
             1000: {
-              items: 4,
+              items: 5,
             },
             600: {
               items: 2,
@@ -296,9 +298,11 @@
 
         jQuery("#items-carousel-hot").owlCarousel({
           center: false,
-          items: 4,
+          items: 5,
           rewind: true,
           margin: 25,
+          autoplay: true,
+          autoplayTimeout: 5000,
           nav: true,
           loop: true,
           navText: [
@@ -308,7 +312,7 @@
           dots: false,
           responsive: {
             1000: {
-              items: 4,
+              items: 5,
             },
             600: {
               items: 2,
@@ -321,15 +325,17 @@
 
         jQuery("#items-carousel-s2").owlCarousel({
             center: false,
-            items:4,
+            items:5,
             rewind:true,
             margin:20,
+            autoplay: true,
+            autoplayTimeout: 5500,
             nav:true,
             navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
             dots:false,
             responsive:{
                 1000:{
-                    items:4
+                    items:5
                 },
                 600:{
                     items:2
@@ -342,15 +348,17 @@
 
         jQuery("#collection-carousel").owlCarousel({
             center: false,
-            items:4,
+            items:5,
             loop:true,
             margin:25,
+            autoplay: true,
+            autoplayTimeout: 4500,
             nav:true,
             navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
             dots:false,
             responsive:{
                 1000:{
-                    items:4
+                    items:5
                 },
                 600:{
                     items:2
@@ -367,6 +375,8 @@
             animateIn: 'flipInY',
             items:1,
             loop:true,
+            autoplay: true,
+            autoplayTimeout: 3500,
             margin:0,
             nav:true,
             navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
@@ -378,6 +388,8 @@
             items:5,
             rewind:true,
             margin:25,
+            autoplay: true,
+            autoplayTimeout: 4000,
             nav:true,
             navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
             dots:false,
@@ -397,17 +409,19 @@
             }
          });
 
-        jQuery("#collection-carousel-5-cols").owlCarousel({
+        jQuery("#collection-carousel-4-cols").owlCarousel({
             center: false,
-            items:5,
+            items:4,
             loop:true,
+            autoplay: true,
+            autoplayTimeout: 5000,
             margin:25,
             nav:true,
             navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
             dots:false,
             responsive:{
                 1000:{
-                    items:5
+                    items:4
                 },
                 800:{
                     items:3
@@ -427,6 +441,8 @@
             loop:true,
             margin:25,
             nav:true,
+            autoplay: true,
+            autoplayTimeout: 4000,
             navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
             dots:false,
             responsive:{
@@ -445,6 +461,8 @@
          jQuery("#item-carousel-big").owlCarousel({
             loop:true,
             margin:20,
+            autoplay: true,
+            autoplayTimeout: 5000,
             nav:false,
             dots:false,
             responsive:{
@@ -464,6 +482,8 @@
             loop:true,
             margin:20,
             nav:false,
+            autoplay: true,
+            autoplayTimeout: 4000,
             dots:false,
             responsive:{
                 1000:{
@@ -502,6 +522,8 @@
             loop:true,
             margin:0,
             nav:false,
+            autoplay: true,
+            autoplayTimeout: 4000,
             dots:false,
             responsive:{
                 1000:{
@@ -548,6 +570,8 @@
 			items:3,
 			loop:true,
 			margin:0,
+            autoplay: true,
+            autoplayTimeout: 2000,
 			nav:false,
 			dots:false,
 			responsive:{
@@ -742,6 +766,10 @@
              $(this).parent().parent().find('.blog-slide').trigger('owl.prev');
          });
 
+         setInterval(() => {
+            $(this).parent().parent().find('.blog-slide').trigger('owl.next');
+            $(this).parent().parent().find('.blog-slide').trigger('owl.prev');
+         },2000)
          jQuery('.owl-custom-nav').each(function() {
              var owl = $('.owl-custom-nav').next();
              var ow = parseInt(owl.css("height"), 10);
@@ -1806,8 +1834,11 @@
          de_progress();
          de_countdown();
          dropdown('#item_category');
+             dropdown('#item_category1');
          dropdown('#item_collection');
          dropdown('#buy_category');
+         dropdown('#buy_category1');
+         dropdown('#buy_category2');
          dropdown('#items_type');
          dropdown('#filter_by_duration');
          dropdown('#filter_by_category');
@@ -2105,6 +2136,10 @@
 
         $('#click_banner_img').click(function(){
             $('#upload_banner_img').click();
+        });
+
+         $('#click_avatar_img').click(function(){
+            $('#upload_avatar_img').click();
         });
 
         $('#upload_file').change(function(){

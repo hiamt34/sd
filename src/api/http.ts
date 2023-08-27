@@ -1,6 +1,4 @@
 import Axios from "axios";
-import { Product } from "./inteface/product.inteface";
-import { Response } from "@/store/designer/designerSaga";
 import { Designer } from "./inteface/designer.interface";
 Axios.defaults.baseURL = process.env.baseUrl ?? "http://localhost:4000"
 Axios.interceptors.response.use(

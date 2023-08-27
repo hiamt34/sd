@@ -16,18 +16,17 @@ const ProductsPage = () => {
                             <div className="row">
                                 {/* nft item begin */}
                                 {arr.map((x) =>
-                                    <div className="d-item col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                    <div className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
                                         <Product
                                             is_none_name={true}
-                                            showProfileAvatar={false}
                                             type={User.Customer}
-                                            img='images/mau_ao/ao_don/aodon-1.jpg'
+                                            img={`images/mau_ao/ao_don/aodon-${x}.jpg`}
                                             name="Unisex RedFlag"
                                             price={180.000}
                                         />
                                     </div>
                                 )}
-                                <div className="col-md-12 text-center">
+                                <div className="col-md-12 text-center" style={{ marginTop: 10 }}>
                                     <a href="#" id="loadmore" className="btn-main wow fadeInUp lead">
                                         Load more
                                     </a>

@@ -17,7 +17,7 @@ const Header = (prop: Props) => {
                                 <div className="de-flex-col">
                                     {/* logo begin */}
                                     <div id="logo">
-                                        <Link href={{ pathname: navLink.home.path }}>
+                                        <Link href={prop.is_designer ? "/design" : "/"}>
                                             <img
                                                 height={55}
                                                 width='100%'
@@ -58,16 +58,18 @@ const Header = (prop: Props) => {
                                     prop.is_designer &&
                                     <ul id="mainmenu">
                                         <li>
-                                            <a href="customer" className="">
+                                            <Link href='/design/notification'>
+
                                                 Thông báo
                                                 <span />
-                                            </a>
+                                            </Link>
+
                                         </li>
                                         <li>
-                                            <a href="customer" className="">
+                                            <Link href="/design" className="">
                                                 Đăng xuất
                                                 <span />
-                                            </a>
+                                            </Link>
                                         </li>
                                     </ul>
 
