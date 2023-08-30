@@ -30,18 +30,19 @@ export const Product = (prop: prop) => {
                               </div>
                               {
                                     prop.is_show_info ??
-                                    <div className="nft_coll_info" style={{ backgroundColor: 'rgb(210, 210, 210)', height: '80px' }}>
+                                    <div className="nft_coll_info" style={{ height: '80px' }}>
                                           <div style={{ height: 10 }}></div>
                                           <span style={{ fontSize: '18px', fontFamily: 'fantasy', fontStyle: 'normal', marginTop: 20 }}>Unisex blackping</span>
                                           <br />
-                                          <span style={{ color: 'rgb(150, 0, 0)', fontSize: '18px', fontFamily: 'fantasy', fontStyle: 'oblique' }}>250.000 đ</span>
+                                          <span style={{ color: 'rgb(150, 0, 0)', fontSize: '16px', fontFamily: '', fontWeight: 1, fontStyle: 'oblique' }}>250.000 đ</span>
 
                                     </div>
                               }
 
-                        </div>
+                        </div >
                   }
-                  {prop.type === User.Designer &&
+                  {
+                        prop.type === User.Designer &&
                         <>
                               <div className="nft_coll" style={{ marginTop: 15, marginBottom: 10 }} >
                                     <div className="nft_wrap">
@@ -57,7 +58,7 @@ export const Product = (prop: prop) => {
                                     </div>
                                     {
                                           prop.is_show_info &&
-                                          <div className="nft_coll_info" style={{ backgroundColor: 'rgb(210, 210, 210)', height: '80px' }}>
+                                          <div className="nft_coll_info" style={{ height: '80px' }}>
                                                 <div style={{ height: 20 }}></div>
                                                 <span style={{ fontSize: '18px', fontFamily: 'fantasy', fontStyle: 'normal', marginTop: 20 }}>
                                                       {prop.name}

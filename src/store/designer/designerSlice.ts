@@ -1,9 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-import { RootState } from "../store";
 import { Designer } from "@/api/inteface/designer.interface";
 import { localStorageService } from "@/services/storage";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 export interface DesignerState {
       designer: Designer
       token: string
@@ -11,7 +9,8 @@ export interface DesignerState {
 
 };
 
-const initialState: DesignerState = {
+
+let initialState: DesignerState = {
       designer: Designer.createObj(),
       token: localStorageService.getToken(),
       is_login: false
@@ -22,6 +21,13 @@ const designerSlice = createSlice({
       initialState,
       reducers: {
 
+            initApp(state, action: PayloadAction<any, string>) {
+
+                  if (localStorageService.getToken() !== "") {
+                        state.is_login = true
+                  }
+
+            },
 
             fetchDataDesigner(state, action: PayloadAction<Designer, string>) {
                   state.designer = action.payload
@@ -34,12 +40,12 @@ const designerSlice = createSlice({
                   state.token = action.payload
             }
 
-      }
+      },
+
 })
 
 // action
 export const designerAction = designerSlice.actions;
 //select
-
 const designerReducer = designerSlice.reducer;
 export default designerReducer;

@@ -8,7 +8,7 @@ export const SectionCollections = () => {
             <div className="row">
                 <div className="col-lg-12">
                     <div className="text-center">
-                        <h2>Designer</h2>
+                        <h2 style={{ fontWeight: 1 }}>Designer</h2>
                         <div className="small-border bg-color-2" />
                     </div>
                 </div>

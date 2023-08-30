@@ -20,7 +20,7 @@ const ProductsPage = () => {
                                         <Product
                                             is_none_name={true}
                                             type={User.Customer}
-                                            img={`images/mau_ao/ao_don/aodon-${x}.jpg`}
+                                            img={`images/mau_ao/ao_doi/aodoi-3.jpg`}
                                             name="Unisex RedFlag"
                                             price={180.000}
                                         />

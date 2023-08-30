@@ -29,7 +29,8 @@ const DesignerLayout: React.FC<LayoutProps> = ({ children, is_no_footer = false,
             <>
                   {is_login ?
                         <div id="wrapper">
-                              <div className={type_class} id="">
+                              <Header is_designer={true} is_login={true} />
+                              <div className={type_class} id="content">
                                     <div id="top" />
                                     {children}
                               </div>
@@ -37,7 +38,7 @@ const DesignerLayout: React.FC<LayoutProps> = ({ children, is_no_footer = false,
 
                         </div> :
                         <div id="wrapper">
-                              <Header is_designer={true} />
+                              <Header is_designer={true} is_login={false} />
                               <div className={type_class} id="content">
                                     <div id="top" />
                                     {children}

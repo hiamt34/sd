@@ -1,4 +1,5 @@
 'use client'
+import { Api } from "@/api/http"
 import { Order } from "@/api/inteface/order.interface"
 
 export enum LocalStorageKey {
@@ -14,7 +15,7 @@ class LocalStorageService {
     if (typeof window === "undefined") {
       return
     }
-    console.log('init loacl')
+    console.log('Khởi tạo instance localstorage')
     if (localStorage.getItem(LocalStorageKey.Token) === null) {
       localStorage.setItem(LocalStorageKey.Token, "")
     }
@@ -23,6 +24,8 @@ class LocalStorageService {
     }
     this.token = localStorage.getItem(LocalStorageKey.Token) ?? ""
     this.order = JSON.parse(localStorage.getItem(LocalStorageKey.Order) ?? "[]")
+    console.log(`Loclstorage có token:${this.token}, order:${this.order}`);
+
   }
 
   public getToken(): string {
@@ -38,6 +41,15 @@ class LocalStorageService {
       return
     }
     localStorage.setItem(LocalStorageKey.Token, token)
+  }
+
+
+  public getApiLogin() {
+    this.token
+
+
+    return false
+
   }
 }
 

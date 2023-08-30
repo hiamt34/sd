@@ -13,9 +13,9 @@ const Home = ({ }) => {
         <CustomerLayout>
             <SectionHero />
             <SectionCategory />
-            <SectionProduct props={{ type: 'hot', type_carousel: 'items-carousel-hot' }} />
+            <SectionProduct props={{ type: 'Mẫu thiết kế hot', type_carousel: 'items-carousel-hot' }} />
             <SectionCollections />
-            <SectionProduct props={{ type: 'mới', type_carousel: 'items-carousel' }} />
+            <SectionProduct props={{ type: 'MẫU thiết kế mới', type_carousel: 'items-carousel' }} />
             <SectionPopular />
         </CustomerLayout>
 

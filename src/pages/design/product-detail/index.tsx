@@ -53,12 +53,12 @@ const CreatePage = () => {
                                     </Link>
                               </DesignerLayout>
                               :
-                              <DesignerLayout is_login={false}>
+                              <DesignerLayout is_login={true}>
                                     <section aria-label="section">
                                           <div className="container">
                                                 <div className="row wow fadeIn">
                                                       <div className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12" >
-                                                            <Product name="Anime Blackping" price={180.000} is_none_name={true} img="images/mau_ao/ao_doi/aodoi-3.jpg" type={User.Designer} />
+                                                            <Product name="Anime Blackping" price={180.000} is_none_name={false} height={400} img="images/mau_ao/ao_doi/aodoi-3.jpg" type={User.Designer} />
                                                       </div>
                                                       <div className="d-item col-lg-9 col-md-6 col-sm-6 col-xs-12" >
                                                             <h1>Mẫu thiết kế Blackping</h1>

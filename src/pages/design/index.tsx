@@ -1,14 +1,13 @@
 
 import { Paginate } from "@/components/commons/paginate";
 import { Product, User } from "@/components/commons/product";
-import LoginPage from "@/components/design/auth";
+import LoginPage from "@/pages/design/auth";
 import { FilterMyProfile } from "@/components/design/my-profile.tsx/filter";
 import { TableWallet } from "@/components/design/my-profile.tsx/table";
 import DialogCreateOneDesign from "@/components/pogup/create_prod";
 import DesignerLayout from "@/layouts/designer_layout";
 import { RootState } from "@/store/store";
 import Link from "next/link";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Item } from "./product-detail";
 import { FilterBank } from "@/components/design/my-profile.tsx/filter_bank";
@@ -16,9 +15,13 @@ import { ButtonBase, Icon, Pagination } from "@mui/material";
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { FilterProduct } from "@/components/commons/filter_product";
 import { FilterWalletHistory } from "@/components/commons/filter_wallet";
+import { designerAction } from "@/store/designer/designerSlice";
+import React, { useEffect, useState } from 'react'
 const MyProfilePage = () => {
+
       const designerState = useSelector((state: RootState) => state.designer)
       const dispatch = useDispatch()
+
       const [array1, setArray1] = useState<Array<Item>>([{
             id: '1234',
             order: 1,
@@ -99,13 +102,22 @@ const MyProfilePage = () => {
             data.order++;
             setArray2([...array2, data]);
       }
+
       return (
             <>
                   {
                         designerState.is_login === false ?
-                              <LoginPage /> :
-                              <DesignerLayout type_class="no-bottom " is_login={false}>
-                                    <section aria-label="section" className="pt40">
+                              <DesignerLayout is_login={false}>
+                                    <Link href='/design/auth' style={{ height: '100%', display: 'flex', justifyContent: 'center' }} >
+                                          <section aria-label="section">
+                                                <div className="container">
+                                                      <h4>404. Please Login</h4>
+                                                </div>
+                                          </section>
+                                    </Link>
+                              </DesignerLayout> :
+                              <DesignerLayout type_class="" is_login={true}>
+                                    <section aria-label="section" className="pt40" >
                                           <div className="container">
                                                 <div className="row">
                                                       <div className="col-md-12">
@@ -176,7 +188,7 @@ const MyProfilePage = () => {
 
                                                                               <div className="row">
                                                                                     {array1.map((x, y) =>
-                                                                                          <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                                          <div key={y} className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                                                                                                 <Product
                                                                                                       is_show_info={true}
                                                                                                       is_none_name={true}
@@ -193,8 +205,8 @@ const MyProfilePage = () => {
                                                                               <FilterProduct />
                                                                               <div className="row">
                                                                                     {
-                                                                                          array2.map((x) =>
-                                                                                                <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                                                                                          array2.map((x, y) =>
+                                                                                                <div key={y} className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                                                                                                       <Product
                                                                                                             is_show_info={true}
                                                                                                             is_none_name={true}

@@ -4,7 +4,7 @@ import { useState } from "react"
 const createProduct = () => {
       const [arr, setArr] = useState([1, 2])
       return (
-            <DesignerLayout is_login={false}>
+            <DesignerLayout is_login={true}>
                   <section aria-label="section">
                         <div className="container">
                               <div className="row wow fadeIn">
@@ -89,7 +89,7 @@ const createProduct = () => {
                                                             <div className="de_tab_content">
 
                                                                   <div id="tab_opt_1">
-                                                                        <h5 style={{ fontWeight: 1 }}>Tên thiét kế</h5>
+                                                                        <h5 style={{ fontWeight: 1 }}>Tên mẫu thiết kế</h5>
                                                                         <input type="text" name="item_price" id="item_price" className="form-control" placeholder="Ví dụ:Unisex Blackping" />
                                                                   </div>
                                                             </div>

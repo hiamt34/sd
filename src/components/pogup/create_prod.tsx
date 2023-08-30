@@ -111,8 +111,8 @@ const DialogCreateOneDesign = (prop: props) => {
                   <DialogContent >
                         <div className='row wow'  >
                               {
-                                    array.map((x) =>
-                                          <div className="" style={{ width: '50%', height: '100%', marginTop: 5 }} >
+                                    array.map((x, y) =>
+                                          <div key={y} className="" style={{ width: '50%', height: '100%', marginTop: 5 }} >
 
                                                 <h5 style={{ display: 'flex', justifyContent: 'center', fontWeight: 1 }}>{x.type}</h5>
                                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'dashed', width: '96%', height: '280px' }}>
