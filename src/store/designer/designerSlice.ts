@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Designer } from "@/api/inteface/designer.interface";
 import { localStorageService } from "@/services/storage";
 import { useDispatch } from "react-redux";
+import { Designer } from "@/services/api/inteface/designer.interface";
+import { ApiService } from "@/services/api/http";
 export interface DesignerState {
       designer: Designer
       token: string
@@ -13,20 +14,21 @@ export interface DesignerState {
 let initialState: DesignerState = {
       designer: Designer.createObj(),
       token: localStorageService.getToken(),
-      is_login: false
+      is_login: localStorageService.is_login
 }
 
 const designerSlice = createSlice({
       name: 'designer',
       initialState,
       reducers: {
+            loginInit(state, action: PayloadAction<Designer, string>) {
 
-            initApp(state, action: PayloadAction<any, string>) {
+                  state.is_login = true
+                  state.designer = action.payload
+            },
 
-                  if (localStorageService.getToken() !== "") {
-                        state.is_login = true
-                  }
-
+            loginExpire(state) {
+                  state.is_login = false
             },
 
             fetchDataDesigner(state, action: PayloadAction<Designer, string>) {
@@ -34,18 +36,23 @@ const designerSlice = createSlice({
             },
 
 
-            login(state, action: PayloadAction<string, string>) {
-                  localStorageService.setToken(action.payload)
+            login(state, action: PayloadAction<{ token: string, user: Designer }, string>) {
+                  localStorageService.setToken(action.payload.token)
                   state.is_login = true
-                  state.token = action.payload
+                  state.token = action.payload.token
+                  state.designer = action.payload.user
             }
 
       },
+
+
 
 })
 
 // action
 export const designerAction = designerSlice.actions;
 //select
+
 const designerReducer = designerSlice.reducer;
 export default designerReducer;
+

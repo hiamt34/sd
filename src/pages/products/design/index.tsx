@@ -1,8 +1,6 @@
 
 import { Product, User } from "@/components/commons/product";
-import { Paginate } from "@/components/commons/paginate";
-import { FilterMyProfile } from "@/components/design/my-profile.tsx/filter";
-import { TableMyProfile } from "@/components/design/my-profile.tsx/table";
+
 import DialogCreateOneDesign from "@/components/pogup/create_prod";
 import CustomerLayout from "@/layouts/customer_layouts";
 import { useState } from "react";
@@ -72,7 +70,6 @@ const DesignPage = () => {
                         <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                           <Product
                             is_none_name={true}
-                            showProfileAvatar={false}
                             type={User.Customer}
                             img='images/mau_ao/ao_don/aodon-1.jpg'
                             name="Free style Blue"

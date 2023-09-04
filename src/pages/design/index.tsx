@@ -17,92 +17,18 @@ import { FilterProduct } from "@/components/commons/filter_product";
 import { FilterWalletHistory } from "@/components/commons/filter_wallet";
 import { designerAction } from "@/store/designer/designerSlice";
 import React, { useEffect, useState } from 'react'
+import { useRef } from 'react';
+import { ApiService } from "@/services/api/http";
 const MyProfilePage = () => {
 
       const designerState = useSelector((state: RootState) => state.designer)
       const dispatch = useDispatch()
-
-      const [array1, setArray1] = useState<Array<Item>>([{
-            id: '1234',
-            order: 1,
-            imgBefor: "",
-            imgDesignBefor: "",
-            imgAfter: "",
-            imgDesignAfter: "",
-            status: "",
-      },
-      {
-            id: '1234',
-            order: 1,
-            imgBefor: "",
-            imgDesignBefor: "",
-            imgAfter: "",
-            imgDesignAfter: "",
-            status: "",
-      },
-      {
-            id: '1234',
-            order: 1,
-            imgBefor: "",
-            imgDesignBefor: "",
-            imgAfter: "",
-            imgDesignAfter: "",
-            status: "",
-      },
-      {
-            id: '1234',
-            order: 1,
-            imgBefor: "",
-            imgDesignBefor: "",
-            imgAfter: "",
-            imgDesignAfter: "",
-            status: "",
-      },
-      {
-            id: '1234',
-            order: 1,
-            imgBefor: "",
-            imgDesignBefor: "",
-            imgAfter: "",
-            imgDesignAfter: "",
-            status: "",
-      }
-
-      ])
-      const [array2, setArray2] = useState<Array<Item>>([{
-            id: '1234',
-            order: 1,
-            imgBefor: "",
-            imgDesignBefor: "",
-            imgAfter: "",
-            imgDesignAfter: "",
-            status: "",
-      },
-      {
-            id: '1234',
-            order: 1,
-            imgBefor: "",
-            imgDesignBefor: "",
-            imgAfter: "",
-            imgDesignAfter: "",
-            status: "",
-      },
-      {
-            id: '1234',
-            order: 1,
-            imgBefor: "",
-            imgDesignBefor: "",
-            imgAfter: "",
-            imgDesignAfter: "",
-            status: "",
-      }
-      ])
+      const [productHasBeenSide, setproductHasBeenSide] = useState([1., 2, 3, 4, 5])
+      const [productWaitingForSide, settWaitingForSide] = useState([1., 2, 3, 4, 5])
       const [isPopupOpen, setIsPopupOpen] = useState(false);
-      const handleSubmitOneDesign = (data: Item) => {
-            data.order++;
-            setArray2([...array2, data]);
-      }
+      useEffect(() => {
 
+      }, [])
       return (
             <>
                   {
@@ -124,7 +50,7 @@ const MyProfilePage = () => {
                                                             <div className="d_profile de-flex align-items-center">
                                                                   <div className="de-flex-col de-flex">
                                                                         <div className="profile_avatar">
-                                                                              <Link href='/design/edit-profile' style={{}} >
+                                                                              <Link href='design/edit-profile'>
                                                                                     <div className="profile_avatar" >
                                                                                           <img
                                                                                                 src="images/author/author-2.jpg"
@@ -138,8 +64,9 @@ const MyProfilePage = () => {
 
                                                                               <div className="profile_name d-table-row">
                                                                                     <div style={{ marginLeft: 5 }}>
-                                                                                          <h4 style={{ fontWeight: 1 }} >Đinh Thiện Quang
-                                                                                          </h4>                                                                                           <span className="profile_username">Designer số 1 việt nam</span>
+                                                                                          <h4 style={{ fontWeight: 1 }} >{designerState.designer.firstName}
+                                                                                          </h4>
+                                                                                          <span className="profile_username">{designerState.designer.bio}</span>
                                                                                           <span className="profile_username">Mẫu thiết kế: 180</span>
                                                                                           <div >
                                                                                                 <span style={{ color: 'black', fontFamily: 'cursive' }}>
@@ -150,15 +77,18 @@ const MyProfilePage = () => {
 
 
                                                                                     </div>
-                                                                                    <button
-                                                                                          onClick={() => window.location.href = '/design/create-product'}
-                                                                                          type="button"
-                                                                                          style={{ borderRadius: 5 }}
-                                                                                          className="">
+                                                                                    <Link href='design/create-product'>
+                                                                                          <button
 
-                                                                                          <a className=" icon_pencil-edit_alt" href="/design/create-product" style={{ marginRight: 5 }} />
-                                                                                          Tạo mẫu thiết kế mới
-                                                                                    </button>
+                                                                                                type="button"
+                                                                                                style={{ borderRadius: 5 }}
+                                                                                                className="">
+
+                                                                                                <a className=" icon_pencil-edit_alt" href="/design/create-product" style={{ marginRight: 5 }} />
+                                                                                                Tạo mẫu thiết kế mới
+                                                                                          </button>
+                                                                                    </Link>
+
                                                                                     <button style={{ marginLeft: 20, borderRadius: 5 }}
                                                                                           data-bs-toggle="modal"
                                                                                           data-bs-target="#buy_now"  >
@@ -187,7 +117,7 @@ const MyProfilePage = () => {
                                                                               <FilterProduct />
 
                                                                               <div className="row">
-                                                                                    {array1.map((x, y) =>
+                                                                                    {productHasBeenSide.map((x, y) =>
                                                                                           <div key={y} className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                                                                                                 <Product
                                                                                                       is_show_info={true}
@@ -205,7 +135,7 @@ const MyProfilePage = () => {
                                                                               <FilterProduct />
                                                                               <div className="row">
                                                                                     {
-                                                                                          array2.map((x, y) =>
+                                                                                          productWaitingForSide.map((x, y) =>
                                                                                                 <div key={y} className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                                                                                                       <Product
                                                                                                             is_show_info={true}
@@ -307,7 +237,7 @@ const MyProfilePage = () => {
                                                 </div>
                                           </div>
                                           <DialogCreateOneDesign
-                                                onSubmit={(data: Item) => handleSubmitOneDesign(data)}
+                                                onSubmit={(data: Item) => console.log(data)}
                                                 isOpen={isPopupOpen}
                                                 onClose={() => setIsPopupOpen(false)}
 

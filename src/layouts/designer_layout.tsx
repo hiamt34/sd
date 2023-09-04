@@ -9,6 +9,12 @@ import { useAppSelector } from '../store/hooks'
 import Header from '@/components/head'
 import Footer from '@/components/footer'
 import { LoadSyncJs } from '@/ultis/load-sync-js'
+import { useDispatch, useSelector } from 'react-redux'
+import { designerAction } from '@/store/designer/designerSlice'
+import { RootState } from '@/store/store'
+import { ApiService } from '@/services/api/http'
+import { AxiosResponse } from 'axios'
+import { Designer } from '@/services/api/inteface/designer.interface'
 
 interface LayoutProps {
       children: React.ReactNode
@@ -17,10 +23,6 @@ interface LayoutProps {
       is_login: boolean
 }
 const DesignerLayout: React.FC<LayoutProps> = ({ children, is_no_footer = false, type_class = 'no-bottom', is_login = false }) => {
-
-
-
-      // const isLoad = isLoadCategory || isLoadInstagram || isLoadPost || isLoadTag
 
       useEffect(() => {
             LoadSyncJs()

@@ -1,18 +1,27 @@
-import { navLink } from "@/constants/link.constants"
-import CustomerLayout from "@/layouts/customer_layouts"
-import Link from "next/link"
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "@/store/store"
-import DesignerLayout from "@/layouts/designer_layout"
-import { LoginDto } from "@/api/inteface/designer.interface"
+import { Confirm } from "@/components/auth/confirm"
+import { ForgotPass } from "@/components/auth/forgotPass"
 import { Login } from "@/components/auth/login"
 import { Register } from "@/components/auth/register"
+import { navLink } from "@/constants/link.constants"
+import DesignerLayout from "@/layouts/designer_layout"
+import { RootState } from "@/store/store"
+import Link from "next/link"
+import { useState } from 'react'
+import { useDispatch, useSelector } from "react-redux"
+interface State {
+    page: string
+    email: string
+    password: string
+}
 
 const LoginPage = () => {
     const designerState = useSelector((state: RootState) => state.designer)
     const dispatch = useDispatch()
-    const [isLogin, SetIsLogin] = useState(true)
+    const [state, SetIsLogin] = useState<State>({
+        page: "login",
+        email: "",
+        password: ""
+    })
     return (
         <DesignerLayout is_login={false}>
             <section
@@ -21,6 +30,7 @@ const LoginPage = () => {
                 data-stellar-background-ratio=".3"
 
             >
+
                 <div className="overlay-gradient">
                     <div className="center-y relative">
                         <div className="container">
@@ -87,18 +97,47 @@ const LoginPage = () => {
 
                                 </div>
                                 <div className="col-lg-4 offset-lg-2 wow fadeIn" data-wow-delay=".5s">
+
                                     <div className="box-rounded padding40" data-bgcolor="#ffffff">
-                                        <h3 className="mb10">{!isLogin ? navLink.register.text : navLink.login.text}</h3>
+                                        <h3 className="mb10" style={{ display: 'flex', justifyContent: 'center' }}>{state.email === "login" ? "ĐĂNG NHẬP" :
+                                            state.page === "register" ? "ĐẮNG KÍ" :
+                                                state.page === "forgortPassWord" ? "QUÊN MẬT KHẨU" :
+                                                    state.page === "confirm" ? "XÁC THỰC OTP" : null
+                                        }</h3>
                                         <p>
-                                            {isLogin ? 'Bạn chưa có tài khoản designer? ' : 'Bạn đã có tài khoản designer? '}
-                                            <Link href={{}} onClick={() => SetIsLogin(!isLogin)}>
-                                                {isLogin ? navLink.register.text : navLink.login.text}
+                                            {state.page === "login" ? 'Bạn chưa có tài khoản designer? ' :
+                                                state.page === "register" ? 'Bạn đã có tài khoản designer? ' :
+                                                    state.page === "forgortPassWord" ? "Quên mật khẩu. " :
+                                                        state.page === "confirm" ? "Vui lòng kiểm tra mail" : null
+                                            }
+                                            <Link href={{}} onClick={() => {
+                                                if (state.page === "login") {
+                                                    SetIsLogin({ ...state, page: 'register' })
+                                                    return
+                                                }
+                                                if (state.page === 'register') {
+                                                    SetIsLogin({ ...state, page: 'login' })
+                                                }
+                                                if (state.page === "forgortPassWord") {
+                                                    SetIsLogin({ ...state, page: 'login' })
+                                                }
+
+                                            }}>
+                                                {state.page === "login" ? navLink.register.text
+                                                    : state.page === "register" ? navLink.login.text :
+                                                        state.page === "forgortPassWord" ? navLink.login.text : null
+
+                                                }
                                                 <span />
                                             </Link>
                                             .
                                         </p>
                                         {
-                                            isLogin ? <Login /> : <Register />
+                                            state.page === "login" ? <Login onforgotPass={() => SetIsLogin({ ...state, page: 'forgortPassWord' })} /> :
+                                                state.page === "register" ? <Register onConfirm={(email: string, password: string) => SetIsLogin({ email: email, password: password, page: 'confirm' })} /> :
+                                                    state.page === "forgortPassWord" ? <ForgotPass /> :
+                                                        state.page === "confirm" ? <Confirm password={state.password} email={state.email} onBack={() => SetIsLogin({ ...state, page: 'register' })} /> : null
+
                                         }
 
                                     </div>

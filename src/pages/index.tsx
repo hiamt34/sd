@@ -9,6 +9,7 @@ import { LoadSyncJs } from '@/ultis/load-sync-js'
 import React, { useEffect, useState } from 'react'
 
 const Home = ({ }) => {
+
     return (
         <CustomerLayout>
             <SectionHero />

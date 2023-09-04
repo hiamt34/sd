@@ -1,9 +1,9 @@
-import { Api } from "@/api/http";
 import { Product, User } from "@/components/commons/product";
 import { ProductDetail } from "@/components/commons/product_detail";
 import DialogCreateOneDesign from "@/components/pogup/create_prod";
 import CustomerLayout from "@/layouts/customer_layouts";
 import DesignerLayout from "@/layouts/designer_layout";
+import { ApiService } from "@/services/api/http";
 import { RootState } from "@/store/store";
 import Link from "next/link";
 import { useState } from "react";
@@ -71,7 +71,7 @@ const CreatePage = () => {
                                                                   type="button"
                                                                   className="btn-main"
                                                                   style={{ margin: 5, borderRadius: 10 }}
-                                                                  onClick={async () => console.log(await Api.getOneProductDesign("1"))
+                                                                  onClick={async () => console.log(await ApiService.getOneProductDesign("1"))
                                                                   }
                                                             >
                                                                   Anime

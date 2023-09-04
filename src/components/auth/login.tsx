@@ -1,31 +1,39 @@
-import { LoginDto } from "@/api/inteface/designer.interface"
+
 import { designerAction } from "@/store/designer/designerSlice"
 import { RootState } from "@/store/store"
 import { useDispatch, useSelector } from "react-redux"
 import React, { useEffect, useState } from 'react'
 import Link from "next/link"
 import { useRef } from 'react';
+import { ApiService } from "@/services/api/http"
+import CircularProgress from '@mui/material/CircularProgress';
+import { Button, ButtonBase } from '@mui/material'
+import LinearProgress from '@mui/material/LinearProgress';
 interface Login {
     email: string
     password: string
     validEmail: string
     validPassword: string
     validLogin: string
+    on_loading: boolean
 }
-
-export const Login = () => {
+interface Props {
+    onforgotPass: () => void
+}
+export const Login = (prop: Props) => {
     const [state, setState] = useState<Login>({
         email: "",
         password: "",
         validEmail: "",
         validPassword: "",
-        validLogin: ""
+        validLogin: "",
+        on_loading: false
     })
     const refToDesignPage = useRef<HTMLInputElement | null>(null);
     const designerState = useSelector((state: RootState) => state.designer)
     const dispatch = useDispatch()
     const reg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
-    const onLogin = () => {
+    const onLogin = async () => {
         if (state.email === "") {
             setState({
                 ...state,
@@ -47,8 +55,43 @@ export const Login = () => {
             })
             return
         }
-        refToDesignPage.current?.click()
-        dispatch(designerAction.login("oke"))
+        setState({
+            ...state,
+            on_loading: true
+        })
+        await new Promise((res, rej) => {
+            setTimeout(() => {
+                res('okd')
+            }, 1000)
+        })
+        const response = await ApiService.login({
+            email: state.email,
+            password: state.password
+        })
+        console.log('res', response.data);
+        if (response.status === 200) {
+
+
+            refToDesignPage.current?.click()
+            dispatch(designerAction.login(response.data.payload))
+            return
+        }
+
+
+        if (response.data?.errors.includes('incorrectPassword') || response.data?.errors.includes("emailNotExists")) {
+            setState({
+                ...state,
+                validLogin: "*Tài khoản hoặc mật khẩu không đúng",
+                on_loading: false
+            })
+            return
+        }
+        setState({
+            ...state,
+            validLogin: "*Hệ thống đang bảo trì, vui lòng thử lại sau ít phút",
+            on_loading: false
+        })
+
 
     }
     return (
@@ -57,46 +100,58 @@ export const Login = () => {
             id="contact_form"
             className="form-border"
         >
+
             <div className="field-set">
+                <h6>Tài khoản</h6>
                 <input
                     type="text"
                     name="email"
                     id="email"
-                    style={{ borderColor: `${state.validEmail === "" ? "" : "red"}`, margin: 0 }}
-                    onChange={(event) => setState({ ...state, email: event.currentTarget.value, validEmail: "", validPassword: "" })}
+                    defaultValue={state.email}
+                    style={{ borderColor: `${state.validEmail === "" ? "none" : "red"}`, marginBottom: 0 }}
+                    onChange={(event) => setState({ ...state, email: event.currentTarget.value, validEmail: "", validPassword: "", validLogin: "" })}
                     className="form-control"
-                    placeholder="email"
+                    placeholder="Eg. designer@gmail.com"
                 />
-                <div style={{ color: "red", marginLeft: 3 }}>{state.validEmail}</div>
+                <div style={{ color: "red", marginLeft: 3, fontSize: '14px' }}>{state.validEmail}</div>
             </div>
             <div className="field-set">
+                <h6 style={{ marginTop: 10 }}>Mật khẩu</h6>
                 <input
                     type="password"
                     name="password"
                     id="password"
-                    style={{ borderColor: `${state.validPassword === "" ? "" : "red"}`, marginTop: 20 }}
+                    defaultValue={state.password}
+                    style={{ borderColor: `${state.validPassword === "" ? "none" : "red"}`, marginBottom: 0 }}
                     onChange={(event) => {
-                        setState({ ...state, password: event.currentTarget.value, validEmail: "", validPassword: "" })
+                        setState({ ...state, password: event.currentTarget.value, validEmail: "", validPassword: "", validLogin: '' })
                     }}
                     className="form-control"
-                    placeholder="password"
+                    placeholder="Password..."
                 />
-                <div style={{ color: "red", marginLeft: 3 }}>{state.validPassword}</div>
+
+                <div style={{ color: "red", marginLeft: 3, fontSize: '14px' }}>{state.validPassword}</div>
+                <div style={{ color: "red", marginLeft: 3, fontSize: '14px' }}>{state.validLogin}</div>
+                <Link href='' onClick={() => prop.onforgotPass()} style={{ marginRight: 10, marginTop: 20 }}>Quên mật khẩu?</Link>
             </div>
 
             <div className="field-set" style={{ marginTop: 20 }}>
-                <input
-                    style={{ borderRadius: 5 }}
-                    type="button"
+                <ButtonBase
                     onClick={() => onLogin()
                     }
-                    defaultValue="Đăng nhập"
-                    className="btn btn-main btn-fullwidth color-2"
-                />
+                >
+                    Đăng nhập
+                </ButtonBase>
+                {state.on_loading &&
+                    <LinearProgress
+                        color='info'
+                        style={{}}
+                    />
+                }
             </div>
             <div className="clearfix" />
             <div className="spacer-single" />
             <Link href='/design' ref={refToDesignPage as any} />
-        </form>
+        </form >
     )
 }

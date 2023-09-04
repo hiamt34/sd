@@ -1,6 +1,8 @@
 'use client'
-import { Api } from "@/api/http"
-import { Order } from "@/api/inteface/order.interface"
+
+import { ApiService } from "./api/http"
+import { Designer } from "./api/inteface/designer.interface"
+import { Order } from "./api/inteface/order.interface"
 
 export enum LocalStorageKey {
   Token = "designer",
@@ -10,6 +12,8 @@ export enum LocalStorageKey {
 class LocalStorageService {
   private token: string = ""
   private order: Array<Order> = []
+  private designer: Designer = Designer.createObj()
+  public is_login: boolean = false
   constructor() {
 
     if (typeof window === "undefined") {
@@ -25,8 +29,20 @@ class LocalStorageService {
     this.token = localStorage.getItem(LocalStorageKey.Token) ?? ""
     this.order = JSON.parse(localStorage.getItem(LocalStorageKey.Order) ?? "[]")
     console.log(`Loclstorage có token:${this.token}, order:${this.order}`);
+    if (this.token !== "") {
+      ApiService.setAuthorization(this.token)
+      ApiService.getDesigner().then((response) => {
+        if (response.status === 200) {
+          this.is_login = true
+          this.designer = response.data
+        }
+        console.log('res in localstorage', response);
+
+      })
+    }
 
   }
+
 
   public getToken(): string {
     return this.token
@@ -36,6 +52,7 @@ class LocalStorageService {
     return this.order
   }
 
+
   public setToken(token: string): void {
     if (typeof window === "undefined") {
       return
@@ -44,13 +61,7 @@ class LocalStorageService {
   }
 
 
-  public getApiLogin() {
-    this.token
 
-
-    return false
-
-  }
 }
 
 export const localStorageService = new LocalStorageService()

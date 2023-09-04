@@ -1,8 +1,6 @@
 import { Product, User } from "@/components/commons/product"
 import DesignerLayout from "@/layouts/designer_layout"
-import { useState } from "react"
 const createProduct = () => {
-      const [arr, setArr] = useState([1, 2])
       return (
             <DesignerLayout is_login={true}>
                   <section aria-label="section">

@@ -69,7 +69,7 @@ const Header = (prop: Props) => {
 
                                             </li>
                                             <li>
-                                                <Link href="/design" className="">
+                                                <Link href="" onClick={() => window.location.href = '/design/auth'} className="">
                                                     Đăng xuất
                                                     <span />
                                                 </Link>
