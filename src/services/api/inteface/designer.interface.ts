@@ -6,6 +6,8 @@ export class Designer {
       photo: string = ""
       banner: string = ""
       bio: string = ""
+      money: number = 0
+      count_products: number = 0
       photo_avatar_default: string = ""
       photo_banner_default: string = ""
       role: Role = {
@@ -32,7 +34,9 @@ export interface LoginDto {
       email: string
       password: string
 }
-
+export interface ForgotPassword {
+      email: string
+}
 export interface RegisterDto extends LoginDto {
       firstName: string
 }
@@ -44,6 +48,19 @@ export interface Role {
 export interface ConfirmEmailDto {
       email: string
       code: string
+}
+
+export interface UpdateDesignerDto {
+      photo?: {
+            id: string
+      }
+      banner?: {
+            id: string
+      },
+      firstName?: string
+      bio?: string
+      password?: string,
+      oldPassword?: string
 }
 export interface Status {
       id: number

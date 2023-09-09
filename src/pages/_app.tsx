@@ -12,9 +12,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
         <ThemeProvider theme={AppTheme} >
             <Provider store={store}>
+                <InitState />
                 <CssBaseline />
                 <Component {...pageProps} />
-                {/* <InitState /> */}
+
             </Provider>
         </ThemeProvider>
 

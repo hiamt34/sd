@@ -17,7 +17,7 @@ interface State {
 const LoginPage = () => {
     const designerState = useSelector((state: RootState) => state.designer)
     const dispatch = useDispatch()
-    const [state, SetIsLogin] = useState<State>({
+    const [state, SetState] = useState<State>({
         page: "login",
         email: "",
         password: ""
@@ -99,7 +99,7 @@ const LoginPage = () => {
                                 <div className="col-lg-4 offset-lg-2 wow fadeIn" data-wow-delay=".5s">
 
                                     <div className="box-rounded padding40" data-bgcolor="#ffffff">
-                                        <h3 className="mb10" style={{ display: 'flex', justifyContent: 'center' }}>{state.email === "login" ? "ĐĂNG NHẬP" :
+                                        <h3 className="mb10" style={{ display: 'flex', justifyContent: 'center' }}>{state.page === "login" ? "ĐĂNG NHẬP" :
                                             state.page === "register" ? "ĐẮNG KÍ" :
                                                 state.page === "forgortPassWord" ? "QUÊN MẬT KHẨU" :
                                                     state.page === "confirm" ? "XÁC THỰC OTP" : null
@@ -107,36 +107,36 @@ const LoginPage = () => {
                                         <p>
                                             {state.page === "login" ? 'Bạn chưa có tài khoản designer? ' :
                                                 state.page === "register" ? 'Bạn đã có tài khoản designer? ' :
-                                                    state.page === "forgortPassWord" ? "Quên mật khẩu. " :
+                                                    state.page === "forgortPassWord" ? null :
                                                         state.page === "confirm" ? "Vui lòng kiểm tra mail" : null
                                             }
                                             <Link href={{}} onClick={() => {
                                                 if (state.page === "login") {
-                                                    SetIsLogin({ ...state, page: 'register' })
+                                                    SetState({ ...state, page: 'register' })
                                                     return
                                                 }
                                                 if (state.page === 'register') {
-                                                    SetIsLogin({ ...state, page: 'login' })
+                                                    SetState({ ...state, page: 'login' })
                                                 }
                                                 if (state.page === "forgortPassWord") {
-                                                    SetIsLogin({ ...state, page: 'login' })
+                                                    SetState({ ...state, page: 'login' })
                                                 }
 
                                             }}>
                                                 {state.page === "login" ? navLink.register.text
                                                     : state.page === "register" ? navLink.login.text :
-                                                        state.page === "forgortPassWord" ? navLink.login.text : null
+                                                        state.page === "forgortPassWord" ? null : null
 
                                                 }
                                                 <span />
                                             </Link>
-                                            .
+
                                         </p>
                                         {
-                                            state.page === "login" ? <Login onforgotPass={() => SetIsLogin({ ...state, page: 'forgortPassWord' })} /> :
-                                                state.page === "register" ? <Register onConfirm={(email: string, password: string) => SetIsLogin({ email: email, password: password, page: 'confirm' })} /> :
-                                                    state.page === "forgortPassWord" ? <ForgotPass /> :
-                                                        state.page === "confirm" ? <Confirm password={state.password} email={state.email} onBack={() => SetIsLogin({ ...state, page: 'register' })} /> : null
+                                            state.page === "login" ? <Login onforgotPass={() => SetState({ ...state, page: 'forgortPassWord' })} /> :
+                                                state.page === "register" ? <Register onConfirm={(email: string, password: string) => SetState({ email: email, password: password, page: 'confirm' })} /> :
+                                                    state.page === "forgortPassWord" ? <ForgotPass onBack={() => SetState({ ...state, page: 'login' })} /> :
+                                                        state.page === "confirm" ? <Confirm password={state.password} email={state.email} onBack={() => SetState({ ...state, page: 'register' })} /> : null
 
                                         }
 

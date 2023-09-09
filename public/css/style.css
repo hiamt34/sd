@@ -1281,6 +1281,10 @@ section.no-bg,
     -webkit-text-fill-color: transparent;
 }
 
+.full-height {
+    min-height: 660px;
+}
+
 .de-navbar-left .container-fluid .container {
     width: 100%;
 }
@@ -16189,6 +16193,7 @@ img {
     .container-md,
     .container-sm {
         min-width: 95%;
+
     }
 }
 
@@ -17168,6 +17173,7 @@ img {
     }
 
     .container {
+
         padding-left: 30px;
         padding-right: 30px;
     }

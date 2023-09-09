@@ -13,19 +13,28 @@ interface Login {
     email: string
     valid: string
     on_loading: boolean
+    on_success: boolean
+}
+interface Props {
+    onBack: () => void
 }
 
-export const ForgotPass = () => {
+export const ForgotPass = (prop: Props) => {
     const [state, setState] = useState<Login>({
-        email: "john.doe@example.com",
+        email: "",
         valid: "",
-        on_loading: false
+        on_loading: false,
+        on_success: false
     })
     const refToDesignPage = useRef<HTMLInputElement | null>(null);
     const designerState = useSelector((state: RootState) => state.designer)
     const dispatch = useDispatch()
     const reg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
-    const onLogin = async () => {
+    const onConfirm = async () => {
+        setState({
+            ...state,
+            on_loading: true
+        })
         if (state.email === "") {
             setState({
                 ...state,
@@ -33,41 +42,18 @@ export const ForgotPass = () => {
             })
             return
         }
-        setState({
-            ...state,
-            on_loading: true
+        ApiService.forgotPassword({ email: state.email }).then((response) => {
+            if (response.status === 200) {
+                setState({
+                    ...state,
+                    on_loading: false,
+                    on_success: true
+                })
+            }
+
         })
-        await new Promise((res, rej) => {
-            setTimeout(() => {
-                res('okd')
-            }, 1000)
-        })
-        // const response = await ApiService.login({
-        //     email: state.email,
-        //     password: state.password
-        // })
-        // console.log('res', response.data);
-        // if (response.status === 200) {
 
 
-        //     refToDesignPage.current?.click()
-        //     dispatch(designerAction.login(response.data))
-        //     return
-        // }
-
-        // if (response.data?.errors?.email || response.data?.errors?.password) {
-        //     setState({
-        //         ...state,
-        //         validLogin: "*Tài khoản hoặc mật khẩu không đúng",
-        //         on_loading: false
-        //     })
-        //     return
-        // }
-        // setState({
-        //     ...state,
-        //     validLogin: "*Hệ thống đang bảo trì, vui lòng thử lại sau ít phút",
-        //     on_loading: false
-        // })
 
 
     }
@@ -77,39 +63,74 @@ export const ForgotPass = () => {
             id="contact_form"
             className="form-border"
         >
+            {
+                !state.on_success ?
+                    <>
+                        <div className="field-set">
+                            <input
+                                type="text"
+                                name="email"
+                                id="email"
+                                defaultValue={state.email}
+                                style={{ borderColor: `${state.valid === "" ? "" : "red"}`, margin: 0 }}
+                                onChange={(event) => setState({ ...state, email: event.currentTarget.value, valid: "" })}
+                                className="form-control"
+                                placeholder="Nhập địa chỉ mail của bạn"
+                            />
+                            <div style={{ color: "red", marginLeft: 3, fontSize: '14px' }}>{state.valid}</div>
+                        </div>
+                        <div className="field-set" style={{ marginTop: 5 }}>
+                            <Link href='' onClick={() => prop.onBack()} style={{ marginLeft: 5 }}>Quay lại</Link>
 
-            <div className="field-set">
-                <h6>Mail</h6>
-                <input
-                    type="text"
-                    name="email"
-                    id="email"
-                    defaultValue={state.email}
-                    style={{ borderColor: `${state.valid === "" ? "" : "red"}`, margin: 0, }}
-                    onChange={(event) => setState({ ...state, email: event.currentTarget.value, valid: "" })}
-                    className="form-control"
-                    placeholder="Eg. designer@gmail.com"
-                />
-                <div style={{ color: "red", marginLeft: 3, fontSize: '14px' }}>{state.valid}</div>
-            </div>
+                        </div>
+                        <div className="field-set" style={{ marginTop: 20 }}>
+                            <ButtonBase
+                                onClick={() => onConfirm()
+                                }
+                            >
+                                Quên mật khẩu
+                            </ButtonBase>
+                            {state.on_loading &&
+                                <LinearProgress
+                                    color='info'
+                                    style={{}}
+                                />
+                            }
+                        </div>
+                        <div className="clearfix" />
+                        <div className="spacer-single" />
+                        <Link href='/design' ref={refToDesignPage as any} />
+                    </> :
+                    <>
+                        <div className="field-set" style={{ marginTop: 5 }}>
+                            <input
+                                type="text"
+                                name="email"
+                                id="email"
+                                defaultValue={state.email}
+                                style={{ borderColor: `${state.valid === "" ? "" : "red"}`, margin: 0 }}
+                                onChange={(event) => setState({ ...state, email: event.currentTarget.value, valid: "" })}
+                                className="form-control"
+                                placeholder="Nhập địa chỉ mail của bạn"
+                            />
+                            <p>Vui lòng kiểm tra mail</p>
 
-            <div className="field-set" style={{ marginTop: 20 }}>
-                <ButtonBase
-                    onClick={() => onLogin()
-                    }
-                >
-                    Quên mật khẩu
-                </ButtonBase>
-                {state.on_loading &&
-                    <LinearProgress
-                        color='info'
-                        style={{}}
-                    />
-                }
-            </div>
-            <div className="clearfix" />
-            <div className="spacer-single" />
-            <Link href='/design' ref={refToDesignPage as any} />
+                        </div>
+                        <div className="field-set" style={{ marginTop: 20 }}>
+                            <ButtonBase
+                                onClick={() => prop.onBack()
+                                }
+                            >
+                                Quay lại đăng nhập
+                            </ButtonBase>
+
+                        </div>
+                        <div className="clearfix" />
+                        <div className="spacer-single" />
+
+                    </>
+            }
+
         </form >
     )
 }

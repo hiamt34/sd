@@ -22,12 +22,17 @@ export const InitState = () => {
         ApiService.setAuthorization(designerState.token)
         ApiService.getDesigner().then((response: AxiosResponse<{ payload: Designer }>) => {
             if (response.status === 200) {
+                console.log(response);
+
                 dispatch(designerAction.loginInit(response.data.payload))
                 return
             }
             dispatch(designerAction.loginExpire())
 
         })
+        setTimeout(() => {
+            dispatch(designerAction.loadingApp())
+        }, 3000);
 
     }, [])
     return (

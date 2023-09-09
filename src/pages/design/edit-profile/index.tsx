@@ -15,17 +15,17 @@ const EditProfilePage = () => {
                     <DesignerLayout is_login={true}>
                         <Link href='/design' style={{ height: '100%', display: 'flex', justifyContent: 'center' }} >
                             <section aria-label="section">
-                                <div className="container">
+                                <div className="container full-height">
                                     <h4>404. Please Login</h4>
                                 </div>
                             </section>
                         </Link>
                     </DesignerLayout>
                     :
-                    <DesignerLayout is_login={false} type_class="no-bottom no-top" >
+                    <DesignerLayout is_login={false} type_class="no-bottom no-top " >
                         <br />
                         <section id="section-main" aria-label="section">
-                            <div className="container">
+                            <div className="container full-height" >
                                 <div className="row">
                                     <div className="col-lg-8 offset-lg-2">
                                         <form
@@ -46,12 +46,8 @@ const EditProfilePage = () => {
                                                 </div>
                                             </div>
                                             <div className="spacer-30" />
-                                            <input
-                                                type="button"
-                                                id="submit"
-                                                className="btn-main"
-                                                defaultValue="Hoàn thành"
-                                            />
+
+
                                         </form>
                                     </div>
                                 </div>

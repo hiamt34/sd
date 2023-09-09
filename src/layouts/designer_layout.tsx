@@ -32,7 +32,7 @@ const DesignerLayout: React.FC<LayoutProps> = ({ children, is_no_footer = false,
                   {is_login ?
                         <div id="wrapper">
                               <Header is_designer={true} is_login={true} />
-                              <div className={type_class} id="content">
+                              <div className={type_class} id="content" style={{ height: '100%' }}>
                                     <div id="top" />
                                     {children}
                               </div>

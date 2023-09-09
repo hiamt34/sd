@@ -1,58 +1,312 @@
+import { ApiService } from "@/services/api/http"
+import { RootState } from "@/store/store"
+import { ButtonBase, LinearProgress } from "@mui/material"
+import Link from "next/link"
+import { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import * as fs from 'fs'
+import { Designer, UpdateDesignerDto } from "@/services/api/inteface/designer.interface"
+import { designerAction } from "@/store/designer/designerSlice"
+import { AxiosResponse } from "axios"
+interface State {
+    name: string
+    email: string
+    password: string
+    newPassword: string
+    confirmPass: string
+    bio: string
+
+    vaidPassword: string
+    validNewPassword: string
+    validConfirmPass: string
+    validBio: string
+    validAvatar: string
+    validBanner: string
+    validName: string
+    avatar: string
+    banner: string
+    avatarId: string
+    bannerId: string
+    on_success: string
+    on_loading: boolean
+
+}
 export const TapEditProfile = () => {
+    const designerState = useSelector((state: RootState) => state.designer)
+    const dispatch = useDispatch()
+    const [state, setState] = useState<State>({
+        name: designerState.designer.firstName,
+        email: designerState.designer.email,
+        bio: designerState.designer.bio,
+        avatar: designerState.designer.photo,
+        banner: designerState.designer.banner,
+        password: "",
+        newPassword: "",
+        confirmPass: "",
+        avatarId: "",
+        bannerId: "",
+        validName: "",
+        validAvatar: "",
+        validBanner: "",
+        vaidPassword: "",
+        validNewPassword: "",
+        validConfirmPass: "",
+        validBio: "",
+        on_success: "Cập nhật",
+
+        on_loading: false
+    })
+    const onConFirm = () => {
+        setState({
+            ...state,
+            on_loading: true,
+            on_success: "Đang cập nhật"
+        })
+
+        if (state.password.length !== 0 && state.password.length < 6) {
+            setState({
+                ...state,
+                vaidPassword: 'Mật khẩu phải ít nhất 6 kí tự'
+            })
+            return
+        }
+
+        if (state.password.length !== 0) {
+
+            if (state.newPassword !== "" && state.confirmPass === "") {
+                setState({
+                    ...state,
+                    validConfirmPass: 'Vui lòng nhập xác nhận mật khẩu'
+                })
+                return
+            }
+            if (state.confirmPass !== state.newPassword) {
+                setState({
+                    ...state,
+                    validConfirmPass: 'Mật khảu xác nhận không chính xác'
+                })
+                return
+            }
+            if (state.newPassword.length !== 0 && state.newPassword.length < 6) {
+                setState({
+                    ...state,
+                    validNewPassword: 'Mật khảu mới phải có ít nhất 6 kí tự'
+                })
+                return
+            }
+            if (state.newPassword.length !== 0 && state.newPassword === state.password) {
+                setState({
+                    ...state,
+                    validNewPassword: 'Mật khảu mới phải khác mật khẩu cũ'
+                })
+                return
+            }
+        }
+        if (state.bio.length !== 0 && state.bio.length > 40) {
+            setState({
+                ...state,
+                validBio: 'Bio tối đa 40 kí tự'
+            })
+            return
+        }
+        if (state.name === "") {
+            setState({
+                ...state,
+                validName: "Hãy đặt tên của bạn để chúng tôi quảng cáo sản phẩm của bạn tốt hơn"
+            })
+            return
+        }
+        if (state.name.length > 30) {
+            setState({
+                ...state,
+                validName: "Không quá 30 kí tự"
+            })
+            return
+        }
+        let dataSend: UpdateDesignerDto = {}
+        if (state.password !== "" && state.newPassword !== "" && state.confirmPass !== "" && state.confirmPass === state.newPassword && state.password !== state.newPassword) {
+            dataSend.oldPassword = state.password
+            dataSend.password = state.newPassword
+        }
+        if (state.avatarId !== "") {
+            dataSend.photo = { id: state.avatarId }
+        }
+        if (state.bannerId !== "") {
+            dataSend.banner = { id: state.bannerId }
+        }
+        if (state.name !== designerState.designer.firstName) {
+            dataSend.firstName = state.name
+        }
+        dataSend.bio = state.bio
+        console.log('data send', dataSend);
+
+        ApiService.updateDesigner(dataSend).then((response) => {
+            console.log(response);
+
+            if (response.data.status === 200) {
+                dispatch(designerAction.loginInit(response.data.payload))
+                setState({
+                    ...state,
+                    name: response.data.payload.firstName,
+                    bio: response.data.payload.bio,
+                    on_loading: false,
+                    on_success: "Cập nhật thành công"
+                })
+                return
+            }
+            if (response.data.status === 422 && response.data.errors.includes('incorrectOldPassword')) {
+                setState({
+                    ...state,
+                    on_loading: false,
+                    on_success: "CậP nhật",
+                    vaidPassword: 'Mật khẩu không đúng'
+                })
+                return
+            }
+
+        })
+    }
+    const handleSeletctFileBanner = (event: any) => {
+        setState({
+            ...state,
+            validBanner: ''
+        })
+        const file = event.target.files[0];
+        const formData = new FormData()
+        formData.append('files', file)
+        if (!file) {
+
+            return
+        }
+        if (!file || file.name.toLowerCase().lastIndexOf('.') === -1) {
+            setState({
+                ...state,
+                validBanner: 'Vui lòng chọn file định dạng là png,jpg'
+            })
+            return
+        }
+        const fileExtension = file.name.split('.').pop().toLowerCase()
+        if (fileExtension !== 'png' && fileExtension !== 'jqg') {
+            setState({
+                ...state,
+                validBanner: 'Vui lòng chọn file định dạng là png,jpg'
+            })
+            return
+        }
+        setState({
+            ...state,
+            banner: URL.createObjectURL(file)
+        })
+
+
+        console.log(ApiService.getAxos());
+
+        ApiService.uploadFile(formData).then((response) => {
+            console.log(response);
+
+        })
+
+
+    }
     return (
         <div className="tab-1">
             <div className="row wow fadeIn">
                 <div className="col-lg-8 mb-sm-20">
                     <div className="field-set">
-                        <h6>Username</h6>
+                        <h6>Tên Designer</h6>
                         <input
                             type="text"
                             name="username"
-                            id="username"
+                            style={{ marginBottom: 0 }}
+                            value={state.name}
+                            onChange={(event) => setState({ ...state, name: event.currentTarget.value, validName: "" })}
+                            className="form-control"
+                        />
+                        <div style={{ color: "red", marginLeft: 3, fontSize: '14px' }}>{state.validName}</div>
+                        <h6 style={{ marginTop: 20 }}>Tài khoản</h6>
+                        <input
+                            type="text"
+                            name="username"
+                            style={{ marginBottom: 0 }}
+                            value={state.email}
+                            onChange={() => { }}
                             className="form-control"
                             placeholder="Enter username"
                         />
-                        <h6>
-                            <i className="fa" /> Password
+
+                        <h6 style={{ marginTop: 20 }}>
+                            <i className="fa" /> Mật khẩu cũ
                         </h6>
                         <input
                             type="password"
                             name="password"
-                            id="twitter_usernam"
                             className="form-control"
-                            placeholder="Enter Password"
+                            style={{ marginBottom: 0 }}
+                            onChange={(event) => setState({ ...state, password: event.currentTarget.value, vaidPassword: "", validConfirmPass: "", validNewPassword: "" })}
+                            value={state.password}
                         />
-                        <h6>
-                            <i className="fa" /> Nhập lại mật khẩu
+                        <div style={{ color: "red", marginLeft: 3, fontSize: '14px' }}>{state.vaidPassword}</div>
+                        <h6 style={{ marginTop: 20 }}>
+                            <i className="fa" /> Mật khẩu mới
                         </h6>
                         <input
                             type="password"
-                            name="instagram_username"
-                            id="instagram_username"
+                            name="password"
                             className="form-control"
-                            placeholder="Enter Password compare"
+                            style={{ marginBottom: 0 }}
+                            onChange={(event) => setState({ ...state, newPassword: event.currentTarget.value, validConfirmPass: "", validNewPassword: "" })}
+                            value={state.newPassword}
                         />
-                        <h6><i className="fa" /> Gmail</h6>
+                        <div style={{ color: "red", marginLeft: 3, fontSize: '14px' }}>{state.validNewPassword}</div>
+                        <h6 style={{ marginTop: 20 }}>
+                            <i className="fa" /> Xác nhận mật khẩu mới
+                        </h6>
+                        <input
+                            type="password"
+                            name="password"
+                            className="form-control"
+                            style={{ marginBottom: 0 }}
+                            onChange={(event) => setState({ ...state, confirmPass: event.currentTarget.value, validConfirmPass: "" })}
+                            value={state.confirmPass}
+                        />
+                        <div style={{ color: "red", marginLeft: 3, fontSize: '14px' }}>{state.validConfirmPass}</div>
+                        <h6 style={{ marginTop: 20 }}><i className="fa" /> Bio</h6>
                         <input
                             type="text"
                             name="email_address"
-                            id="email_address"
                             className="form-control"
-                            placeholder="Enter gmail"
+                            style={{ marginBottom: 0 }}
+                            onChange={(event) => setState({ ...state, bio: event.currentTarget.value, validBio: "" })}
+                            value={state.bio}
                         />
-                        <h6>
-                            <i className="fa" /> Số điện thoại
-                        </h6>
-                        <input
-                            type="text"
-                            name="your_site"
-                            id="your_site"
-                            className="form-control"
-                            placeholder="Enter phone number"
-                        />
+                        <div style={{ color: "red", marginLeft: 3, fontSize: '14px' }}>{state.validBio}</div>
+                    </div>
+                    <div style={{ display: 'flex', marginTop: 50 }}>
 
+                        <div className="field-set" style={{ width: '30%' }}>
+                            <ButtonBase
+                                style={{ borderRadius: 5 }}
+                                onClick={() => onConFirm()}
+                            > {state.on_success}</ButtonBase>
+                            {state.on_loading &&
+                                <LinearProgress
+                                    color='info'
+                                    style={{ width: '95%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                                />
+                            }
+                        </div>
+                        <div className="field-set" style={{ width: '30%', marginLeft: 20 }}>
+                            <Link href='/design'>
+                                <ButtonBase
+                                    style={{ borderRadius: 5 }}
+                                > Quay lại</ButtonBase>
+                            </Link>
+
+
+                        </div>
 
                     </div>
+
                 </div>
                 <div id="sidebar" className="col-lg-4">
                     <h5>
@@ -61,11 +315,13 @@ export const TapEditProfile = () => {
 
                     <div className="profile_avatar">
                         <img
-                            src="images/author/author-2.jpg"
+                            src={state.avatar}
                             alt=""
                         />
                         <i id="click_avatar_img" className="fa fa-edit"></i>
+
                     </div>
+                    <div style={{ color: "red", marginLeft: 3, fontSize: '14px' }}>{state.validAvatar}</div>
                     <input type="file" id="upload_profile_img" />
                     <div className="spacer-30" />
                     <h5>
@@ -73,7 +329,7 @@ export const TapEditProfile = () => {
                     </h5>
                     <div className="profile_avatar" style={{}}>
                         <img
-                            src="images/author_single/author_banner.jpg"
+                            src={state.banner}
                             id=""
                             className=""
                             alt=""
@@ -82,8 +338,10 @@ export const TapEditProfile = () => {
                         <i id="click_banner_img" className="fa fa-edit" style={{ marginLeft: 150 }}></i>
 
                     </div>
-
-                    <input type="file" id="upload_banner_img" />
+                    <div style={{ color: "red", marginLeft: 3, fontSize: '14px' }}>{state.validBanner}</div>
+                    <input type="file" id="upload_banner_img" onChange={(event) => {
+                        handleSeletctFileBanner(event)
+                    }} />
                     <input type="file" id="upload_avatar_img" />
                 </div>
             </div>
