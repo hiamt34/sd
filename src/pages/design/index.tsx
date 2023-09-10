@@ -22,8 +22,6 @@ import { ApiService } from "@/services/api/http";
 const MyProfilePage = () => {
       const designerState = useSelector((state: RootState) => state.designer)
       const dispatch = useDispatch()
-      console.log('app state loading', designerState);
-
       const [productHasBeenSide, setproductHasBeenSide] = useState([1., 2, 3, 4, 5])
       const [productWaitingForSide, settWaitingForSide] = useState([1., 2, 3, 4, 5])
       const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -81,8 +79,9 @@ const MyProfilePage = () => {
                                                                                     <Link href='design/edit-profile'>
                                                                                           <div className="profile_avatar" >
                                                                                                 <img
-                                                                                                      src={designerState.designer.photo}
+                                                                                                      src={designerState.designer.photo.path}
                                                                                                       alt=""
+                                                                                                      style={{ height: '150px', width: '150px' }}
                                                                                                 />
                                                                                                 <i className="fa fa-edit" />
                                                                                           </div>
@@ -98,7 +97,7 @@ const MyProfilePage = () => {
                                                                                                 <span className="profile_username">Mẫu thiết kế: {designerState.designer.count_products}</span>
                                                                                                 <div >
                                                                                                       <span style={{ color: 'black', fontFamily: 'cursive' }}>
-                                                                                                            Wallet : {designerState.designer.money} đ
+                                                                                                            Wallet : {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(designerState.designer.money)}
                                                                                                       </span>
 
                                                                                                 </div>

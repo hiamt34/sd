@@ -1,10 +1,12 @@
+import { FileUpload } from "./upload_file"
+
 export class Designer {
       id: number = 0
       email: string = ""
       provider: string = ""
       firstName: string = ""
-      photo: string = ""
-      banner: string = ""
+      photo: FileUpload = null as any
+      banner: FileUpload = null as any
       bio: string = ""
       money: number = 0
       count_products: number = 0

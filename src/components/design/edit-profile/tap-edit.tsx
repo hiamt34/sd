@@ -8,6 +8,7 @@ import * as fs from 'fs'
 import { Designer, UpdateDesignerDto } from "@/services/api/inteface/designer.interface"
 import { designerAction } from "@/store/designer/designerSlice"
 import { AxiosResponse } from "axios"
+import Config from "@/config"
 interface State {
     name: string
     email: string
@@ -30,16 +31,20 @@ interface State {
     on_success: string
     on_loading: boolean
 
+    avatarUpdate: any
+    bannerUpdate: any
+
 }
 export const TapEditProfile = () => {
     const designerState = useSelector((state: RootState) => state.designer)
     const dispatch = useDispatch()
+
     const [state, setState] = useState<State>({
         name: designerState.designer.firstName,
         email: designerState.designer.email,
         bio: designerState.designer.bio,
-        avatar: designerState.designer.photo,
-        banner: designerState.designer.banner,
+        avatar: designerState.designer.photo.path,
+        banner: designerState.designer.banner.path,
         password: "",
         newPassword: "",
         confirmPass: "",
@@ -52,11 +57,12 @@ export const TapEditProfile = () => {
         validNewPassword: "",
         validConfirmPass: "",
         validBio: "",
+        bannerUpdate: "",
+        avatarUpdate: "",
         on_success: "Cập nhật",
-
         on_loading: false
     })
-    const onConFirm = () => {
+    const onConFirm = async () => {
         setState({
             ...state,
             on_loading: true,
@@ -138,10 +144,42 @@ export const TapEditProfile = () => {
             dataSend.firstName = state.name
         }
         dataSend.bio = state.bio
-        console.log('data send', dataSend);
+        if (state.bannerUpdate !== "") {
+            const bannerFrom = new FormData()
+            bannerFrom.append('file', state.bannerUpdate)
+            const responseUploadBanner = await ApiService.uploadFile(bannerFrom)
+            console.log('upload banner', responseUploadBanner);
 
-        ApiService.updateDesigner(dataSend).then((response) => {
-            console.log(response);
+            if (responseUploadBanner && responseUploadBanner.data.status === 201) {
+                dataSend.banner = { id: responseUploadBanner.data.payload.id }
+            } else {
+                setState({
+                    ...state,
+                    validBanner: 'Upload không thành công'
+                })
+
+            }
+        }
+        if (state.avatarUpdate !== "") {
+            const avatarFrom = new FormData()
+            avatarFrom.append('file', state.avatarUpdate)
+            const responseUploadAvatar = await ApiService.uploadFile(avatarFrom)
+            console.log('upload avatar', responseUploadAvatar);
+
+            if (responseUploadAvatar && responseUploadAvatar.data.status === 201) {
+                dataSend.photo = { id: responseUploadAvatar.data.payload.id }
+            } else {
+                setState({
+                    ...state,
+                    validAvatar: 'Upload không thành công'
+                })
+            }
+
+        }
+        console.log('data send update account', dataSend);
+
+        ApiService.updateDesigner(dataSend).then(async (response) => {
+            console.log('data update', response);
 
             if (response.data.status === 200) {
                 dispatch(designerAction.loginInit(response.data.payload))
@@ -149,6 +187,8 @@ export const TapEditProfile = () => {
                     ...state,
                     name: response.data.payload.firstName,
                     bio: response.data.payload.bio,
+                    avatar: response.data.payload.photo?.path ?? `${Config.apiDomain}${response.data.payload.photo_avatar_default}`,
+                    banner: response.data.payload.banner?.path ?? `${Config.apiDomain}${response.data.payload.photo_banner_default}`,
                     on_loading: false,
                     on_success: "Cập nhật thành công"
                 })
@@ -173,7 +213,7 @@ export const TapEditProfile = () => {
         })
         const file = event.target.files[0];
         const formData = new FormData()
-        formData.append('files', file)
+        formData.append('file', file)
         if (!file) {
 
             return
@@ -195,17 +235,43 @@ export const TapEditProfile = () => {
         }
         setState({
             ...state,
-            banner: URL.createObjectURL(file)
+            banner: URL.createObjectURL(file),
+            bannerUpdate: file
         })
 
-
-        console.log(ApiService.getAxos());
-
-        ApiService.uploadFile(formData).then((response) => {
-            console.log(response);
-
+    }
+    const handleSeletctFileAvatar = (event: any) => {
+        setState({
+            ...state,
+            validAvatar: ''
         })
+        const file = event.target.files[0];
+        const formData = new FormData()
+        formData.append('file', file)
+        if (!file) {
 
+            return
+        }
+        if (!file || file.name.toLowerCase().lastIndexOf('.') === -1) {
+            setState({
+                ...state,
+                validBanner: 'Vui lòng chọn file định dạng là png,jpg'
+            })
+            return
+        }
+        const fileExtension = file.name.split('.').pop().toLowerCase()
+        if (fileExtension !== 'png' && fileExtension !== 'jqg') {
+            setState({
+                ...state,
+                validAvatar: 'Vui lòng chọn file định dạng là png,jpg'
+            })
+            return
+        }
+        setState({
+            ...state,
+            avatar: URL.createObjectURL(file),
+            avatarUpdate: file
+        })
 
     }
     return (
@@ -317,6 +383,8 @@ export const TapEditProfile = () => {
                         <img
                             src={state.avatar}
                             alt=""
+                            style={{ height: '150px', width: '150px' }}
+
                         />
                         <i id="click_avatar_img" className="fa fa-edit"></i>
 
@@ -342,7 +410,7 @@ export const TapEditProfile = () => {
                     <input type="file" id="upload_banner_img" onChange={(event) => {
                         handleSeletctFileBanner(event)
                     }} />
-                    <input type="file" id="upload_avatar_img" />
+                    <input type="file" id="upload_avatar_img" onChange={(event) => handleSeletctFileAvatar(event)} />
                 </div>
             </div>
         </div>

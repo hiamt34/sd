@@ -1804,10 +1804,7 @@
             
             opt.on("click", function() {
                 dd.hide();
-                var txt = $(this).text();
-                opt.removeClass("active");
-                $(this).addClass("active");
-                btn.text(txt);
+               $(this).css("z-index","auto")
             });
     }
 

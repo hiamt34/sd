@@ -1,15 +1,13 @@
 export class Product {
-      id: string = ""
-      user_id: string = ""
+      id: number = 0
+      user_id: number = 0
       status: string = ""
-      imgBefor: string = ""
-      imgDesignBefor: string = ""
-      imgAfter: string = ""
-      imgDesignAfter: string = ""
-      category: Array<string> = []
+      categories: Array<string> = []
+      description: string = ""
       name: string = ""
-      count: number = 0
-      created_at: Date = new Date
+      photo: { id: string } = { id: "" }
+      price: number = 0
+      sale: number = 0
       static createObj = (src?: Partial<Product>): Product => {
             const obj = new Product();
 
@@ -18,4 +16,13 @@ export class Product {
                   ...src,
             };
       };
+}
+
+export interface CreateProductDto {
+      categories: Array<string>
+      name: string
+      photo: {
+            id: string
+      }
+      description: string
 }

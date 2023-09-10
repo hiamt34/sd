@@ -1,6 +1,10 @@
 import Axios, { AxiosResponse } from "axios";
 import { ConfirmEmailDto, Designer, ForgotPassword, LoginDto, RegisterDto, UpdateDesignerDto } from "./inteface/designer.interface";
 import Config from "@/config";
+import { FileUpload } from "./inteface/upload_file";
+import { Category } from "./inteface/category.interface";
+import { CreateProductDto, Product } from "./inteface/product.inteface";
+import { CreateProductDetailDto } from "./inteface/product_detail.interface";
 Axios.defaults.baseURL = Config.apiDomain
 Axios.defaults.headers.common["Content-Type"] = "multipart/form-data"
 Axios.interceptors.response.use(
@@ -23,8 +27,13 @@ export class ApiService {
       static getDesigner = (): Promise<AxiosResponse> => Axios.get(Url.getDesign)
 
 
-      static uploadFile = (data: any): Promise<AxiosResponse> => Axios.post(Url.uploadFile, data, { headers: { ...Axios.defaults.headers.common } })
-      static getAxos = () => Axios.defaults.headers
+      static uploadFile = (data: any): Promise<AxiosResponse<{ payload: FileUpload, status: number, errors: Array<string> }>> => Axios.post(Url.uploadFile, data, { headers: { ...Axios.defaults.headers.common } })
+
+      static getCategory = (): Promise<AxiosResponse<{ payload: Array<Category>, status: number, errors: Array<string> }>> => Axios.get(Url.getCategory)
+
+
+      static createProductDetail = (data: CreateProductDetailDto) => Axios.post(Url.createProductDetail, data)
+      static createProduct = (data: CreateProductDto): Promise<AxiosResponse<{ payload: Product, status: number, errors: Array<string> }>> => Axios.post(Url.createProduct, data)
 }
 
 
@@ -39,4 +48,9 @@ export class Url {
       public static updateDesigner = "api/v1/auth/me"
 
       public static uploadFile = '/api/v1/files/upload'
+
+      public static getCategory = 'api/categorys/all-no-paginate'
+
+      public static createProduct = '/api/products'
+      public static createProductDetail = '/api/products/product-detail'
 }

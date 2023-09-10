@@ -19,3 +19,18 @@ export class ProductDetail {
             };
       };
 }
+export interface CreateProductDetailDto {
+      product_id: number
+      photo_befor: {
+            id: string
+      }
+      photo_design_befor: {
+            id: string
+      }
+      photo_after: {
+            id: string
+      }
+      photo_design_after: {
+            id: string
+      }
+}
