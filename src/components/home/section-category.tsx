@@ -1,7 +1,12 @@
 import { listCategories } from "@/constants/category"
+import { ApiService } from "@/services/api/http"
 import Link from "next/link"
+import { useEffect } from "react"
 
 export const SectionCategory = () => {
+    useEffect(() => {
+        ApiService
+    }, [])
     return (<section id="section-category" className="no-top no-bottom">
         <div className="container">
             <div className="row">

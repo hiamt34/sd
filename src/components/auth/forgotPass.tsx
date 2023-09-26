@@ -85,6 +85,7 @@ export const ForgotPass = (prop: Props) => {
                         </div>
                         <div className="field-set" style={{ marginTop: 20 }}>
                             <ButtonBase
+                                style={{ backgroundColor: 'black' }}
                                 onClick={() => onConfirm()
                                 }
                             >
@@ -118,6 +119,7 @@ export const ForgotPass = (prop: Props) => {
                         </div>
                         <div className="field-set" style={{ marginTop: 20 }}>
                             <ButtonBase
+                                style={{ backgroundColor: 'black' }}
                                 onClick={() => prop.onBack()
                                 }
                             >

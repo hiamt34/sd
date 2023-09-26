@@ -1,54 +1,81 @@
 import { ButtonBase } from "@mui/material"
 import Link from "next/link"
 import { User } from "./product"
-interface props {
-      type: User
+import { ProductDetail, ProductDetailStatus } from "@/services/api/inteface/product_detail.interface"
+import Config from "@/config"
+import { useEffect, useState } from "react";
+interface Props {
+      item: ProductDetail
 }
-export const ProductDetail = (prop: props) => {
+interface State {
+      item: ProductDetail
+}
+export const ProductItemDetail = (props: Props) => {
+      const [state, setState] = useState<State>({
+            item: props.item
+      })
+
+      useEffect(() => {
+            $(".nft__item").mouseenter(function () {
+                  const cover = jQuery(this).find('.nft__item_extra');
+                  cover.css("visibility", "visible");
+                  cover.css("opacity", "1");
+
+            });
+
+            $(".nft__item").mouseleave(function () {
+                  const cover = jQuery(this).find('.nft__item_extra');
+                  cover.css("visibility", "hidden");
+                  cover.css("opacity", "0");
+
+            });
+      }, [])
+
       return (
-            <div className="nft__item style-2">
-                  <h5>Thiết kế số 1</h5>
-                  <div className="nft__item_wrap">
+            <div className="nft__item">
+                  <h5>Thiết kế số {props.item.id}</h5>
+                  <div className="nft__item_wrap" style={{ height: '250px' }}>
                         <div className="nft__item_extra">
-                              <div className="nft__item_buttons">
-                                    <img
-                                          className="lazy"
-                                          src="images/author/author-8.jpg"
-                                          alt=""
-                                    />
-                              </div>
-                        </div>
-                        <Link href={{ pathname: 'products/1' }}>
-                              <div className="d-placeholder" />
                               <img
-                                    src="images/items/anim-4.webp"
-                                    className="lazy nft__item_preview"
+                                    className=""
+                                    src={state.item.photo_after.path}
                                     alt=""
                               />
-                        </Link>
+                        </div>
+                        <img
+                              src={state.item.photo_befor.path}
+                              className=" "
+                              alt=""
+                        />
                   </div>
                   <div className="nft__item_info">
-                        <a href="04_retro-item-details.html">
-                              <h4>Trạng thái: Đang xét duyệt</h4>
-                        </a>
-                        <div className="nft__item_click">
-                              <span />
+                        <div className="d-flex align-items-lg-center">
+                              <h4>Trạng thái: </h4>
+                              <h4 style={{ fontWeight: 1, marginLeft: 3 }}>{props.item.status === ProductDetailStatus.Pending ? " Đang xét duyệt" : " Xét duyệt xong"}</h4>
                         </div>
-                        <div className="nft__item_price">
-                              <ButtonBase
-                                    type="button"
-                                    className="btn-main"
-                                    style={{ margin: 10, borderRadius: 10 }}
-                              >
-                                    Sửa
-                              </ButtonBase>
-                              <ButtonBase
-                                    type="button"
-                                    className="btn-main"
-                                    style={{ margin: 10, borderRadius: 10 }}
-                              >
-                                    Xoá
-                              </ButtonBase>
+
+                        <div className="d-flex col-lg-12 col-md-6 col-sm-6 col-xs-12 justify-content-center">
+                              {/* <div style={{ width: '40%', margin: 5 }}>
+                                    <ButtonBase
+                                          type="button"
+                                          className="btn-main"
+                                          style={{ borderRadius: 10, backgroundColor: 'black' }}
+                                    >
+                                          Sửa
+                                    </ButtonBase>
+
+                              </div>
+
+                              <div style={{ width: '40%', margin: 5 }}>
+                                    <ButtonBase
+                                          type="button"
+                                          className="btn-main"
+                                          style={{ borderRadius: 10, backgroundColor: 'black' }}
+                                    >
+                                          Xoá
+                                    </ButtonBase>
+                              </div> */}
+
                         </div>
 
                   </div>

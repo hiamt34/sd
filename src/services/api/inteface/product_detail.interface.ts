@@ -1,15 +1,13 @@
+import { FileUpload } from "./upload_file"
+
 export class ProductDetail {
       id: string = ""
-      user_id: string = ""
-      status: string = ""
-      imgBefor: string = ""
-      imgDesignBefor: string = ""
-      imgAfter: string = ""
-      imgDesignAfter: string = ""
-      category: Array<string> = []
-      name: string = ""
-      count: number = 0
-      created_at: Date = new Date
+      status: ProductDetailStatus = ProductDetailStatus.Pending
+      photo_befor: FileUpload = null as any
+      photo_design_befor: FileUpload = null as any
+      photo_after: FileUpload = null as any
+      photo_design_after: FileUpload = null as any
+      createdAt: Date = new Date
       static createObj = (src?: Partial<ProductDetail>): ProductDetail => {
             const obj = new ProductDetail();
 
@@ -18,6 +16,10 @@ export class ProductDetail {
                   ...src,
             };
       };
+}
+export enum ProductDetailStatus {
+      Pending = "PENDING",
+      Success = "SUCCESS"
 }
 export interface CreateProductDetailDto {
       product_id: number

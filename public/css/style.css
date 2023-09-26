@@ -11735,14 +11735,14 @@ section.no-padding {
 .owl-next,
 .d-nav-left,
 .d-nav-right {
-    cursor: pointer;
+
     position: absolute;
     top: 37.5%;
     z-index: 100;
     width: 45px;
     height: 45px;
-    background-color: rgba(255, 255, 255, 1.0);
-    border: solid 1px #ccc;
+
+
 }
 
 #items-carousel-big .owl-prev,
@@ -11773,14 +11773,16 @@ section.no-padding {
 
 .owl-prev,
 .d-nav-left {
-    left: -12px;
+    left: -45px;
+    border: 0;
     border-radius: 60px;
     padding-left: 4px;
 }
 
 .owl-next,
 .d-nav-right {
-    right: -12px;
+    right: -45px;
+    border: 0;
     border-radius: 60px;
     padding-right: 4px;
 }
@@ -11789,7 +11791,7 @@ section.no-padding {
 .d-nav-right i {
     position: absolute;
     top: 20px;
-    color: #111111;
+
     font-size: 20px;
     font-weight: bold;
 }
@@ -13604,7 +13606,7 @@ a.read_more i {
 }
 
 .nft_coll:hover img {
-    transform: scale(1.1);
+    /* transform: scale(1.0); */
 }
 
 .nft_coll {
@@ -14175,7 +14177,7 @@ a.read_more i {
 
 
 .nft__item {
-    position: relative;
+
     padding: 20px;
     border: solid 1px #ddd;
     border-radius: 15px;
@@ -15333,7 +15335,8 @@ header:not(.header-light) #quick_search::-webkit-input-placeholder {
     padding: 5px 10px 5px 10px;
     border: solid 1px rgba(0, 0, 0, .2);
     border-top: none;
-    width: 100%;
+    margin-left: 3px;
+    width: 95%;
     font-weight: 400;
 }
 
@@ -15366,6 +15369,13 @@ header:not(.header-light) #quick_search::-webkit-input-placeholder {
 
 .items_filter {
     font-size: 14px;
+}
+
+.hide-spinner::-webkit-outer-spin-button,
+.hide-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
 }
 
 .items_filter .dropdown {

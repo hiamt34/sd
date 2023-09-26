@@ -34,5 +34,8 @@
     "react18-input-otp": "^1.1.4",
     "redux-saga": "^1.2.3",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.5.19"
   }
 }

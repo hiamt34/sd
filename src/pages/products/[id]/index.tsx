@@ -1,20 +1,23 @@
-import { Designer } from "@/components/commons/designer";
-import { Product, User } from "@/components/commons/product";
+
+import { ProductItem, User } from "@/components/commons/product";
 import CustomerLayout from "@/layouts/customer_layouts"
-import { Checkbox, TextField, withStyles } from "@mui/material"
+import { Autocomplete, Checkbox, TextField, withStyles } from "@mui/material"
+import { useRouter } from "next/router";
 
 type IProps = {
     backgroundColor?: string;
 }
 
 const ProductDetailPage = () => {
+
+
     return (
         <CustomerLayout is_no_footer={true} type_class="no-top no-bottom">
             <section id="nft-item-details" aria-label="section" className="sm-mt-0">
                 <div className="container">
                     <div className="row g-5">
                         <div className="col-md-6 text-center">
-                            <div className="d-carousel ">
+                            <div className=" ">
                                 <div
                                     id="item-carousel-big-type-2"
                                     className="owl-carousel wow fadeIn"
@@ -40,12 +43,7 @@ const ProductDetailPage = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="d-arrow-left">
-                                    <i className="fa fa-angle-left" />
-                                </div>
-                                <div className="d-arrow-right">
-                                    <i className="fa fa-angle-right" />
-                                </div>
+
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -86,21 +84,46 @@ const ProductDetailPage = () => {
 
 
                                     <h5>Hãy lựa chọn thiết kế:</h5>
-                                    <div id="collection-carousel-4-cols" className="owl-carousel wow fadeIn">
+                                    <div id="collection-carousel-4-cols" className="owl-carousel wow fadeIn" >
                                         {
-                                            [1, 2, 3, 4, 5, 6,].map((x) => { return (<Product is_show_info={false} is_none_name={false} height={200} name={`Unisex look is the best ${x}`} price={180.000} img={`images/mau_ao/ao_don/aodon-${x}.jpg`} type={User.Customer} />) })
+                                            [1, 2, 3, 4, 5].map((x) => { return (<ProductItem height={200} product_id={1} is_show_info={false} is_none_name={false} name={`Unisex look is the best ${x}`} price={180.000} imgAfter={`images/mau_ao/ao_don/aodon-${x}.jpg`} imgBefor={`images/mau_ao/ao_don/aodon-${x}.jpg`} type={User.Customer} />) })
                                         }
                                     </div>
                                     <br />
-                                    Số lượng: <TextField
-                                        style={{ width: 80 }}
-                                        className=""
-                                        variant="outlined"
-                                        size="small"
-
-                                    />
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <span> Số lượng:</span>
+                                        <input style={{ marginLeft: 10, backgroundColor: '#FAF6F1', paddingLeft: 10, border: 'solid 1px rgba(0, 0, 0, .2)', borderRadius: '10px', height: '40px', width: '10%' }} />
+                                    </div>
                                     <br />
-                                    Size:  X<Checkbox></Checkbox> L<Checkbox></Checkbox> XL<Checkbox></Checkbox>
+
+                                    <div style={{ display: 'flex', alignItems: 'center', width: '80%' }}>
+                                        <span>Size</span>
+                                        <Autocomplete
+
+                                            getOptionLabel={(option) => option}
+                                            options={['X (Cân nặng từ 40-50kg)', 'XL', 'M']}
+
+                                            defaultValue={'X (Cân nặng từ 40-50kg)'}
+                                            // onChange={(event, newValue) => {
+                                            //     if (newValue) {
+                                            //         setState({
+                                            //             ...state,
+                                            //             curent: newValue,
+                                            //             validSubmit: "",
+                                            //             validBank: ""
+                                            //         })
+                                            //         props.onSubmit(newValue)
+                                            //     }
+                                            // }}
+                                            clearIcon={false}
+                                            style={{ backgroundColor: '#FAF6F1', marginLeft: 10 }}
+                                            renderInput={(params) =>
+                                                <div ref={params.InputProps.ref}>
+                                                    <input style={{ backgroundColor: '#FAF6F1', paddingLeft: 10, border: 'solid 1px rgba(0, 0, 0, .2)', borderRadius: '10px', height: '40px' }} {...params.inputProps} />
+                                                </div>}
+                                        />
+                                    </div>
+
                                     <div className="spacer-10" />
 
                                     <br />

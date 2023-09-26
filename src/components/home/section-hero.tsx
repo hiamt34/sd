@@ -56,7 +56,7 @@ export const SectionHero = () => {
                         </div>
                     </div>
                     <div className="col-md-6 xs-hide">
-                        <div className="d-carousel">
+                        <div className="">
                             <div
                                 id="item-carousel-big-type-2"
                                 className="owl-carousel wow fadeIn"

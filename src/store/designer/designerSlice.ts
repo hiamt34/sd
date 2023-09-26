@@ -4,12 +4,13 @@ import { useDispatch } from "react-redux";
 import { Designer } from "@/services/api/inteface/designer.interface";
 import { ApiService } from "@/services/api/http";
 import Config from "@/config";
+import { Category } from "@/services/api/inteface/category.interface";
 export interface DesignerState {
       designer: Designer
       token: string
       is_login: boolean
       loading_app: boolean
-
+      categories: Array<string>
 };
 
 
@@ -17,7 +18,8 @@ let initialState: DesignerState = {
       designer: Designer.createObj(),
       token: localStorageService.getToken(),
       is_login: localStorageService.is_login,
-      loading_app: true
+      loading_app: true,
+      categories: []
 }
 
 const designerSlice = createSlice({
@@ -28,37 +30,42 @@ const designerSlice = createSlice({
                   state.loading_app = false
             },
 
-            loginInit(state, action: PayloadAction<Designer, string>) {
-                  console.log('action', action.payload);
-
-                  state.is_login = true
-                  state.designer = {
-                        ...state.designer,
-                        ...action.payload
-                  }
-
-                  if (action.payload.photo !== null) {
-                        state.designer.photo.path = `${Config.apiDomain}${action.payload.photo.path}`
-
-                  } else {
-                        state.designer.photo = {
-                              id: "",
-                              path: `${Config.apiDomain}/${action.payload.photo_avatar_default}`,
-                              createdAt: "",
-                              user_id: action.payload.id
+            loginInit(state, action: PayloadAction<{ designer: Designer | undefined, categories: Array<string> | undefined }, string>) {
+                  if (action.payload?.designer) {
+                        state.is_login = true
+                        state.designer = {
+                              ...state.designer,
+                              ...action.payload.designer
                         }
-                  }
-                  if (action.payload.banner !== null) {
-                        state.designer.banner.path = `${Config.apiDomain}${action.payload.banner.path}`
-                  } else {
-                        state.designer.banner = {
-                              id: "",
-                              path: `${Config.apiDomain}${action.payload.photo_banner_default}`,
-                              createdAt: "",
-                              user_id: action.payload.id
+
+                        if (action.payload.designer.photo !== null) {
+                              state.designer.photo.path = `${Config.apiDomain}${action.payload.designer.photo.path}`
+
+                        } else {
+                              state.designer.photo = {
+                                    id: "",
+                                    path: `${Config.apiDomain}/${action.payload.designer.photo_avatar_default}`,
+                                    createdAt: "",
+                                    user_id: action.payload.designer.id
+                              }
                         }
+                        if (action.payload.designer.banner !== null) {
+                              state.designer.banner.path = `${Config.apiDomain}${action.payload.designer.banner.path}`
+                        } else {
+                              state.designer.banner = {
+                                    id: "",
+                                    path: `${Config.apiDomain}${action.payload.designer.photo_banner_default}`,
+                                    createdAt: "",
+                                    user_id: action.payload.designer.id
+                              }
+                        }
+                        console.log('Khởi tạo app', state.designer);
+                        return
                   }
-                  console.log('Khởi tạo app', state.designer);
+                  if (action.payload?.categories) {
+                        state.categories = action.payload.categories
+                  }
+
 
 
 
@@ -70,7 +77,7 @@ const designerSlice = createSlice({
 
 
             login(state, action: PayloadAction<{ token: string, user: Designer }, string>) {
-                  localStorageService.setToken(action.payload.token)
+                  localStorageService.setStorage(action.payload.token, action.payload.user.id)
                   state.is_login = true
                   state.token = action.payload.token
                   state.designer = action.payload.user
@@ -95,8 +102,6 @@ const designerSlice = createSlice({
                               user_id: action.payload.user.id
                         }
                   }
-                  console.log("App state after login", state.designer);
-
             }
 
       },

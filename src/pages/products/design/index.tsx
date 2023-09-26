@@ -5,7 +5,7 @@ import DialogCreateOneDesign from "@/components/pogup/create_prod";
 import CustomerLayout from "@/layouts/customer_layouts";
 import { useState } from "react";
 import { ButtonBase } from "@mui/material";
-import { Item } from "@/pages/design/product-detail";
+import { Item } from "@/pages/design/product-detail/[id]";
 
 const DesignPage = () => {
   const [array, setArray] = useState<Array<Item>>([{

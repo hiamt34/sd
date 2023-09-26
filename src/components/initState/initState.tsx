@@ -22,13 +22,15 @@ export const InitState = () => {
         ApiService.setAuthorization(designerState.token)
         ApiService.getDesigner().then((response: AxiosResponse<{ payload: Designer }>) => {
             if (response.status === 200) {
-                console.log(response);
-
-                dispatch(designerAction.loginInit(response.data.payload))
+                dispatch(designerAction.loginInit({ designer: response.data.payload, categories: undefined }))
                 return
             }
             dispatch(designerAction.loginExpire())
-
+        })
+        ApiService.getCategory().then((response) => {
+            if (response.data.status === 200) {
+                dispatch(designerAction.loginInit({ designer: undefined, categories: response.data.payload.map((x) => x.name) }))
+            }
         })
         setTimeout(() => {
             dispatch(designerAction.loadingApp())

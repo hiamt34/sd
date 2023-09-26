@@ -275,7 +275,6 @@
           rewind: true,
           margin: 25,
           nav: true,
-          loop: true,
           animateOut: "fadeOut",
           animateIn: "flipInY",
           navText: [
@@ -304,10 +303,10 @@
           autoplay: true,
           autoplayTimeout: 5000,
           nav: true,
-          loop: true,
+          
           navText: [
-            "<i class='fa fa-chevron-left'></i>",
-            "<i class='fa fa-chevron-right'></i>",
+            "<div class='fa fa-chevron-left'></div>",
+            "<div class='fa fa-chevron-right'></div>",
           ],
           dots: false,
           responsive: {
@@ -502,6 +501,7 @@
             autoplay:true,
             loop:true,
             margin:25,
+            autoplayTimeout: 3200,
             nav:false,
             dots:false,
             responsive:{
@@ -1204,33 +1204,40 @@
              if (iteration > 2) iteration = 1;
              $(this).data('iteration', iteration);
          });
-
-         jQuery(".nft__item_click").on("click", function() {
+//Hover mặt trưỚc áo
+        
+         jQuery(".nft__item").on("mouseenter", function() {
              var iteration = $(this).data('iteration') || 1;
              
-             switch (iteration) {
-                 case 1:
-                     var cover = jQuery(this).parent().parent().find('.nft__item_extra');
-                     cover.css("visibility","visible");
-                     cover.css("opacity","1");
-                     break;
-                 case 2:
-                     var cover = jQuery(this).parent().parent().find('.nft__item_extra');
-                     cover.css("visibility","hidden");
-                     cover.css("opacity","0");
-                     break;
-             }
-             iteration++;
-             if (iteration > 2) iteration = 1;
-             $(this).data('iteration', iteration);
+            //  switch (iteration) {
+            //      case 1:
+                    //  var cover = jQuery(this).parent().parent().find('.nft__item_extra');
+                    //  cover.css("visibility","visible");
+                    //  cover.css("opacity","1");
+                    //  break;
+                
+                    //  var cover = jQuery(this).parent().parent().find('.nft__item_extra');
+                    //  cover.css("visibility","hidden");
+                    //  cover.css("opacity","0");
+                     
+             
+            //  iteration++;
+            //  if (iteration > 2) iteration = 1;
+            //  $(this).data('iteration', iteration);
          });
+        // $(".nft__item" ).mouseenter(function() {
+        //       var cover = jQuery(this).find('.nft__item_extra');
+        //              cover.css("visibility","visible");
+        //              cover.css("opacity","1");
+            
+        //  });
 
-         $( ".nft__item" ).mouseleave(function() {
-            var cover = jQuery(this).find('.nft__item_extra');
-            cover.css("visibility","hidden");
-            cover.css("opacity","0");
-            jQuery(this).find('.nft__item_click').data('iteration', 1);
-         });
+        //  $( ".nft__item" ).mouseleave(function() {
+        //     var cover = jQuery(this).find('.nft__item_extra');
+        //     cover.css("visibility","hidden");
+        //     cover.css("opacity","0");
+            
+        //  });
 
          jQuery(".nft__item_like").on("click", function() {
              var iteration = $(this).data('iteration') || 1;
@@ -1803,8 +1810,11 @@
             })
             
             opt.on("click", function() {
-                dd.hide();
-               $(this).css("z-index","auto")
+               dd.hide();
+               var txt = $(this).text();
+               opt.removeClass("active");
+               $(this).addClass("active");
+                btn.text(txt);
             });
     }
 
@@ -1823,9 +1833,11 @@
         $('.de-preloader').delay(500).fadeOut(500);
          'use strict';
          f_rtl();
+          menu_arrow();
          load_magnificPopup();
          center_xy();
          init_de();
+        
 		 grid_gallery();
          init_resize();
          de_progress();
@@ -1846,9 +1858,9 @@
          image_preview();
          load_owl();  
          $(".jarallax").jarallax();
-        $(function() {
-            $('.lazy').lazy();
-        });
+        // $(function() {
+        //     $('.lazy').lazy();
+        // });
 
          // --------------------------------------------------
          // custom positiion
@@ -2090,7 +2102,7 @@
          video_autosize();
          masonry();
          custom_bg();
-         menu_arrow();
+        
          filter_gallery();
          custom_elements();
          init(); 

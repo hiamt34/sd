@@ -44,11 +44,7 @@ export const Confirm = (props: Props) => {
             })
             return
         }
-        console.log('mail', props.email);
-        console.log('code', otp);
         const confirmEmail = await ApiService.confirmEmail({ email: props.email, code: otp })
-        console.log('confirm', confirmEmail);
-
         if (confirmEmail.status === 200) {
             setState({
                 ...state,
@@ -101,7 +97,7 @@ export const Confirm = (props: Props) => {
                 <ButtonBase
                     onClick={() => onSendOTP()
                     }
-                    style={{ marginTop: 10 }}
+                    style={{ marginTop: 10, backgroundColor: 'black' }}
                 >
                     Xác thực
                 </ButtonBase>

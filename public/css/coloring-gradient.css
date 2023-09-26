@@ -236,10 +236,10 @@ a.btn-main.invert,
 a.btn-line:hover,
 .btn-line.hover,
 a.btn-line.hover,
-.de_form input[type="checkbox"]:checked + label:before,
+.de_form input[type="checkbox"]:checked+label:before,
 .coll_list_pp i,
 #form_sb #btn-submit i,
-.de-switch input[type=checkbox]:checked + label,
+.de-switch input[type=checkbox]:checked+label,
 .nft__item_extra button:hover,
 .nft__item_share a,
 #de-click-menu-notification .d-count,
@@ -247,7 +247,7 @@ a.btn-line.hover,
 .dark-scheme.de-clivus .box-url.style-2,
 #mainmenu ul li a strong,
 .dark-scheme #mainmenu li ul ul li a:hover {
-background: linear-gradient(to right, var(--secondary-color) 0%, var(--secondary-color-2) 100%)
+    background: linear-gradient(to right, var(--secondary-color) 0%, var(--secondary-color-2) 100%)
 }
 
 section.dark {
@@ -324,7 +324,7 @@ header.header-gradient,
     background: rgba(var(--secondary-color-rgb), .3);
 }
 
-.activity-list li:after{
+.activity-list li:after {
     color: rgba(var(--secondary-color-rgb), 1);
 }
 
@@ -335,11 +335,11 @@ header.header-gradient,
     background: rgba(var(--secondary-color-rgb), .1);
 }
 
-.opt-create{
+.opt-create {
     background: rgba(var(--secondary-color-rgb), .03);
 }
 
-.activity-list li{
+.activity-list li {
     background: rgba(var(--secondary-color-rgb), .07);
 }
 
@@ -366,31 +366,31 @@ a.btn-border.btn-invert,
 .form-border select:focus,
 #quick_search:hover,
 .items_filter .dropdown:hover,
-.nft__item_share a:hover{
+.nft__item_share a:hover {
     -webkit-box-shadow: 0px 0px 0px 4px rgba(var(--secondary-color-rgb), .3);
     -moz-box-shadow: 0px 0px 0px 4px rgba(var(--secondary-color-rgb), .3);
     box-shadow: 0px 0px 0px 4px rgba(var(--secondary-color-rgb), .3);
 }
 
 .de-menu-profile:hover img,
-.de-menu-notification:hover{
+.de-menu-notification:hover {
     -webkit-box-shadow: 0px 0px 0px 4px rgba(var(--secondary-color-rgb), .5);
     -moz-box-shadow: 0px 0px 0px 4px rgba(var(--secondary-color-rgb), .5);
     box-shadow: 0px 0px 0px 4px rgba(var(--secondary-color-rgb), .5);
 }
 
 
-a.btn-main.btn-light{
+a.btn-main.btn-light {
     background: rgba(var(--secondary-color-rgb), .2);
 }
 
 
 .nft_attr,
-.wallet-images-group-1 img{
+.wallet-images-group-1 img {
     background: rgba(var(--primary-color-rgb), .05);
 }
 
-.nft_attr:hover{
+.nft_attr:hover {
     background: rgba(var(--secondary-color-rgb), .2);
 }
 

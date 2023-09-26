@@ -1,6 +1,6 @@
 
 import { Paginate } from "@/components/commons/paginate";
-import { Product, User } from "@/components/commons/product";
+import { ProductItem, User } from "@/components/commons/product";
 import LoginPage from "@/pages/design/auth";
 import { FilterMyProfile } from "@/components/design/my-profile.tsx/filter";
 import { TableWallet } from "@/components/design/my-profile.tsx/table";
@@ -9,8 +9,7 @@ import DesignerLayout from "@/layouts/designer_layout";
 import { RootState } from "@/store/store";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
-import { Item } from "./product-detail";
-import { FilterBank } from "@/components/design/my-profile.tsx/filter_bank";
+
 import { Box, ButtonBase, CircularProgress, Icon, LinearProgress, Pagination } from "@mui/material";
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { FilterProduct } from "@/components/commons/filter_product";
@@ -19,15 +18,49 @@ import { designerAction } from "@/store/designer/designerSlice";
 import React, { useEffect, useState } from 'react'
 import { useRef } from 'react';
 import { ApiService } from "@/services/api/http";
+import { Product } from "@/services/api/inteface/product.inteface";
+import { localStorageService } from "@/services/storage";
+import Config from "@/config";
+import { Bank } from "@/services/api/inteface/bank.interface";
+import { RequestPayment } from "@/components/design/my-profile.tsx/payment_request";
+import { ProductItemDetail } from "@/components/commons/product_detail";
+
+interface State {
+      productsAll: Array<Product>,
+      productHasBeenSide: Array<Product>,
+      productWaitingForSide: Array<Product>
+      listBank: Array<Bank>
+      filterMonth: number
+      filterYear: number
+}
 const MyProfilePage = () => {
+      const [state, setState] = useState<State>({
+            productsAll: [],
+            productHasBeenSide: [],
+            productWaitingForSide: [],
+            listBank: [],
+            filterMonth: 0,
+            filterYear: 0
+      })
       const designerState = useSelector((state: RootState) => state.designer)
       const dispatch = useDispatch()
-      const [productHasBeenSide, setproductHasBeenSide] = useState([1., 2, 3, 4, 5])
-      const [productWaitingForSide, settWaitingForSide] = useState([1., 2, 3, 4, 5])
       const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-
       useEffect(() => {
+            let isMounted = true
+
+
+            ApiService.getProduct({ page: 1, pageSize: 20, filter: [`user_id=${localStorageService.user_id}`] }).then((response) => {
+
+                  if (response?.data?.status === 200) {
+                        setState({
+                              ...state,
+                              productsAll: response.data.payload.data,
+                              productHasBeenSide: response.data.payload.data.filter((x) => x.status === "SUCCESS"),
+                              productWaitingForSide: response.data.payload.data.filter((x) => x.status === "PENDING")
+                        })
+                  }
+
+            })
 
       }, [])
       return (
@@ -143,52 +176,113 @@ const MyProfilePage = () => {
                                                                         <div className="de_tab_content">
 
                                                                               <div className="tab-1">
-
-                                                                                    <FilterProduct />
-
+                                                                                    <FilterProduct
+                                                                                          onSelectCategory={(data) => {
+                                                                                                if (data === "Tất cả") {
+                                                                                                      setState({
+                                                                                                            ...state,
+                                                                                                            productHasBeenSide: state.productsAll.filter((x) => x.status === "SUCCESS")
+                                                                                                      })
+                                                                                                      return
+                                                                                                }
+                                                                                                setState({
+                                                                                                      ...state,
+                                                                                                      productHasBeenSide: state.productsAll.filter((x) => x.categories.includes(data) && x.status === "SUCCESS")
+                                                                                                })
+                                                                                          }}
+                                                                                          onSelectTime={(data) => {
+                                                                                                if (data === "DESC") {
+                                                                                                      setState({
+                                                                                                            ...state,
+                                                                                                            productHasBeenSide: state.productHasBeenSide.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+                                                                                                      })
+                                                                                                      return
+                                                                                                }
+                                                                                                setState({
+                                                                                                      ...state,
+                                                                                                      productHasBeenSide: state.productHasBeenSide.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                                                                                                })
+                                                                                          }}
+                                                                                    />
                                                                                     <div className="row">
-                                                                                          {productHasBeenSide.map((x, y) =>
+                                                                                          {state.productHasBeenSide.map((x, y) =>
                                                                                                 <div key={y} className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                                                                                      <Product
+                                                                                                      <ProductItem
+                                                                                                            product_id={x.id}
                                                                                                             is_show_info={true}
                                                                                                             is_none_name={true}
                                                                                                             type={User.Designer}
-                                                                                                            img={`images/mau_ao/ao_don/aodon-${y + 1}.jpg`}
-                                                                                                            name="Unisex Yellow"
+                                                                                                            imgBefor={`${Config.apiDomain}${x.products_item[0].photo_befor.path}`}
+                                                                                                            imgAfter={`${Config.apiDomain}${x.products_item[0].photo_after.path}`}
+                                                                                                            name={x.name}
                                                                                                             price={200.000}
                                                                                                       />
                                                                                                 </div>
                                                                                           )}
+
                                                                                     </div>
                                                                               </div>
                                                                               <div className="tab-2">
-                                                                                    <FilterProduct />
+                                                                                    <FilterProduct
+                                                                                          onSelectCategory={(data) => {
+                                                                                                if (data === "Tất cả") {
+                                                                                                      setState({
+                                                                                                            ...state,
+                                                                                                            productWaitingForSide: state.productsAll.filter((x) => x.status === "PENDING")
+                                                                                                      })
+                                                                                                      return
+                                                                                                }
+                                                                                                setState({
+                                                                                                      ...state,
+                                                                                                      productWaitingForSide: state.productsAll.filter((x) => x.categories.includes(data) && x.status === "SUCCESS")
+                                                                                                })
+                                                                                          }}
+                                                                                          onSelectTime={(data) => {
+                                                                                                if (data === "DESC") {
+                                                                                                      setState({
+                                                                                                            ...state,
+                                                                                                            productWaitingForSide: state.productWaitingForSide.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+                                                                                                      })
+                                                                                                      return
+                                                                                                }
+                                                                                                setState({
+                                                                                                      ...state,
+                                                                                                      productWaitingForSide: state.productWaitingForSide.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+                                                                                                })
+                                                                                          }}
+                                                                                    />
                                                                                     <div className="row">
                                                                                           {
-                                                                                                productWaitingForSide.map((x, y) =>
+                                                                                                state.productWaitingForSide.map((x, y) =>
                                                                                                       <div key={y} className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                                                                                            <Product
+                                                                                                            <ProductItem
+                                                                                                                  product_id={x.id}
                                                                                                                   is_show_info={true}
                                                                                                                   is_none_name={true}
                                                                                                                   type={User.Designer}
-                                                                                                                  img='images/mau_ao/ao_don/aodon-1.jpg'
-                                                                                                                  name="Unisex Yellow"
+                                                                                                                  imgBefor={`${Config.apiDomain}${x.products_item[0].photo_befor.path}`}
+                                                                                                                  imgAfter={`${Config.apiDomain}${x.products_item[0].photo_after.path}`}
+                                                                                                                  name={x.name}
                                                                                                                   price={200.000}
                                                                                                             />
+
                                                                                                       </div>
                                                                                                 )
                                                                                           }
+
+
                                                                                     </div>
                                                                               </div>
 
                                                                               <div className="tab-3">
-                                                                                    <FilterWalletHistory />
-                                                                                    <div className="row">
-                                                                                          <div className="col-md-12" >
 
-                                                                                                <TableWallet />
-                                                                                                <div className="spacer-double" />
-                                                                                                <Pagination className="pagination justify-content-center" count={10} />
+                                                                                    <div className="row">
+                                                                                          <div className="col-md-12" style={{ minHeight: '500px' }}>
+
+                                                                                                <TableWallet
+
+                                                                                                      user_id={designerState.designer.id} />
+
                                                                                           </div>
                                                                                     </div>
                                                                               </div>
@@ -213,65 +307,14 @@ const MyProfilePage = () => {
                                                                         />
                                                                         <div className="modal-body" style={{ margin: 20 }}>
                                                                               <div className="p-3 form-border">
-                                                                                    <h3>Yêu cầU rút tiềN</h3>
-                                                                                    Ví hiện tại <b>300.000 đ</b>
-                                                                                    <br />
-                                                                                    <br />
-                                                                                    <h5>Tài khoản nhận</h5>
-                                                                                    <div className="de-flex">
-                                                                                          <div>Ngân hàng</div>
-                                                                                          <img src='images/icon/mb_bank.png' style={{ height: '40px', width: '100px', borderRadius: '100%' }} />
-                                                                                          <div>
-                                                                                                <FilterBank />
-                                                                                          </div>
-                                                                                    </div>
-                                                                                    <div className="de-flex" style={{ marginTop: 10 }}>
-                                                                                          <div>Số tài khoản</div>
-                                                                                          <div>
-                                                                                                <input
-                                                                                                      className=""
-                                                                                                      style={{ height: 30 }}
-                                                                                                />
-                                                                                          </div>
-                                                                                    </div>
-                                                                                    <div className="de-flex" style={{ marginTop: 10 }}>
-                                                                                          <div>Tên người thụ hưởng</div>
-                                                                                          <div>
-                                                                                                <input
-                                                                                                      className=""
-                                                                                                      style={{ height: 30 }}
-                                                                                                />
-                                                                                          </div>
-                                                                                    </div>
-                                                                                    <div className="de-flex" style={{ marginTop: 10 }}>
-                                                                                          <div>Số tiền rút</div>
-                                                                                          <div>
-                                                                                                <input
-                                                                                                      className=""
-                                                                                                      style={{ height: 30 }}
-                                                                                                />
-                                                                                          </div>
-                                                                                    </div>
-                                                                                    <div className="spacer-single" />
-                                                                                    <a
-                                                                                          href="03_grey-wallet.html"
-                                                                                          target="_blank"
-                                                                                          className="btn-main btn-fullwidth"
-                                                                                    >
-                                                                                          Yêu cầu rút tiền
-                                                                                    </a>
+                                                                                    <RequestPayment curentMoney={designerState.designer.money} onSubmit={() => setState} />
                                                                               </div>
                                                                         </div>
                                                                   </div>
                                                             </div>
                                                       </div>
                                                 </div>
-                                                <DialogCreateOneDesign
-                                                      onSubmit={(data: Item) => console.log(data)}
-                                                      isOpen={isPopupOpen}
-                                                      onClose={() => setIsPopupOpen(false)}
 
-                                                />
                                           </section>
 
                                     </DesignerLayout> : null

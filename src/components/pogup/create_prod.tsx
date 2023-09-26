@@ -1,21 +1,49 @@
-import { Item } from '@/pages/design/product-detail';
-import { ButtonBase, Dialog, DialogContent, DialogTitle } from '@mui/material';
+
+import { ApiService } from '@/services/api/http';
+import { Dialog, DialogContent, DialogTitle, LinearProgress } from '@mui/material';
 import { useRef, useState } from 'react';
 interface props {
       isOpen: boolean
+      product_id: number
       onClose: () => void
-      onSubmit: (data: Item) => void
-}
 
+}
+interface State {
+      imgBefor: string
+      fileBefor: any
+      imgAfter: string
+      fileAfter: any
+      designBefor: string
+      fileDesignBefor: any
+      designAfter: string
+      fileDesignAfter: any,
+      buttonSubmit: string
+      validBefor: string
+      validAfter: string
+      validDesignBefor: string
+      validDesignAfter: string
+}
 const DialogCreateOneDesign = (prop: props) => {
       const imgBeforRef = useRef<HTMLInputElement | null>(null);
       const imgAfterRef = useRef<HTMLInputElement | null>(null);
       const designBeforRef = useRef<HTMLInputElement | null>(null);
       const designAfterRef = useRef<HTMLInputElement | null>(null);
-      const [imgBefor, setImgBefor] = useState("");
-      const [imgAfter, setImgAfter] = useState("");
-      const [designBefor, setDesignBefor] = useState("");
-      const [designAfter, setDesignAfter] = useState("");
+      const [state, setState] = useState<State>({
+            imgBefor: '',
+            fileBefor: {},
+            imgAfter: '',
+            fileAfter: {},
+            designBefor: '',
+            fileDesignBefor: {},
+            designAfter: '',
+            fileDesignAfter: {},
+            buttonSubmit: "Tạo mới",
+            validBefor: "",
+            validAfter: "",
+            validDesignBefor: "",
+            validDesignAfter: ""
+
+      });
 
       const clickUploadFile = (type: string) => {
             switch (type) {
@@ -46,18 +74,26 @@ const DialogCreateOneDesign = (prop: props) => {
       }
 
       const clickCancel = () => {
-            setImgBefor('')
-            setImgAfter('')
-            setDesignBefor('')
-            setDesignAfter('')
+            setState({
+                  imgBefor: '',
+                  fileBefor: {},
+                  imgAfter: '',
+                  fileAfter: {},
+                  designBefor: '',
+                  fileDesignBefor: {},
+                  designAfter: '',
+                  fileDesignAfter: {},
+                  buttonSubmit: "Tạo mới",
+                  validBefor: "",
+                  validAfter: "",
+                  validDesignBefor: "",
+                  validDesignAfter: ""
+            })
             prop.onClose()
       }
 
 
       const handleFileSeclet = (event: any, type: string) => {
-            console.log(type);
-
-
             const file = event.target.files[0];
             if (!file) {
                   return
@@ -66,37 +102,147 @@ const DialogCreateOneDesign = (prop: props) => {
                   return
             }
             const fileExtension: string = file.name.split('.').pop().toLowerCase()
-            console.log(fileExtension === 'jpg');
             if (fileExtension !== 'png' && fileExtension !== 'jpg' && fileExtension !== 'gif') {
                   return
             }
-
-            console.log(2);
-
-            const formData = new FormData()
-            formData.append('files', file)
+            const reader = new FileReader()
             switch (type) {
                   case "Mặt trước":
-                        setImgBefor(URL.createObjectURL(file))
+                        reader.onload = function (e) {
+                              setState({
+                                    ...state,
+                                    validBefor: "",
+                                    imgBefor: e.target?.result as string,
+                                    fileBefor: file
+                              })
+                        }
+                        reader.readAsDataURL(file)
                         break;
                   case "Mặt sau":
-                        setImgAfter(URL.createObjectURL(file))
+                        reader.onload = function (e) {
+                              setState({
+                                    ...state,
+                                    validAfter: "",
+                                    imgAfter: e.target?.result as string,
+                                    fileAfter: file
+                              })
+                        }
+                        reader.readAsDataURL(file)
                         break;
                   case "Hình mặt trước":
-                        setDesignBefor(URL.createObjectURL(file))
+
+                        reader.onload = function (e) {
+                              setState({
+                                    ...state,
+                                    validDesignBefor: "",
+                                    designBefor: e.target?.result as string,
+                                    fileDesignBefor: file
+                              })
+                        }
+                        reader.readAsDataURL(file)
                         break;
                   case "Hình mặt sau":
-                        setDesignAfter(URL.createObjectURL(file))
+                        reader.onload = function (e) {
+                              setState({
+                                    ...state,
+                                    validDesignAfter: "",
+                                    designAfter: e.target?.result as string,
+                                    fileDesignAfter: file
+                              })
+                        }
+                        reader.readAsDataURL(file)
                         break;
             }
 
       }
       let array = [
-            { type: "Mặt trước", img: imgBefor, ref: imgBeforRef },
-            { type: "Mặt sau", img: imgAfter, ref: imgAfterRef },
-            { type: "Hình mặt trước", img: designBefor, ref: designBeforRef },
-            { type: "Hình mặt sau", img: designAfter, ref: designAfterRef }
+            { type: "Mặt trước", img: state.imgBefor, ref: imgBeforRef, valid: state.validBefor },
+            { type: "Mặt sau", img: state.imgAfter, ref: imgAfterRef, valid: state.validAfter },
+            { type: "Hình mặt trước", img: state.designBefor, ref: designBeforRef, valid: state.validDesignBefor },
+            { type: "Hình mặt sau", img: state.designAfter, ref: designAfterRef, valid: state.validDesignAfter }
       ]
+      const onSubmit = async () => {
+            setState({
+                  ...state,
+                  buttonSubmit: 'Đang tạo thiết kế'
+            })
+            if (state.imgBefor === "") {
+                  setState({
+                        ...state,
+                        validBefor: "Vui lòng upload thiết kế"
+                  })
+                  return
+            }
+            if (state.imgAfter === "") {
+                  setState({
+                        ...state,
+                        validAfter: "Vui lòng upload thiết kế"
+                  })
+                  return
+            }
+            if (state.designBefor === "") {
+                  setState({
+                        ...state,
+                        validDesignBefor: "Vui lòng upload thiết kế"
+                  })
+                  return
+            }
+            if (state.designAfter === "") {
+                  setState({
+                        ...state,
+                        validDesignAfter: "Vui lòng upload thiết kế"
+                  })
+                  return
+            }
+            const formData1 = new FormData()
+            formData1.append('file', state.fileBefor)
+            const formData2 = new FormData()
+            formData2.append('file', state.fileAfter)
+            const formData3 = new FormData()
+            formData3.append('file', state.fileDesignBefor)
+            const formData4 = new FormData()
+            formData4.append('file', state.fileDesignAfter)
+            const [file1, file2, file3, file4] = await Promise.all([
+                  ApiService.uploadFile(formData1),
+                  ApiService.uploadFile(formData2),
+                  ApiService.uploadFile(formData3),
+                  ApiService.uploadFile(formData4)
+            ])
+            console.log(file1);
+
+            if (!file1 || !file2 || !file3 || !file4) {
+                  setState({
+                        ...state,
+                        buttonSubmit: "Có lõi xảy ra,vui lòng thử lại"
+                  })
+                  return
+            }
+            ApiService.createProductDetail({
+                  product_id: prop.product_id,
+                  photo_befor: {
+                        id: file1.data.payload.id
+                  },
+                  photo_after: {
+                        id: file2.data.payload.id
+                  },
+                  photo_design_befor: {
+                        id: file3.data.payload.id
+                  },
+                  photo_design_after: {
+                        id: file4.data.payload.id
+                  }
+            }).then((response) => {
+                  if (response.status === 201) {
+                        setState({
+                              ...state,
+                              buttonSubmit: "Tạo thành công"
+                        })
+                        window.location.href = `/design/product-detail/${prop.product_id}`
+                  }
+            })
+
+
+      }
 
 
       return (
@@ -118,17 +264,21 @@ const DialogCreateOneDesign = (prop: props) => {
                                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'dashed', width: '96%', height: '280px' }}>
                                                       {
                                                             x.img === "" &&
-                                                            <button
-                                                                  type="button"
-                                                                  id="get_file"
-                                                                  className="btn-main"
-                                                                  style={{ borderRadius: 10 }}
-                                                                  onClick={() => clickUploadFile(x.type)}
-                                                            >
-                                                                  Upload
-                                                                  <input type="file" id="upload_file" ref={x.ref} onChange={(event) => handleFileSeclet(event, x.type)} />
+                                                            <div className=' d-lg-table'>
+                                                                  <button
+                                                                        type="button"
+                                                                        id="get_file"
+                                                                        className="btn-main"
+                                                                        style={{ borderRadius: 10 }}
+                                                                        onClick={() => clickUploadFile(x.type)}
+                                                                  >
+                                                                        Upload
+                                                                        <input type="file" id="upload_file" ref={x.ref} onChange={(event) => handleFileSeclet(event, x.type)} />
 
-                                                            </button>
+                                                                  </button>
+                                                                  <div style={{ color: "red", marginLeft: 3, fontSize: '14px', display: 'flex', justifyContent: 'center' }}>{x.valid}</div>
+                                                            </div>
+
                                                       }
 
                                                       {
@@ -149,41 +299,34 @@ const DialogCreateOneDesign = (prop: props) => {
 
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 10 }}>
-                              <button
-                                    type="button"
-                                    id="get_file"
-                                    className="btn-main"
-                                    style={{ borderRadius: 10 }}
-                                    onClick={() => {
-                                          prop.onSubmit({
-                                                id: "12345",
-                                                order: 1,
-                                                status: 'Đang phe duyệt',
-                                                imgBefor: array.find((x) => x.type === "Mặt trước áo")?.img as string,
-                                                imgDesignBefor: array.find((x) => x.type === "Hình mặt trước áo")?.img as string,
-                                                imgAfter: array.find((x) => x.type === "Mặt sau áo")?.img as string,
-                                                imgDesignAfter: array.find((x) => x.type === "Hình mặt sau áo")?.img as string,
+                              <div>
+                                    <button
+                                          type="button"
+                                          id="get_file"
+                                          className="btn-main"
+                                          style={{ borderRadius: 5 }}
+                                          onClick={() => {
+                                                onSubmit();
+                                          }}
+                                    >
+                                          {state.buttonSubmit}
 
-                                          });
-                                          prop.onClose();
-                                          setImgBefor('');
-                                          setImgAfter('');
-                                          setDesignBefor('');
-                                          setDesignAfter('');
-                                          array = [{ type: "Mặt trước áo", img: imgBefor, ref: imgBeforRef },
-                                          { type: "Mặt sau áo", img: imgAfter, ref: imgAfterRef },
-                                          { type: "Hình mặt trước áo", img: designBefor, ref: designBeforRef },
-                                          { type: "Hình mặt sau áo", img: designAfter, ref: designAfterRef }]
-                                    }}
-                              >
-                                    Tạo mới
-                              </button>
+                                    </button>
+                                    {
+                                          state.buttonSubmit === "Đang tạo thiết kế" &&
+                                          <LinearProgress
+                                                color='info'
+                                                style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                                          />
+                                    }
+                              </div>
+
                               <button
                                     type="button"
                                     id="get_file"
                                     className="btn-main"
                                     onClick={() => clickCancel()}
-                                    style={{ marginLeft: 20, borderRadius: 10 }}
+                                    style={{ marginLeft: 20, borderRadius: 5 }}
                               >
                                     Thoát
                               </button>

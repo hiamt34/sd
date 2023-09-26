@@ -68,7 +68,6 @@ export const Login = (prop: Props) => {
             email: state.email,
             password: state.password
         })
-        console.log('res', response.data);
         if (response.status === 200) {
 
 
@@ -137,6 +136,7 @@ export const Login = (prop: Props) => {
 
             <div className="field-set" style={{ marginTop: 20 }}>
                 <ButtonBase
+                    style={{ backgroundColor: 'black' }}
                     onClick={() => onLogin()
                     }
                 >

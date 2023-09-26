@@ -93,10 +93,11 @@ export const AppTheme = createTheme({
         MuiButtonBase: {
             styleOverrides: {
                 root: {
-                    minHeight: '40px',
-                    backgroundColor: "black",
+                    minHeight: '30px',
+                    backgroundColor: "",
                     color: 'white',
                     minWidth: '100%',
+
                     lineHeight: '1.2em',
                     textAlign: 'center',
                     outline: '0',

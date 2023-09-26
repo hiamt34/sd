@@ -1,8 +1,15 @@
-import { Product } from "../commons/product"
-import { Designer } from "../commons/designer"
+import { Designer } from "@/services/api/inteface/designer.interface"
+import { DesignerItem } from "../commons/designer"
+import { useEffect, useState } from "react"
+import { ApiService } from "@/services/api/http"
+interface State {
+    desinger: Array<Designer>
+}
 
-
-export const SectionCollections = () => {
+export const SectionDesigner = () => {
+    useEffect(() => {
+        ApiService.getDesigner()
+    }, [])
     return (<section id="section-collections" className="no-bottom">
         <div className="container">
             <div className="row">
@@ -15,7 +22,7 @@ export const SectionCollections = () => {
                 <div id="collection-carousel" className="owl-carousel wow fadeIn">
                     {
                         // eslint-disable-next-line react/jsx-key
-                        [1, 2, 3, 4, 5, 6].map((x) => { return (<Designer img_carosel={`images/carousel/crs-${x}.jpg`} avatar={`images/author/author-${x}.jpg`} />) })
+                        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((x) => { return (<DesignerItem img_carosel={`images/carousel/crs-${x}.jpg`} avatar={`images/author/author-${x}.jpg`} />) })
                     }
                 </div>
             </div>

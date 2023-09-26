@@ -3,7 +3,7 @@ interface props {
     img_carosel: string
     avatar: string
 }
-export const Designer = (prop: props) => {
+export const DesignerItem = (prop: props) => {
     return (
         <div className="nft_coll">
             <div className="nft_wrap">

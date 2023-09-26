@@ -104,7 +104,6 @@ export const Register = (pros: Props) => {
             password: state.password,
             firstName: state.firstName
         })
-        console.log('res', response);
         if (response.status === 201) {
 
             pros.onConfirm(state.email, state.password)
@@ -190,6 +189,7 @@ export const Register = (pros: Props) => {
             <div style={{ color: "red", marginLeft: 3, fontSize: '14px' }}>{state.validRegister}</div>
             <div className="field-set" style={{ marginTop: 20 }}>
                 <ButtonBase
+                    style={{ backgroundColor: 'black' }}
                     onClick={() => onLogin()
                     }
                 >

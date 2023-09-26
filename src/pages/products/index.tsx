@@ -1,39 +1,79 @@
 
-import { Product, User } from "@/components/commons/product"
+import { ProductItem, User } from "@/components/commons/product"
 import { SideBar } from "@/components/products/sidebar"
+import Config from "@/config"
 import CustomerLayout from "@/layouts/customer_layouts"
-import { useState } from "react"
+import { ApiService } from "@/services/api/http"
+import { Product } from "@/services/api/inteface/product.inteface"
+import { Pagination } from "@mui/material"
+import { useEffect, useState } from "react"
 
+interface State {
+    product: Array<Product>
+    page: number
+    pageSize: number,
+    totalItem: number,
+    totalPage: number,
+    filter: Array<string>
+}
 const ProductsPage = () => {
-    const [arr, setArr] = useState([1, 2, 3, 4, 5, 6])
+    const [state, setState] = useState<State>({
+        product: [],
+        page: 0,
+        pageSize: 20,
+        totalItem: 0,
+        totalPage: 0,
+        filter: ['status=SUCCESS']
+    })
+    useEffect(() => {
+        onChangePage(1)
+    }, [])
+    const onChangePage = (page: number) => {
+        ApiService.getProduct({ page: page, pageSize: state.pageSize, filter: state.filter }).then((response) => {
+            if (response?.status === 200) {
+                setState({
+                    ...state,
+                    product: response.data.payload.data,
+                    page: response.data.payload.meta.page,
+                    pageSize: response.data.payload.meta.pageSize,
+                    totalItem: response.data.payload.meta.totalItem,
+                    totalPage: response.data.payload.meta.totalPage
+                })
+            }
+        })
+    }
     return (
         <CustomerLayout>
             <section aria-label="section">
                 <div className="container">
                     <div className="row wow fadeIn">
 
-                        <div className="col-md-9">
+                        <div className="col-md-9 ">
                             <div className="row">
-                                {/* nft item begin */}
-                                {arr.map((x) =>
-                                    <div className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                                        <Product
-                                            is_none_name={true}
+                                {state.product.map((x, y) =>
+                                    <div key={y} className="col-lg-3 col-md-6 col-sm-6 col-xs-12" >
+
+                                        <ProductItem
+                                            is_none_name={false}
                                             type={User.Customer}
-                                            img={`images/mau_ao/ao_doi/aodoi-3.jpg`}
-                                            name="Unisex RedFlag"
+                                            imgAfter={`${Config.apiDomain}${x.products_item[0].photo_befor.path}`}
+                                            imgBefor={`${Config.apiDomain}${x.products_item[0].photo_after.path}`}
+                                            product_id={x.id}
+                                            name={x.name}
                                             price={180.000}
                                         />
                                     </div>
                                 )}
-                                <div className="col-md-12 text-center" style={{ marginTop: 10 }}>
-                                    <a href="#" id="loadmore" className="btn-main wow fadeInUp lead">
-                                        Load more
-                                    </a>
-                                </div>
                             </div>
+                            <Pagination className="pagination justify-content-center" style={{ display: 'flex', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}
+                                page={state.page}
+                                onChange={(event, page) => onChangePage(page)}
+                                count={state.totalPage}
+                            />
                         </div>
-                        <SideBar />
+                        <SideBar
+                            onTick={() => { }}
+                            onCancle={() => { }} />
                     </div>
                 </div>
             </section>

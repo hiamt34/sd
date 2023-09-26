@@ -6,12 +6,14 @@ import { Order } from "./api/inteface/order.interface"
 
 export enum LocalStorageKey {
   Token = "designer",
+  Id = 'tls',
   Order = "order"
 }
 
 class LocalStorageService {
   private token: string = ""
   private order: Array<Order> = []
+  public user_id: number = 0
   private designer: Designer = Designer.createObj()
   public is_login: boolean = false
   constructor() {
@@ -19,24 +21,26 @@ class LocalStorageService {
     if (typeof window === "undefined") {
       return
     }
-    console.log('Khởi tạo instance localstorage')
     if (localStorage.getItem(LocalStorageKey.Token) === null) {
       localStorage.setItem(LocalStorageKey.Token, "")
     }
     if (localStorage.getItem(LocalStorageKey.Order) === null) {
       localStorage.setItem(LocalStorageKey.Order, JSON.stringify([]))
     }
+    if (localStorage.getItem(LocalStorageKey.Id) === null) {
+      localStorage.setItem(LocalStorageKey.Id, "")
+    }
     this.token = localStorage.getItem(LocalStorageKey.Token) ?? ""
     this.order = JSON.parse(localStorage.getItem(LocalStorageKey.Order) ?? "[]")
-    console.log(`Loclstorage có token:${this.token}, order:${this.order}`);
+    this.user_id = parseInt(localStorage.getItem(LocalStorageKey.Id) ?? '0')
     if (this.token !== "") {
       ApiService.setAuthorization(this.token)
       ApiService.getDesigner().then((response) => {
         if (response.status === 200) {
           this.is_login = true
-          this.designer = response.data
+          this.designer = response.data.payload
+          this.user_id = response.data.payload.id
         }
-        console.log('res in localstorage', response);
 
       })
     }
@@ -53,11 +57,12 @@ class LocalStorageService {
   }
 
 
-  public setToken(token: string): void {
+  public setStorage(token: string, user_id: number, order?: any): void {
     if (typeof window === "undefined") {
       return
     }
     localStorage.setItem(LocalStorageKey.Token, token)
+    localStorage.setItem(LocalStorageKey.Id, `${user_id}`)
   }
 
 

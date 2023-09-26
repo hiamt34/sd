@@ -148,7 +148,6 @@ export const TapEditProfile = () => {
             const bannerFrom = new FormData()
             bannerFrom.append('file', state.bannerUpdate)
             const responseUploadBanner = await ApiService.uploadFile(bannerFrom)
-            console.log('upload banner', responseUploadBanner);
 
             if (responseUploadBanner && responseUploadBanner.data.status === 201) {
                 dataSend.banner = { id: responseUploadBanner.data.payload.id }
@@ -164,8 +163,6 @@ export const TapEditProfile = () => {
             const avatarFrom = new FormData()
             avatarFrom.append('file', state.avatarUpdate)
             const responseUploadAvatar = await ApiService.uploadFile(avatarFrom)
-            console.log('upload avatar', responseUploadAvatar);
-
             if (responseUploadAvatar && responseUploadAvatar.data.status === 201) {
                 dataSend.photo = { id: responseUploadAvatar.data.payload.id }
             } else {
@@ -176,19 +173,16 @@ export const TapEditProfile = () => {
             }
 
         }
-        console.log('data send update account', dataSend);
 
         ApiService.updateDesigner(dataSend).then(async (response) => {
-            console.log('data update', response);
-
             if (response.data.status === 200) {
-                dispatch(designerAction.loginInit(response.data.payload))
+                dispatch(designerAction.loginInit(response.data.payload as any))
                 setState({
                     ...state,
                     name: response.data.payload.firstName,
                     bio: response.data.payload.bio,
-                    avatar: response.data.payload.photo?.path ?? `${Config.apiDomain}${response.data.payload.photo_avatar_default}`,
-                    banner: response.data.payload.banner?.path ?? `${Config.apiDomain}${response.data.payload.photo_banner_default}`,
+                    avatar: response.data.payload.photo?.path ? `${Config.apiDomain}${response.data.payload.photo?.path}` : `${Config.apiDomain}${response.data.payload.photo_avatar_default}`,
+                    banner: response.data.payload.banner?.path ? `${Config.apiDomain}${response.data.payload.banner?.path}` : `${Config.apiDomain}${response.data.payload.photo_banner_default}`,
                     on_loading: false,
                     on_success: "Cập nhật thành công"
                 })
@@ -215,18 +209,10 @@ export const TapEditProfile = () => {
         const formData = new FormData()
         formData.append('file', file)
         if (!file) {
-
-            return
-        }
-        if (!file || file.name.toLowerCase().lastIndexOf('.') === -1) {
-            setState({
-                ...state,
-                validBanner: 'Vui lòng chọn file định dạng là png,jpg'
-            })
             return
         }
         const fileExtension = file.name.split('.').pop().toLowerCase()
-        if (fileExtension !== 'png' && fileExtension !== 'jqg') {
+        if (fileExtension !== 'png' && fileExtension !== 'jpg') {
             setState({
                 ...state,
                 validBanner: 'Vui lòng chọn file định dạng là png,jpg'
@@ -243,24 +229,18 @@ export const TapEditProfile = () => {
     const handleSeletctFileAvatar = (event: any) => {
         setState({
             ...state,
-            validAvatar: ''
+            validAvatar: '',
+            validBanner: ""
         })
         const file = event.target.files[0];
+        if (!file) {
+            return
+        }
         const formData = new FormData()
         formData.append('file', file)
-        if (!file) {
-
-            return
-        }
-        if (!file || file.name.toLowerCase().lastIndexOf('.') === -1) {
-            setState({
-                ...state,
-                validBanner: 'Vui lòng chọn file định dạng là png,jpg'
-            })
-            return
-        }
         const fileExtension = file.name.split('.').pop().toLowerCase()
-        if (fileExtension !== 'png' && fileExtension !== 'jqg') {
+        console.log(fileExtension)
+        if (fileExtension !== 'png' && fileExtension !== 'jpg') {
             setState({
                 ...state,
                 validAvatar: 'Vui lòng chọn file định dạng là png,jpg'
@@ -351,7 +331,7 @@ export const TapEditProfile = () => {
 
                         <div className="field-set" style={{ width: '30%' }}>
                             <ButtonBase
-                                style={{ borderRadius: 5 }}
+                                style={{ borderRadius: 5, backgroundColor: 'black' }}
                                 onClick={() => onConFirm()}
                             > {state.on_success}</ButtonBase>
                             {state.on_loading &&
@@ -364,7 +344,7 @@ export const TapEditProfile = () => {
                         <div className="field-set" style={{ width: '30%', marginLeft: 20 }}>
                             <Link href='/design'>
                                 <ButtonBase
-                                    style={{ borderRadius: 5 }}
+                                    style={{ borderRadius: 5, backgroundColor: 'black' }}
                                 > Quay lại</ButtonBase>
                             </Link>
 
