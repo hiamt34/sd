@@ -1,20 +1,29 @@
 import { RootState } from "@/store/store"
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-
+import { useEffect } from "react"
+import { ApiService } from "@/services/api/http"
+import { Category } from "@/services/api/inteface/category.interface"
 interface Prop {
-    onTick: () => void
-    onCancle: () => void
+    onChange: (name: Array<string>) => void
 }
 interface State {
-    category: Array<string>
+    category: Array<Category>
+    filter: Array<string>
 }
 export const SideBar = (props: Prop) => {
-    const appState = useSelector((state: RootState) => state.designer)
-    const dispatch = useDispatch()
     const [state, setState] = useState<State>({
-        category: appState.categories
+        category: [],
+        filter: [],
     })
+    useEffect(() => {
+        ApiService.getCategory().then((response) => {
+            setState({
+                ...state,
+                category: response?.data?.payload
+            })
+        })
+    }, [])
     return (
         <aside className="col-md-3">
             <div className="item_filter_group">
@@ -27,8 +36,23 @@ export const SideBar = (props: Prop) => {
                                     id={`check_cat_${y}`}
                                     type="checkbox"
                                     defaultValue={`check_cat_${y}`}
+                                    onChange={(event) => {
+                                        if (state.filter.includes(x.name)) {
+                                            setState({
+                                                ...state,
+                                                filter: state.filter.filter((z) => z !== x.name)
+                                            })
+                                            props.onChange(state.filter.filter((z) => z !== x.name))
+                                            return
+                                        }
+                                        setState({
+                                            ...state,
+                                            filter: [...state.filter, x.name]
+                                        })
+                                        props.onChange([...state.filter, x.name])
+                                    }}
                                 />
-                                <label htmlFor={`check_cat_${y}`}>{x}</label>
+                                <label htmlFor={`check_cat_${y}`}>{x.name}</label>
                             </div>
                         )
                     }

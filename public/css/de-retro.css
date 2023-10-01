@@ -62,9 +62,10 @@ body.de-retro,
 .owl-next,
 .d-nav-left,
 .d-nav-right {
-    background: #FAF6F1;
+    background: white;
 }
 
+/* #FAF6F1 */
 .de_countdown {
     border-width: 1px;
 }

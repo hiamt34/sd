@@ -411,7 +411,7 @@
         jQuery("#collection-carousel-4-cols").owlCarousel({
             center: false,
             items:4,
-            loop:true,
+           
             autoplay: true,
             autoplayTimeout: 5000,
             margin:25,
@@ -420,7 +420,7 @@
             dots:false,
             responsive:{
                 1000:{
-                    items:4
+                    items:3
                 },
                 800:{
                     items:3
@@ -1433,36 +1433,36 @@
          scrolling();
 
 
-         jQuery(".activity-filter > li").on("click", function() {
-             var iteration = $(this).data('iteration') || 1;
-             switch (iteration) {
-                 case 1:
-                    jQuery('.activity-list > li').hide();                    
-                    if(jQuery(this).hasClass("filter_by_followings")){                        
-                        jQuery('li.act_follow').show();
-                    }else if(jQuery(this).hasClass("filter_by_sales")){                        
-                        jQuery('li.act_sale').show();
-                    }else if(jQuery(this).hasClass("filter_by_offers")){                        
-                        jQuery('li.act_offer').show();
-                    }else if(jQuery(this).hasClass("filter_by_likes")){                        
-                        jQuery('li.act_like').show();
-                    };
-                    jQuery('.activity-filter > li').removeClass('active');
-                    jQuery(this).addClass('active');
-                    break;
-                 case 2:
+        //  jQuery(".activity-filter > li").on("click", function() {
+        //      var iteration = $(this).data('iteration') || 1;
+        //      switch (iteration) {
+        //          case 1:
+        //             jQuery('.activity-list > li').hide();                    
+        //             if(jQuery(this).hasClass("filter_by_followings")){                        
+        //                 jQuery('li.act_follow').show();
+        //             }else if(jQuery(this).hasClass("filter_by_sales")){                        
+        //                 jQuery('li.act_sale').show();
+        //             }else if(jQuery(this).hasClass("filter_by_offers")){                        
+        //                 jQuery('li.act_offer').show();
+        //             }else if(jQuery(this).hasClass("filter_by_likes")){                        
+        //                 jQuery('li.act_like').show();
+        //             };
+        //             jQuery('.activity-filter > li').removeClass('active');
+        //             jQuery(this).addClass('active');
+        //             break;
+        //          case 2:
                      
-                     break;
-             }
-             iteration++;
-             if (iteration > 2) iteration = 1;
-             $(this).data('iteration', iteration);
-         });
+        //              break;
+        //      }
+        //      iteration++;
+        //      if (iteration > 2) iteration = 1;
+        //      $(this).data('iteration', iteration);
+        //  });
 
-         jQuery(".filter__r").on("click", function() {
-            jQuery('.activity-filter > li').removeClass('active');
-            jQuery('.activity-list > li').show();   
-         });
+        //  jQuery(".filter__r").on("click", function() {
+        //     jQuery('.activity-filter > li').removeClass('active');
+        //     jQuery('.activity-list > li').show();   
+        //  });
 
          jQuery(".btn-close").on("click", function() {
              var iteration = $(this).data('iteration') || 1;

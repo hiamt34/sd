@@ -14,29 +14,35 @@ export interface prop {
       is_none_name: boolean
       is_show_info?: boolean
       product_id: number
+      is_choose?: number
 }
 export const ProductItem = (prop: prop) => {
       const clickItem = () => window.location.href = "/"
 
       useEffect(() => {
-            $(".nft_coll").mouseenter(function () {
-                  const cover = jQuery(this).find('.nft__item_extra');
-                  cover.css("visibility", "visible");
-                  cover.css("opacity", "1");
+            setTimeout(() => {
+                  const jquery1 = jQuery(".nft_coll")
+                  jquery1.mouseenter(function () {
+                        const cover = jQuery(this).find('.nft__item_extra');
+                        cover.css("visibility", "visible");
+                        cover.css("opacity", "1");
 
-            });
+                  });
 
-            $(".nft_coll").mouseleave(function () {
-                  const cover = jQuery(this).find('.nft__item_extra');
-                  cover.css("visibility", "hidden");
-                  cover.css("opacity", "0");
+                  const jquery2 = jQuery(".nft_coll")
+                  jquery2.mouseleave(function () {
+                        const cover = jQuery(this).find('.nft__item_extra');
+                        cover.css("visibility", "hidden");
+                        cover.css("opacity", "0");
 
-            });
+                  });
+            }, 100)
+
       }, [])
       return (
             <>
                   {prop.type === User.Customer &&
-                        <div className="nft_coll" style={{ marginBottom: 25, width: '100%' }}>
+                        <div className="" style={{ marginBottom: 25, width: '100%', border: `${prop?.is_choose === 1 ? 'solid 5px rgba(12, 0, 12, .4)' : ''}` }}>
                               <div className="nft_wrap">
                                     <Link href={`/products/${prop.product_id}`}>
                                           <div className="nft__item_extra">
@@ -58,7 +64,7 @@ export const ProductItem = (prop: prop) => {
                               </div>
                               {
                                     prop.is_show_info ??
-                                    <div className="nft_coll_info" style={{ height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <div className="nft_coll_info" style={{ height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'white' }}>
 
                                           <span style={{ color: 'rgb(150, 0, 0)', fontSize: '16px', fontFamily: '', fontWeight: 1, fontStyle: 'oblique' }}>250.000 đ</span>
 

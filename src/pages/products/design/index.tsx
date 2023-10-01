@@ -1,35 +1,18 @@
 
-import { Product, User } from "@/components/commons/product";
+import { User } from "@/components/commons/product";
 
 import DialogCreateOneDesign from "@/components/pogup/create_prod";
 import CustomerLayout from "@/layouts/customer_layouts";
 import { useState } from "react";
 import { ButtonBase } from "@mui/material";
-import { Item } from "@/pages/design/product-detail/[id]";
+import { ProductDetail } from "@/services/api/inteface/product_detail.interface";
+import { Product } from "@/services/api/inteface/product.inteface";
+
 
 const DesignPage = () => {
-  const [array, setArray] = useState<Array<Item>>([{
-    id: '1234',
-    order: 1,
-    imgBefor: "",
-    imgDesignBefor: "",
-    imgAfter: "",
-    imgDesignAfter: "",
-    status: "",
-  },
-  {
-    id: '1234',
-    order: 1,
-    imgBefor: "",
-    imgDesignBefor: "",
-    imgAfter: "",
-    imgDesignAfter: "",
-    status: "",
-  }
-  ])
+  const [array, setArray] = useState<Array<ProductDetail>>([])
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const handleSubmitOneDesign = (data: Item) => {
-    data.order++;
+  const handleSubmitOneDesign = (data: ProductDetail) => {
     setArray([...array, data]);
   }
   return (
@@ -87,12 +70,6 @@ const DesignPage = () => {
           </div>
         </div>
       </section>
-      <DialogCreateOneDesign
-        onSubmit={(data: Item) => handleSubmitOneDesign(data)}
-        isOpen={isPopupOpen}
-        onClose={() => setIsPopupOpen(false)}
-
-      />
     </CustomerLayout>
   );
 };

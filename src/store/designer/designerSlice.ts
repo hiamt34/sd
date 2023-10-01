@@ -11,6 +11,7 @@ export interface DesignerState {
       is_login: boolean
       loading_app: boolean
       categories: Array<string>
+      phone: string
 };
 
 
@@ -19,7 +20,8 @@ let initialState: DesignerState = {
       token: localStorageService.getToken(),
       is_login: localStorageService.is_login,
       loading_app: true,
-      categories: []
+      categories: [],
+      phone: localStorageService.phone
 }
 
 const designerSlice = createSlice({
@@ -28,6 +30,11 @@ const designerSlice = createSlice({
       reducers: {
             loadingApp(state) {
                   state.loading_app = false
+            },
+
+            setPhoneNumber(state, action: PayloadAction<{ phone: string }, string>) {
+                  state.phone = action.payload.phone
+                  localStorageService.setPhoneNumber(action.payload.phone)
             },
 
             loginInit(state, action: PayloadAction<{ designer: Designer | undefined, categories: Array<string> | undefined }, string>) {

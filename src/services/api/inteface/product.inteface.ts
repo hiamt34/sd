@@ -1,6 +1,7 @@
 import { User } from "@/components/commons/product"
 import { FileUpload } from "./upload_file"
 import { ProductDetail } from "./product_detail.interface"
+import { Designer } from "./designer.interface"
 
 export class Product {
       id: number = 0
@@ -9,7 +10,7 @@ export class Product {
       categories: Array<string> = []
       description: string = ""
       name: string = ""
-      user: User = null as any
+      user: Designer = null as any
       photo: FileUpload = null as any
       products_item: Array<ProductDetail> = []
       price: number = 0
@@ -36,6 +37,7 @@ export interface CreateProductDto {
 export interface GetProductDto {
       page: number
       pageSize: number
+      search?: Array<string>
       sort?: string
       filter?: Array<string>
       dateFrom?: string

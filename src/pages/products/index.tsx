@@ -41,6 +41,26 @@ const ProductsPage = () => {
                 })
             }
         })
+
+    }
+    const onfilter = (filter: Array<string>) => {
+        if (filter.length === 0) {
+            onChangePage(1)
+            return
+        }
+        const search = filter.map((x) => `categories=${x}`)
+        ApiService.getProduct({ page: 1, pageSize: state.pageSize, filter: [...state.filter], search: search }).then((response) => {
+            if (response?.status === 200) {
+                setState({
+                    ...state,
+                    product: response.data.payload.data,
+                    page: response.data.payload.meta.page,
+                    pageSize: response.data.payload.meta.pageSize,
+                    totalItem: response.data.payload.meta.totalItem,
+                    totalPage: response.data.payload.meta.totalPage,
+                })
+            }
+        })
     }
     return (
         <CustomerLayout>
@@ -54,13 +74,14 @@ const ProductsPage = () => {
                                     <div key={y} className="col-lg-3 col-md-6 col-sm-6 col-xs-12" >
 
                                         <ProductItem
+                                            height={300}
                                             is_none_name={false}
                                             type={User.Customer}
                                             imgAfter={`${Config.apiDomain}${x.products_item[0].photo_befor.path}`}
                                             imgBefor={`${Config.apiDomain}${x.products_item[0].photo_after.path}`}
                                             product_id={x.id}
                                             name={x.name}
-                                            price={180.000}
+                                            price={x.price}
                                         />
                                     </div>
                                 )}
@@ -72,8 +93,11 @@ const ProductsPage = () => {
                             />
                         </div>
                         <SideBar
-                            onTick={() => { }}
-                            onCancle={() => { }} />
+                            onChange={(filter: Array<string>) => {
+                                onfilter(filter)
+
+                            }}
+                        />
                     </div>
                 </div>
             </section>

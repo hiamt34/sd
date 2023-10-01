@@ -121,7 +121,7 @@ const CreatePage = () => {
                                                 <div className="container">
                                                       <div className="row wow fadeIn">
                                                             <div className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12" >
-                                                                  <ProductItem product_id={state.product.id} name="Anime Blackping" price={180.000} is_none_name={true} height={400} img={state.product.photo?.path} type={User.Designer} />
+                                                                  <ProductItem product_id={state.product.id} name="Anime Blackping" price={180.000} is_none_name={true} height={400} imgBefor={state.product.products_item[0]?.photo_befor?.path} imgAfter={state.product.products_item[0]?.photo_after?.path} type={User.Designer} />
                                                             </div>
                                                             <div className="d-item col-lg-9 col-md-6 col-sm-6 col-xs-12" >
                                                                   <br></br>

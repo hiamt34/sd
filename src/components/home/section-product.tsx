@@ -49,7 +49,7 @@ export const SectionProduct = (props: Props) => {
                     </div>
                     <div id={props.type_carousel} className="owl-carousel wow fadeIn">
                         {
-                            array.map((x, y) => <ProductItem key={y} product_id={1} is_none_name={true} name={""} price={180.000} imgBefor={`${Config.apiDomain}/${state.product.find((z, k) => k === y)?.products_item[0].photo_befor.path}`} imgAfter={`${Config.apiDomain}/${state.product.find((z, k) => k === y)?.products_item[0].photo_after.path}`} type={User.Customer} />)
+                            array.map((x, y) => <ProductItem height={300} key={y} product_id={state.product[y]?.id} is_none_name={true} name={""} price={state.product.find((z, k) => k === y)?.price ?? 250000} imgBefor={`${Config.apiDomain}/${state.product.find((z, k) => k === y)?.products_item[0].photo_befor.path}`} imgAfter={`${Config.apiDomain}/${state.product.find((z, k) => k === y)?.products_item[0].photo_after.path}`} type={User.Customer} />)
                         }
 
                     </div>
