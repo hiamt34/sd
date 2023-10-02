@@ -17,7 +17,7 @@ interface State {
     product?: Product
     productItem?: ProductDetail
     size: string
-    count?: number
+    count: number
     designer?: Designer
     phone?: string
     name?: string,
@@ -284,7 +284,8 @@ const ProductDetailPage = () => {
 
                                     <div style={{ display: 'flex', alignItems: 'center', marginTop: 10 }}>
                                         <span> Số lượng:</span>
-                                        <input
+                                        <button style={{ border: '0px', marginRight: 10, marginLeft: 10 }} onClick={() => setState({ ...state, count: (++state.count) ?? 1 })} className="icon_plus"></button>
+                                        {/* <input
                                             type="number"
                                             onChange={(event) => {
                                                 if (parseInt(event.currentTarget.value) < 1 || !event.currentTarget.value || event.currentTarget.value === '') {
@@ -296,9 +297,19 @@ const ProductDetailPage = () => {
                                                 })
                                             }}
                                             value={state.count}
-                                            style={{ paddingLeft: 10, border: 'solid 1px rgba(0, 0, 0, .2)', borderRadius: '10px', height: '40px', width: '35px', marginLeft: 5 }}
+                                            style={{ border: 'solid 1px rgba(0, 0, 0, .2)', borderRadius: '10px', height: '30px', width: '30px', marginLeft: 5, }}
                                             className="hide-spinner"
-                                        />
+                                        /> */}
+                                        {state.count}
+                                        <button style={{ border: '0px', marginLeft: 10, }} onClick={() => {
+                                            if (state.count === 1) {
+                                                return
+                                            }
+                                            setState({ ...state, count: (state.count - 1) })
+                                        }} className="icon_minus-06"></button>
+
+
+
                                     </div>
 
 
@@ -312,7 +323,7 @@ const ProductDetailPage = () => {
                                                             ...state,
                                                             size: x
                                                         })}
-                                                        style={{ backgroundColor: '#FAF6C1', borderRadius: 5 }}
+                                                        style={{ backgroundColor: 'rgb(240, 240, 240)', borderRadius: 5 }}
                                                     >
                                                         <span style={{ color: 'black' }}>{x}</span>
                                                     </Button>

@@ -74,7 +74,7 @@ const ProductsPage = () => {
                                     <div key={y} className="col-lg-3 col-md-6 col-sm-6 col-xs-12" >
 
                                         <ProductItem
-                                            height={300}
+                                            height={280}
                                             is_none_name={false}
                                             type={User.Customer}
                                             imgAfter={`${Config.apiDomain}${x.products_item[0].photo_befor.path}`}

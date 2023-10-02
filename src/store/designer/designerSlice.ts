@@ -87,6 +87,7 @@ const designerSlice = createSlice({
                   localStorageService.setStorage(action.payload.token, action.payload.user.id)
                   state.is_login = true
                   state.token = action.payload.token
+
                   state.designer = action.payload.user
                   if (action.payload.user.photo !== null) {
                         state.designer.photo.path = `${Config.apiDomain}${action.payload.user.photo.path}`

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect, useState } from "react";
 import { Button, ButtonBase } from "@mui/material";
 import { ApiService } from "@/services/api/http";
-import { Bill } from "@/services/api/inteface/order.interface";
+import { Bill, BillStatus } from "@/services/api/inteface/order.interface";
 import Config from "@/config";
 
 
@@ -24,11 +24,23 @@ const Cutomer = () => {
             ApiService.getOrder(state.phone).then((response) => {
                   setState({
                         ...state,
-                        order: response.data.payload.data
+                        order: response?.data?.payload?.data ?? []
                   })
             })
       }, [])
 
+      const onSearch = () => {
+            if (state.phone.length === 0) {
+                  return
+            }
+            ApiService.getOrder(state.phone).then((response) => {
+                  setState({
+                        ...state,
+                        order: response?.data?.payload?.data ?? []
+                  })
+            })
+
+      }
       return (
             <CustomerLayout >
                   <section aria-label="section">
@@ -41,9 +53,13 @@ const Cutomer = () => {
                                                 <div id="tab_opt_1 " style={{ marginBottom: 20 }}>
                                                       <h6 style={{ marginLeft: 5 }}> Số điện thoại đặt hàng:</h6>
                                                       <div className="d-flex align-items-center">
-                                                            <input style={{ width: '82%' }} value={state.phone} type="text" name="item_price" id="item_price" className="form-control" placeholder="Nhập số điện thoại đặt hàng của bạn" />
+                                                            <input style={{ width: '82%' }} onChange={(event) => setState({
+                                                                  ...state,
+                                                                  phone: event.currentTarget.value
+                                                            })} value={state.phone} type="text" name="item_price" id="item_price" className="form-control" placeholder="Nhập số điện thoại đặt hàng của bạn" />
                                                             <div style={{ width: '150px', marginLeft: 10 }}>
                                                                   <ButtonBase
+                                                                        onClick={() => onSearch()}
                                                                         style={{ backgroundColor: 'black', borderRadius: 5 }}
                                                                         sx={{ height: "37px" }}
                                                                   >
@@ -55,74 +71,58 @@ const Cutomer = () => {
                                                 </div>
                                                 {
                                                       state.order.map((x) =>
-                                                            <li className="act_offer" >
+                                                            <li className={x.status === BillStatus.new ?
+                                                                  "act_check" :
+                                                                  x.status === BillStatus.intransit ?
+                                                                        "act_truck" :
+                                                                        x.status === BillStatus.done ?
+                                                                              "act_offer" :
+                                                                              x.status === BillStatus.reject ?
+                                                                                    "act_close" : ""
+                                                            } >
                                                                   <img src={`${Config.apiDomain}${x.orders[0].product_detail.photo_befor.path}`} alt="" />
                                                                   <div className="act_list_text">
                                                                         <h4></h4>
-                                                                        <a href="#">Size XL  </a> Số lượng: 20
+                                                                        <a href="#">Size {x.orders[0].size}  </a> Số lượng: {x.orders[0].quantity}
                                                                         <span className="act_list_date">
-                                                                              Thời gian đặt: 11/10/2023
+                                                                              Thời gian đặt: {`${(new Date(x.createdAt).getDate())}/${(new Date(x.createdAt).getMonth())}/${(new Date(x.createdAt).getFullYear())}`}
                                                                         </span>
                                                                   </div>
-                                                                  <div className="act_list_text">
-                                                                        <span className="act_list_date">
-                                                                              Trạng thái: <b>Mới</b> <div className=" fa fa-check"></div>
-                                                                        </span>
-                                                                  </div>
+                                                                  {
+                                                                        x.status === BillStatus.new ?
+                                                                              <div className="act_list_text">
+                                                                                    <span className="act_list_date">
+                                                                                          Trạng thái: <b>Mới</b><div className=" fa fa-check"></div>
+                                                                                    </span>
+                                                                              </div> :
+                                                                              x.status === BillStatus.intransit ?
+                                                                                    <div className="act_list_text">
+                                                                                          <span className="act_list_date">
+                                                                                                Trạng thái: <b>Đang giao</b><div className=" fa fa-bus"></div>
+                                                                                          </span>
+                                                                                    </div> :
+                                                                                    x.status === BillStatus.done ?
+                                                                                          <div className="act_list_text">
+                                                                                                <span className="act_list_date">
+                                                                                                      Trạng thái: <b>Hoàn thành</b><div className=" fa fa-gavel"></div>
+                                                                                                </span>
+                                                                                          </div> :
+                                                                                          x.status === BillStatus.reject ?
+                                                                                                <div className="act_list_text">
+                                                                                                      <span className="act_list_date">
+                                                                                                            Trạng thái: <b>Đã huỷ</b><div className=" fa fa-close"></div>
+                                                                                                      </span>
+                                                                                                </div> : null
+                                                                  }
+
                                                             </li>
                                                       )
                                                 }
-
-
-                                                {/* <li className="act_check">
-                                                      <img src="images/mau_ao/ao_doi/aodoi-2.jpg" alt="" />
-                                                      <div className="act_list_text">
-                                                            <h4>Áo đôi blackping</h4>
-                                                            <a href="#">Size X  </a> Số lượng: 40
-                                                            <span className="act_list_date">
-                                                                  Thời gian đặt: 12/12/2023
-                                                            </span>
-                                                            <span className="act_list_date">
-                                                                  Trạng thái: <b>Đang giao</b> <div className=" fa fa-bus"></div>
-                                                            </span>
-                                                      </div>
-
-                                                </li>
-                                                <li className="act_truck">
-                                                      <img src="images/mau_ao/ao_doi/aodoi-2.jpg" alt="" />
-                                                      <div className="act_list_text">
-                                                            <h4>Áo đôi blackping</h4>
-                                                            <a href="#">Size X  </a> Số lượng: 40
-                                                            <span className="act_list_date">
-                                                                  Thời gian đặt: 12/12/2023
-                                                            </span>
-                                                            <span className="act_list_date">
-                                                                  Trạng thái: <b>Đang giao</b> <div className=" fa fa-bus"></div>
-                                                            </span>
-                                                      </div>
-
-                                                </li>
-                                                <li className="act_close">
-                                                      <img src="images/mau_ao/ao_doi/aodoi-2.jpg" alt="" />
-                                                      <div className="act_list_text">
-                                                            <h4>Áo đôi blackping</h4>
-                                                            <a href="#">Size X  </a> Số lượng: 40
-                                                            <span className="act_list_date">
-                                                                  Thời gian đặt: 12/12/2023
-                                                            </span>
-                                                            <span className="act_list_date">
-                                                                  Trạng thái: <b>Đang giao</b> <div className=" fa fa-bus"></div>
-                                                            </span>
-                                                      </div>
-
-                                                </li> */}
-
                                           </ul>
                                     </div>
 
-                                    <div className="col-md-4" style={{ marginTop: 26 }}>
-                                          <span className="filter__l">Trạng thái đơn hàng</span>
-                                          <div className="spacer-half" style={{ marginTop: 20 }}></div>
+                                    <div className="col-md-4">
+                                          <div className="spacer-half" style={{ marginTop: 10 }}></div>
                                           <div className="clearfix"></div>
                                           <ul className="activity-filter">
                                                 <li><i className="fa fa-check"></i>Mới</li>

@@ -12,26 +12,57 @@ interface Props {
 }
 interface State {
     product: Array<Product>
+    show: boolean
 }
 export const SectionProduct = (props: Props) => {
-    let array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     const [state, setState] = useState<State>({
-        product: []
+        product: [],
+        show: false
     })
 
     useEffect(() => {
 
         ApiService.getProduct({
             page: 1,
-            pageSize: 20,
+            pageSize: 30,
             filter: ['status=SUCCESS'],
         }).then((response) => {
             if (response.status === 200) {
                 setState({
                     ...state,
-                    product: response.data.payload.data
+                    product: response.data.payload.data,
+                    show: true
                 })
 
+                setTimeout(() => {
+                    const jquery = jQuery(`#${props.type_carousel}`) as any
+                    jquery.owlCarousel({
+                        center: false,
+                        items: 5,
+                        rewind: true,
+                        margin: 25,
+                        autoplay: true,
+                        autoplayTimeout: 5000,
+                        nav: true,
+
+                        navText: [
+                            "<div class='fa fa-chevron-left'></div>",
+                            "<div class='fa fa-chevron-right'></div>",
+                        ],
+                        dots: false,
+                        responsive: {
+                            1000: {
+                                items: 5,
+                            },
+                            600: {
+                                items: 2,
+                            },
+                            0: {
+                                items: 1,
+                            },
+                        },
+                    });
+                }, 100)
             }
         })
 
@@ -47,12 +78,16 @@ export const SectionProduct = (props: Props) => {
                             <div className="small-border bg-color-2" />
                         </div>
                     </div>
-                    <div id={props.type_carousel} className="owl-carousel wow fadeIn">
-                        {
-                            array.map((x, y) => <ProductItem height={300} key={y} product_id={state.product[y]?.id} is_none_name={true} name={""} price={state.product.find((z, k) => k === y)?.price ?? 250000} imgBefor={`${Config.apiDomain}/${state.product.find((z, k) => k === y)?.products_item[0].photo_befor.path}`} imgAfter={`${Config.apiDomain}/${state.product.find((z, k) => k === y)?.products_item[0].photo_after.path}`} type={User.Customer} />)
-                        }
+                    {
+                        state.show &&
+                        <div id={props.type_carousel} className="owl-carousel wow fadeIn" style={{ visibility: 'visible' }}>
+                            {
+                                state.product.map((x, y) => <ProductItem height={280} key={y} product_id={state.product[y]?.id} is_none_name={true} name={""} price={state.product.find((z, k) => k === y)?.price ?? 250000} imgBefor={`${Config.apiDomain}/${state.product.find((z, k) => k === y)?.products_item[0].photo_befor.path}`} imgAfter={`${Config.apiDomain}/${state.product.find((z, k) => k === y)?.products_item[0].photo_after.path}`} type={User.Customer} />)
+                            }
 
-                    </div>
+                        </div>
+                    }
+
                 </div>
             </div>
         </section>

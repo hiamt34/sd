@@ -1,4 +1,5 @@
 import { navLink } from "@/constants/link.constants"
+import { localStorageService } from "@/services/storage"
 import { ButtonBase } from "@mui/material"
 import Link from "next/link"
 interface Props {
@@ -69,7 +70,10 @@ const Header = (prop: Props) => {
 
                                             </li>
                                             <li>
-                                                <Link href="" onClick={() => window.location.href = '/design/auth'} className="">
+                                                <Link href="" onClick={() => {
+                                                    localStorageService.setStorage("", 0)
+                                                    window.location.href = '/design/auth'
+                                                }} className="">
                                                     Đăng xuất
                                                     <span />
                                                 </Link>

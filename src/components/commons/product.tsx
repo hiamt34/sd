@@ -20,29 +20,29 @@ export const ProductItem = (prop: prop) => {
       const clickItem = () => window.location.href = "/"
 
       useEffect(() => {
-            setTimeout(() => {
-                  const jquery1 = jQuery(".nft_coll")
-                  jquery1.mouseenter(function () {
-                        const cover = jQuery(this).find('.nft__item_extra');
-                        cover.css("visibility", "visible");
-                        cover.css("opacity", "1");
 
-                  });
+            const jquery1 = jQuery(".nft_coll")
+            jquery1.mouseenter(function () {
+                  const cover = jQuery(this).find('.nft__item_extra');
+                  cover.css("visibility", "visible");
+                  cover.css("opacity", "1");
 
-                  const jquery2 = jQuery(".nft_coll")
-                  jquery2.mouseleave(function () {
-                        const cover = jQuery(this).find('.nft__item_extra');
-                        cover.css("visibility", "hidden");
-                        cover.css("opacity", "0");
+            });
 
-                  });
-            }, 100)
+            const jquery2 = jQuery(".nft_coll")
+            jquery2.mouseleave(function () {
+                  const cover = jQuery(this).find('.nft__item_extra');
+                  cover.css("visibility", "hidden");
+                  cover.css("opacity", "0");
+
+            });
+
 
       }, [])
       return (
             <>
                   {prop.type === User.Customer &&
-                        <div className="" style={{ marginBottom: 25, width: '100%', border: `${prop?.is_choose === 1 ? 'solid 5px rgba(12, 0, 12, .4)' : ''}` }}>
+                        <div className="nft_coll" style={{ marginBottom: 25, width: '100%', border: `${prop?.is_choose === 1 ? 'solid 5px rgba(12, 0, 12, .4)' : ''}` }}>
                               <div className="nft_wrap">
                                     <Link href={`/products/${prop.product_id}`}>
                                           <div className="nft__item_extra">

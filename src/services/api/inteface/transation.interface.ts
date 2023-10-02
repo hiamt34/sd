@@ -1,3 +1,4 @@
+import { Order } from "./order.interface"
 import { GetProductDto } from "./product.inteface"
 
 export class Transaction {
@@ -15,6 +16,7 @@ export class Transaction {
             }
       bank_id: number = 0
       bank_username: string = ""
+      order: Order = {} as any
       createdAt: string = ""
       static createObj = (src?: Partial<Transaction>): Transaction => {
             const obj = new Transaction();

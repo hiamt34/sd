@@ -1,20 +1,45 @@
 
-import { User } from "@/components/commons/product";
+import { ProductItem, User } from "@/components/commons/product";
 
 import DialogCreateOneDesign from "@/components/pogup/create_prod";
 import CustomerLayout from "@/layouts/customer_layouts";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ButtonBase } from "@mui/material";
 import { ProductDetail } from "@/services/api/inteface/product_detail.interface";
 import { Product } from "@/services/api/inteface/product.inteface";
+import { Designer } from "@/services/api/inteface/designer.interface";
+import Config from "@/config";
+import { ApiService } from "@/services/api/http";
 
-
+interface State {
+  designer: Designer
+  product: Array<Product>
+}
 const DesignPage = () => {
-  const [array, setArray] = useState<Array<ProductDetail>>([])
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const handleSubmitOneDesign = (data: ProductDetail) => {
-    setArray([...array, data]);
-  }
+  const [state, setState] = useState<State>({
+    designer: {} as any,
+    product: []
+  })
+
+
+  useEffect(() => {
+    const url = window?.location?.href
+    const match = url.match(/products\/design\/(\d+)$/) ?? [];
+    ApiService.getListDesigner({ page: 1, pageSize: 1, filter: [`id=${parseInt(match[1])}`] }).then((response) => {
+      if (response.status === 200) {
+        setState({
+          ...state,
+          designer: response.data.payload.data[0]
+        })
+      }
+    })
+    ApiService.getProduct({ page: 1, pageSize: 50, filter: [`user_id=${parseInt(match[1])}`] }).then((response) => {
+      setState({
+        ...state,
+        product: response.data.payload.data
+      })
+    })
+  }, [])
   return (
     <CustomerLayout type_class="no-bottom">
       <section aria-label="section" className="pt40">
@@ -31,10 +56,10 @@ const DesignPage = () => {
 
                     <div className="profile_name">
                       <h4>
-                        Đinh Thiện Quang
-                        <span className="profile_username">Designer số 1 việt nam</span>
+                        {state.designer?.firstName}
+                        <span className="profile_username"></span>
                         <span id="wallet" className="profile_wallet">
-                          Mẫu thiết kế :120
+                          Mẫu thiết kế :{state.designer.count_products ?? 0}
                         </span>
                       </h4>
                     </div>
@@ -49,17 +74,22 @@ const DesignPage = () => {
                   <div className="tab-2">
                     <div className="row">
 
-                      {array.map((x) =>
-                        <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-                          <Product
+                      {state.product.map((x, y) =>
+                        <div key={y} className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                          <ProductItem
+                            product_id={x.id}
+                            is_show_info={true}
                             is_none_name={true}
                             type={User.Customer}
-                            img='images/mau_ao/ao_don/aodon-1.jpg'
-                            name="Free style Blue"
-                            price={180.000}
+                            imgBefor={`${Config.apiDomain}${x.products_item[0].photo_befor.path}`}
+                            imgAfter={`${Config.apiDomain}${x.products_item[0].photo_after.path}`}
+                            name={x.name}
+                            price={200.000}
                           />
                         </div>
                       )}
+
+
 
 
                     </div>

@@ -49,7 +49,7 @@ const MyProfilePage = () => {
             let isMounted = true
 
 
-            ApiService.getProduct({ page: 1, pageSize: 20, filter: [`user_id=${localStorageService.user_id}`] }).then((response) => {
+            ApiService.getProduct({ page: 1, pageSize: 20, filter: [`user_id=${designerState.designer.id}`] }).then((response) => {
 
                   if (response?.data?.status === 200) {
                         setState({

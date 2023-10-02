@@ -1,8 +1,10 @@
 import { FilterWalletHistory } from '@/components/commons/filter_wallet'
 import { ApiService } from '@/services/api/http'
 import { GetTranSactionDto, Transaction, TransactionStatus, TransactionType } from '@/services/api/inteface/transation.interface'
+import { RootState } from '@/store/store'
 import { Pagination } from '@mui/material'
 import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 interface Props {
     user_id: number
 }
@@ -25,8 +27,10 @@ export const TableWallet = (props: Props) => {
         filterMonth: 0,
         filterYear: (new Date()).getFullYear()
     })
+    const designerState = useSelector((state: RootState) => state.designer)
+    const dispatch = useDispatch()
     useEffect(() => {
-        ApiService.getTransactions({ page: 1, pageSize: 5, filter: [`user_id=${props.user_id}`] }).then((response) => {
+        ApiService.getTransactions({ page: 1, pageSize: 5 }).then((response) => {
             if (response.data?.status === 200) {
                 setState({
                     ...state,
@@ -188,7 +192,7 @@ export const TableWallet = (props: Props) => {
                             <tr key={y}>
                                 <td>{`${new Date(x.createdAt).getDate()}/${new Date(x.createdAt).getMonth() + 1}/${new Date(x.createdAt).getFullYear()}`}</td>
                                 <td>{x.user_id}</td>
-                                <td>{x.order_id ?? 5}</td>
+                                <td>{x?.order?.quantity ?? ""}</td>
                                 <td className={x.type === TransactionType.Cashout ? "d-min" : "d-plus"}>{x.type === TransactionType.Cashout ? `-${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x.money)}` : `+${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(x.money)}`}</td>
                                 <td>{x.status === TransactionStatus.Pending ? "Đang thực hiện" : "Thành công"}</td>
                                 <td>{x.note}</td>

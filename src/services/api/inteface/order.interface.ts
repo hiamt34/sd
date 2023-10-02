@@ -15,6 +15,7 @@ export class Bill {
             name: string
       } = {} as any
       orders: Order[] = []
+      createdAt: string = ""
 
 
       static createObj = (src?: Partial<Bill>): Bill => {

@@ -38,6 +38,8 @@ export class ApiService {
       static getDesigner = (): Promise<AxiosResponse<{ payload: Designer, status: number, errors: Array<string> }>> => Axios.get(Url.getDesign)
 
 
+      static getListDesigner = (data: GetProductDto): Promise<AxiosResponse<{ payload: { data: Array<Designer> }, status: number, errors: Array<string> }>> => Axios.get(Url.getListDesigner(data))
+
       static uploadFile = (data: any): Promise<AxiosResponse<{ payload: FileUpload, status: number, errors: Array<string> }>> => Axios.post(Url.uploadFile, data, { headers: { ...Axios.defaults.headers.common } })
 
       static getCategory = (): Promise<AxiosResponse<{ payload: Array<Category>, status: number, errors: Array<string> }>> => Axios.get(Url.getCategory)
@@ -75,7 +77,6 @@ export class Url {
       public static uploadFile = '/api/v1/files/upload'
 
       public static getCategory = 'api/categorys/all-no-paginate'
-      public static getListDessign = ''
 
       public static createProduct = '/api/products'
       public static createProductDetail = '/api/products/product-detail'
@@ -94,5 +95,7 @@ export class Url {
       public static CreateOrder = 'api/bills/checkout'
 
       public static getOrder = (phone: string) => `api/bills?filter=phone=${phone}`
+
+      public static getListDesigner = (data: GetProductDto): string => `api/v1/users?page=${data.page}&pageSize=${data.pageSize}${data?.filter ? `&filter=${data.filter.join(',')}` : ""}${data?.sort ? `&sort=${data.sort}` : ''}${data?.search ? `${data.search.map((x) => `&search=${x}`).join(',')}` : ''}`
 
 }
