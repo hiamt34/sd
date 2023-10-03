@@ -1,15 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee&amp;family=Roboto+Slab:wght@100;200;300;400;500;600;700&amp;display=swap');
 
-body,p,#mainmenu,#mainmenu *,#quick_search,.profile_username, .profile_wallet, .nft_attr h4, .nft_attr h5{
+body,
+p,
+#mainmenu,
+#mainmenu *,
+#quick_search,
+.profile_username,
+.profile_wallet,
+.nft_attr h4,
+.nft_attr h5 {
     font-family: "Roboto Slab";
     font-weight: 400;
 }
 
-.profile_username, .profile_wallet, .nft_attr h4, .nft_attr h5{
+.profile_username,
+.profile_wallet,
+.nft_attr h4,
+.nft_attr h5 {
     font-weight: bold;
 }
 
-.de-retro .icon-box.style-2:hover i, .de-retro .icon-box.style-2:hover span,a.btn-main:hover{
+.de-retro .icon-box.style-2:hover i,
+.de-retro .icon-box.style-2:hover span,
+a.btn-main:hover {
     color: #0d0c22;
 }
 
@@ -45,21 +58,25 @@ body.de-retro,
 .de-retro header.scroll-light,
 .de-retro #content,
 #mainmenu ul,
-.owl-prev, .owl-next, .d-nav-left, .d-nav-right{
-background: #FAF6F1;
+.owl-prev,
+.owl-next,
+.d-nav-left,
+.d-nav-right {
+    background: white;
 }
 
-.de_countdown{
+/* #FAF6F1 */
+.de_countdown {
     border-width: 1px;
 }
 
 .de-retro footer,
-.de-retro footer .widget a:hover{
+.de-retro footer .widget a:hover {
     color: #ffffff;
 }
 
 .de-retro .nft__item,
-.de-retro .nft_coll,
+.de-retro,
 .de-retro .nft_pic.style-2,
 .de-retro .box-url,
 .de-retro .box-url-label,
@@ -78,9 +95,9 @@ a.btn-main:hover,
     border: solid 1px #888;
     background: #FDFBF8;
     border-radius: 0;
-    box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.09);
-    -webkit-box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.09);
-    -moz-box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.09);
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
+    -webkit-box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
+    -moz-box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 }
 
 .nft_coll_pp img,
@@ -90,23 +107,23 @@ a.btn-main:hover,
 .de-retro .nft_pic,
 .de-retro .nft_pic.style-2,
 .nft_img_preview,
-.p_list_pp img{
+.p_list_pp img {
     border: solid 2px #333;
-     box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.09);
-    -webkit-box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.09);
-    -moz-box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.09);
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
+    -webkit-box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
+    -moz-box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 }
 
 .de-menu-profile img,
-.de-menu-notification{
+.de-menu-notification {
     border: solid 1px #333;
-     box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.09);
-    -webkit-box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.09);
-    -moz-box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.09);
+    box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
+    -webkit-box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
+    -moz-box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
 }
 
 
-.de-retro .de_tab.tab_simple .de_nav li.active span{
+.de-retro .de_tab.tab_simple .de_nav li.active span {
     padding-top: 9px;
     padding-bottom: 9px;
 }
@@ -115,18 +132,18 @@ a.btn-main:hover,
 .de-retro .box-url-label,
 #form_quick_search input[type=text],
 #form_quick_search i,
-.de-retro .activity-filter li
-{
-     box-shadow: none;
+.de-retro .activity-filter li {
+    box-shadow: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
 }
 
-#subheader{
-    padding: 120px 0 80px 0; 
+#subheader {
+    padding: 120px 0 80px 0;
 }
+
 .de-retro header.border-bottom,
-#subheader{
+#subheader {
     border-bottom: solid 1px #ccc !important;
 }
 
@@ -139,7 +156,13 @@ a.btn-main:hover,
 .d-create-file,
 #mainmenu ul,
 .de_tab.tab_methods .de_nav li span,
-.form-border input[type=text], .form-border textarea, .form-underline input[type=email], .form-border input[type=password], .form-border input[type=date], .form-border select,.dropdown>a,
+.form-border input[type=text],
+.form-border textarea,
+.form-underline input[type=email],
+.form-border input[type=password],
+.form-border input[type=date],
+.form-border select,
+.dropdown>a,
 .de-retro .item_filter_group,
 .de-retro .de_tab.tab_simple .de_nav li.active span,
 .item_info_counts>div,
@@ -148,17 +171,17 @@ a.btn-main:hover,
 #form_sb input[type=text],
 #form_sb #btn-submit i,
 #form_quick_search #btn-submit i,
-.de_form input[type="checkbox"] + label:before {
+.de_form input[type="checkbox"]+label:before {
     border-radius: 0;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
 }
 
-.de-retro .rounded{
+.de-retro .rounded {
     border-radius: 0 !important;
 }
 
-.de-retro .nft_coll .nft_wrap img{
+.de-retro .nft_coll .nft_wrap img {
     padding-bottom: 0;
 }
 
@@ -169,25 +192,23 @@ a.btn-main:focus,
 a.btn-main:visited,
 .btn-main,
 input[type=button].btn-main,
-#quick_search{
+#quick_search {
     border-radius: 0px;
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
 }
 
-.nft__item_extra{
+.nft__item_extra {
     background: #FDFBF8;
-    transform: scale(1.1);
+    transform: scale(1.0);
 }
 
-@media(min-width:980px){
-    #mainmenu ul{
-         border: solid 1px #888;
+@media(min-width:980px) {
+    #mainmenu ul {
+        border: solid 1px #888;
         border-radius: 0;
-        box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.09);
-        -webkit-box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.09);
-        -moz-box-shadow: 6px 6px 0px 0px rgba(0,0,0,0.09);
+        box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
+        -webkit-box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
+        -moz-box-shadow: 6px 6px 0px 0px rgba(0, 0, 0, 0.09);
     }
 }
-
-

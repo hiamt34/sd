@@ -30,6 +30,7 @@ const Document = () => {
                 <link href="css/de-retro.css" rel="stylesheet" type="text/css" />
                 <link id="colors" href="css/colors/scheme-05.css" rel="stylesheet" type="text/css" />
                 <link href="css/coloring.css" rel="stylesheet" type="text/css" />
+
             </Head>
             <body className="de-retro">
                 <Main />

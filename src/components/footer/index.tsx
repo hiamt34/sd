@@ -9,108 +9,63 @@ const Footer = ({ }) => {
                 <div className="row">
                     <div className="col-md-3 col-sm-6 col-xs-1">
                         <div className="widget">
-                            <h5>Marketplace</h5>
+                            <h5>Danh mục</h5>
                             <ul>
                                 <li>
-                                    <a href="#">All NFTs</a>
+                                    <a href="#">Áo Free style</a>
                                 </li>
                                 <li>
-                                    <a href="#">Art</a>
+                                    <a href="#">Áo đôi</a>
                                 </li>
                                 <li>
-                                    <a href="#">Music</a>
+                                    <a href="#">Hoodie</a>
                                 </li>
                                 <li>
-                                    <a href="#">Domain Names</a>
+                                    <a href="#">Áo chữ</a>
                                 </li>
                                 <li>
-                                    <a href="#">Virtual World</a>
+                                    <a href="#">Áo lớp</a>
                                 </li>
                                 <li>
-                                    <a href="#">Collectibles</a>
+                                    <a href="#">Khác</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div className="col-md-3 col-sm-6 col-xs-1">
                         <div className="widget">
-                            <h5>Resources</h5>
+                            <h5>Thông tin nổi bật</h5>
                             <ul>
                                 <li>
-                                    <a href="#">Help Center</a>
+                                    <a href="#">Công nghệ in ấn</a>
                                 </li>
                                 <li>
-                                    <a href="#">Partners</a>
+                                    <a href="#">Chế độ bảo hành</a>
                                 </li>
-                                <li>
-                                    <a href="#">Suggestions</a>
-                                </li>
-                                <li>
-                                    <a href="#">Discord</a>
-                                </li>
-                                <li>
-                                    <a href="#">Docs</a>
-                                </li>
-                                <li>
-                                    <a href="#">Newsletter</a>
-                                </li>
+
                             </ul>
                         </div>
                     </div>
                     <div className="col-md-3 col-sm-6 col-xs-1">
                         <div className="widget">
-                            <h5>Community</h5>
+                            <h5>Thông tin</h5>
                             <ul>
                                 <li>
-                                    <a href="#">Community</a>
+                                    <a href="#">Địa chỉ: Tự nhiên, Thường Tín, Hà Nội</a>
                                 </li>
                                 <li>
-                                    <a href="#">Documentation</a>
+                                    <a href="#">Hotline: 0879434998</a>
                                 </li>
                                 <li>
-                                    <a href="#">Brand Assets</a>
+                                    <a href="#">Gmail: quangtuan070598@gmail.com</a>
                                 </li>
                                 <li>
-                                    <a href="#">Blog</a>
-                                </li>
-                                <li>
-                                    <a href="#">Forum</a>
-                                </li>
-                                <li>
-                                    <a href="#">Mailing List</a>
+                                    <a href="#">LinkFanPage: http://scarlet.com</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div className="col-md-3 col-sm-6 col-xs-1">
-                        <div className="widget">
-                            <h5>Newsletter</h5>
-                            <p>Signup for our newsletter to get the latest news in your inbox.</p>
-                            <form
-                                action="https://gigaland.io/blank.php"
-                                className="row form-dark"
-                                id="form_subscribe"
-                                method="post"
-                                name="form_subscribe"
-                            >
-                                <div className="col text-center">
-                                    <input
-                                        className="form-control"
-                                        id="txt_subscribe"
-                                        name="txt_subscribe"
-                                        placeholder="enter your email"
-                                        type="text"
-                                    />{" "}
-                                    <a href="#" id="btn-subscribe">
-                                        <i className="arrow_right bg-color-secondary" />
-                                    </a>
-                                    <div className="clearfix" />
-                                </div>
-                            </form>
-                            <div className="spacer-10" />
-                            <small>Your email is safe with us. We dont spam.</small>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             <div className="subfooter">

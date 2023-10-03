@@ -5,12 +5,10 @@ export const SectionHero = () => {
                 <div className="row align-items-center">
                     <div className="col-md-6">
                         <div className="spacer-single" />
-                        <h6 className="wow fadeInUp" data-wow-delay=".5s">
-                            <span className="text-uppercase id-color-2">Scarlet Design</span>
-                        </h6>
+
                         <div className="spacer-10" />
                         <h1 className="wow fadeInUp" data-wow-delay=".75s">
-                            Cung cấp mẫu áo thiết kế chuyên nghiệp.
+                            Cung cấp mẫu áo thiết kế chuyên nghiệp
                         </h1>
                         <p className="wow fadeInUp lead" data-wow-delay="1s">
                             Unit of data stored on a digital ledger, called a blockchain, that
@@ -18,13 +16,6 @@ export const SectionHero = () => {
                             interchangeable
                         </p>
                         <div className="spacer-10" />
-                        <a
-                            href="04_retro-explore.html"
-                            className="btn-main wow fadeInUp lead"
-                            data-wow-delay="1.25s"
-                        >
-                            Xem sản phẩm
-                        </a>
                         <div className="row">
                             <div className="spacer-single" />
                             <div className="row">
@@ -34,7 +25,7 @@ export const SectionHero = () => {
                                 >
                                     <div className="de_count text-left">
                                         <h3>
-                                            <span>10000</span>
+                                            <span>1000</span>
                                         </h3>
                                         <h5 className="id-color">Mẫu sản phẩm</h5>
                                     </div>
@@ -65,7 +56,7 @@ export const SectionHero = () => {
                         </div>
                     </div>
                     <div className="col-md-6 xs-hide">
-                        <div className="d-carousel">
+                        <div className="">
                             <div
                                 id="item-carousel-big-type-2"
                                 className="owl-carousel wow fadeIn"
@@ -79,7 +70,7 @@ export const SectionHero = () => {
                                     </a>
                                     <div className="nft_pic_wrap">
                                         <img
-                                            src="images/carousel/crs-6.jpg"
+                                            src="images/mau_ao/bia/anhbia_1.jpg"
                                             className="lazy img-fluid"
                                             alt=""
                                         />
@@ -94,7 +85,7 @@ export const SectionHero = () => {
                                     </a>
                                     <div className="nft_pic_wrap">
                                         <img
-                                            src="images/carousel/crs-5.jpg"
+                                            src="images/mau_ao/bia/anhbia_2.jpg"
                                             className="lazy img-fluid"
                                             alt=""
                                         />
@@ -109,52 +100,7 @@ export const SectionHero = () => {
                                     </a>
                                     <div className="nft_pic_wrap">
                                         <img
-                                            src="images/carousel/crs-4.jpg"
-                                            className="lazy img-fluid"
-                                            alt=""
-                                        />
-                                    </div>
-                                </div>
-                                <div className="nft_pic style-2">
-                                    <a href="04_retro-item-details.html">
-                                        <span className="nft_pic_info">
-                                            <span className="nft_pic_title">Glass Cube</span>
-                                            <span className="nft_pic_by">Mamie Barnett</span>
-                                        </span>
-                                    </a>
-                                    <div className="nft_pic_wrap">
-                                        <img
-                                            src="images/carousel/crs-1.jpg"
-                                            className="lazy img-fluid"
-                                            alt=""
-                                        />
-                                    </div>
-                                </div>
-                                <div className="nft_pic style-2">
-                                    <a href="04_retro-item-details.html">
-                                        <span className="nft_pic_info">
-                                            <span className="nft_pic_title">Loop Donut</span>
-                                            <span className="nft_pic_by">Lori Hart</span>
-                                        </span>
-                                    </a>
-                                    <div className="nft_pic_wrap">
-                                        <img
-                                            src="images/items/anim-5.webp"
-                                            className="lazy img-fluid"
-                                            alt=""
-                                        />
-                                    </div>
-                                </div>
-                                <div className="nft_pic style-2">
-                                    <a href="04_retro-item-details.html">
-                                        <span className="nft_pic_info">
-                                            <span className="nft_pic_title">I Believe I Can Fly</span>
-                                            <span className="nft_pic_by">Fred Ryan</span>
-                                        </span>
-                                    </a>
-                                    <div className="nft_pic_wrap">
-                                        <img
-                                            src="images/items/anim-8.webp"
+                                            src="images/mau_ao/bia/anhbia_3.jpg"
                                             className="lazy img-fluid"
                                             alt=""
                                         />

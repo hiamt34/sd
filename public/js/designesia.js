@@ -268,37 +268,73 @@
       * --------------------------------------------------*/
      function load_owl() {
         jQuery("#items-carousel").owlCarousel({
-            center: false,
-            items:4,
-            rewind:true,
-            margin:25,
-            nav:true,
-            navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
-            dots:false,
-            responsive:{
-                1000:{
-                    items:4
-                },
-                600:{
-                    items:2
-                },
-                0:{
-                    items:1
-                }
-            }
-         });
+          center: false,
+          autoplay: true,
+            autoplayTimeout: 4000,
+          items: 5,
+          rewind: true,
+          margin: 25,
+          nav: true,
+          animateOut: "fadeOut",
+          animateIn: "flipInY",
+          navText: [
+            "<i class='fa fa-chevron-left'></i>",
+            "<i class='fa fa-chevron-right'></i>",
+          ],
+          dots: false,
+          responsive: {
+            1000: {
+              items: 5,
+            },
+            600: {
+              items: 2,
+            },
+            0: {
+              items: 1,
+            },
+          },
+        });
+
+        jQuery("#items-carousel-hot").owlCarousel({
+          center: false,
+          items: 5,
+          rewind: true,
+          margin: 25,
+          autoplay: true,
+          autoplayTimeout: 5000,
+          nav: true,
+          
+          navText: [
+            "<div class='fa fa-chevron-left'></div>",
+            "<div class='fa fa-chevron-right'></div>",
+          ],
+          dots: false,
+          responsive: {
+            1000: {
+              items: 5,
+            },
+            600: {
+              items: 2,
+            },
+            0: {
+              items: 1,
+            },
+          },
+        });
 
         jQuery("#items-carousel-s2").owlCarousel({
             center: false,
-            items:4,
+            items:5,
             rewind:true,
             margin:20,
+            autoplay: true,
+            autoplayTimeout: 5500,
             nav:true,
             navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
             dots:false,
             responsive:{
                 1000:{
-                    items:4
+                    items:5
                 },
                 600:{
                     items:2
@@ -311,15 +347,17 @@
 
         jQuery("#collection-carousel").owlCarousel({
             center: false,
-            items:4,
+            items:5,
             loop:true,
             margin:25,
+            autoplay: true,
+            autoplayTimeout: 4500,
             nav:true,
             navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
             dots:false,
             responsive:{
                 1000:{
-                    items:4
+                    items:5
                 },
                 600:{
                     items:2
@@ -336,6 +374,8 @@
             animateIn: 'flipInY',
             items:1,
             loop:true,
+            autoplay: true,
+            autoplayTimeout: 3500,
             margin:0,
             nav:true,
             navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
@@ -347,6 +387,8 @@
             items:5,
             rewind:true,
             margin:25,
+            autoplay: true,
+            autoplayTimeout: 4000,
             nav:true,
             navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
             dots:false,
@@ -366,17 +408,19 @@
             }
          });
 
-        jQuery("#collection-carousel-5-cols").owlCarousel({
+        jQuery("#collection-carousel-4-cols").owlCarousel({
             center: false,
-            items:5,
-            loop:true,
+            items:4,
+           
+            autoplay: true,
+            autoplayTimeout: 5000,
             margin:25,
             nav:true,
             navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
             dots:false,
             responsive:{
                 1000:{
-                    items:5
+                    items:3
                 },
                 800:{
                     items:3
@@ -396,6 +440,8 @@
             loop:true,
             margin:25,
             nav:true,
+            autoplay: true,
+            autoplayTimeout: 4000,
             navText : ["<i class='fa fa-chevron-left'></i>","<i class='fa fa-chevron-right'></i>"],
             dots:false,
             responsive:{
@@ -414,6 +460,8 @@
          jQuery("#item-carousel-big").owlCarousel({
             loop:true,
             margin:20,
+            autoplay: true,
+            autoplayTimeout: 5000,
             nav:false,
             dots:false,
             responsive:{
@@ -433,6 +481,8 @@
             loop:true,
             margin:20,
             nav:false,
+            autoplay: true,
+            autoplayTimeout: 4000,
             dots:false,
             responsive:{
                 1000:{
@@ -451,6 +501,7 @@
             autoplay:true,
             loop:true,
             margin:25,
+            autoplayTimeout: 3200,
             nav:false,
             dots:false,
             responsive:{
@@ -471,6 +522,8 @@
             loop:true,
             margin:0,
             nav:false,
+            autoplay: true,
+            autoplayTimeout: 4000,
             dots:false,
             responsive:{
                 1000:{
@@ -517,6 +570,8 @@
 			items:3,
 			loop:true,
 			margin:0,
+            autoplay: true,
+            autoplayTimeout: 2000,
 			nav:false,
 			dots:false,
 			responsive:{
@@ -711,6 +766,10 @@
              $(this).parent().parent().find('.blog-slide').trigger('owl.prev');
          });
 
+         setInterval(() => {
+            $(this).parent().parent().find('.blog-slide').trigger('owl.next');
+            $(this).parent().parent().find('.blog-slide').trigger('owl.prev');
+         },2000)
          jQuery('.owl-custom-nav').each(function() {
              var owl = $('.owl-custom-nav').next();
              var ow = parseInt(owl.css("height"), 10);
@@ -1145,33 +1204,40 @@
              if (iteration > 2) iteration = 1;
              $(this).data('iteration', iteration);
          });
-
-         jQuery(".nft__item_click").on("click", function() {
+//Hover mặt trưỚc áo
+        
+         jQuery(".nft__item").on("mouseenter", function() {
              var iteration = $(this).data('iteration') || 1;
              
-             switch (iteration) {
-                 case 1:
-                     var cover = jQuery(this).parent().parent().find('.nft__item_extra');
-                     cover.css("visibility","visible");
-                     cover.css("opacity","1");
-                     break;
-                 case 2:
-                     var cover = jQuery(this).parent().parent().find('.nft__item_extra');
-                     cover.css("visibility","hidden");
-                     cover.css("opacity","0");
-                     break;
-             }
-             iteration++;
-             if (iteration > 2) iteration = 1;
-             $(this).data('iteration', iteration);
+            //  switch (iteration) {
+            //      case 1:
+                    //  var cover = jQuery(this).parent().parent().find('.nft__item_extra');
+                    //  cover.css("visibility","visible");
+                    //  cover.css("opacity","1");
+                    //  break;
+                
+                    //  var cover = jQuery(this).parent().parent().find('.nft__item_extra');
+                    //  cover.css("visibility","hidden");
+                    //  cover.css("opacity","0");
+                     
+             
+            //  iteration++;
+            //  if (iteration > 2) iteration = 1;
+            //  $(this).data('iteration', iteration);
          });
+        // $(".nft__item" ).mouseenter(function() {
+        //       var cover = jQuery(this).find('.nft__item_extra');
+        //              cover.css("visibility","visible");
+        //              cover.css("opacity","1");
+            
+        //  });
 
-         $( ".nft__item" ).mouseleave(function() {
-            var cover = jQuery(this).find('.nft__item_extra');
-            cover.css("visibility","hidden");
-            cover.css("opacity","0");
-            jQuery(this).find('.nft__item_click').data('iteration', 1);
-         });
+        //  $( ".nft__item" ).mouseleave(function() {
+        //     var cover = jQuery(this).find('.nft__item_extra');
+        //     cover.css("visibility","hidden");
+        //     cover.css("opacity","0");
+            
+        //  });
 
          jQuery(".nft__item_like").on("click", function() {
              var iteration = $(this).data('iteration') || 1;
@@ -1367,36 +1433,36 @@
          scrolling();
 
 
-         jQuery(".activity-filter > li").on("click", function() {
-             var iteration = $(this).data('iteration') || 1;
-             switch (iteration) {
-                 case 1:
-                    jQuery('.activity-list > li').hide();                    
-                    if(jQuery(this).hasClass("filter_by_followings")){                        
-                        jQuery('li.act_follow').show();
-                    }else if(jQuery(this).hasClass("filter_by_sales")){                        
-                        jQuery('li.act_sale').show();
-                    }else if(jQuery(this).hasClass("filter_by_offers")){                        
-                        jQuery('li.act_offer').show();
-                    }else if(jQuery(this).hasClass("filter_by_likes")){                        
-                        jQuery('li.act_like').show();
-                    };
-                    jQuery('.activity-filter > li').removeClass('active');
-                    jQuery(this).addClass('active');
-                    break;
-                 case 2:
+        //  jQuery(".activity-filter > li").on("click", function() {
+        //      var iteration = $(this).data('iteration') || 1;
+        //      switch (iteration) {
+        //          case 1:
+        //             jQuery('.activity-list > li').hide();                    
+        //             if(jQuery(this).hasClass("filter_by_followings")){                        
+        //                 jQuery('li.act_follow').show();
+        //             }else if(jQuery(this).hasClass("filter_by_sales")){                        
+        //                 jQuery('li.act_sale').show();
+        //             }else if(jQuery(this).hasClass("filter_by_offers")){                        
+        //                 jQuery('li.act_offer').show();
+        //             }else if(jQuery(this).hasClass("filter_by_likes")){                        
+        //                 jQuery('li.act_like').show();
+        //             };
+        //             jQuery('.activity-filter > li').removeClass('active');
+        //             jQuery(this).addClass('active');
+        //             break;
+        //          case 2:
                      
-                     break;
-             }
-             iteration++;
-             if (iteration > 2) iteration = 1;
-             $(this).data('iteration', iteration);
-         });
+        //              break;
+        //      }
+        //      iteration++;
+        //      if (iteration > 2) iteration = 1;
+        //      $(this).data('iteration', iteration);
+        //  });
 
-         jQuery(".filter__r").on("click", function() {
-            jQuery('.activity-filter > li').removeClass('active');
-            jQuery('.activity-list > li').show();   
-         });
+        //  jQuery(".filter__r").on("click", function() {
+        //     jQuery('.activity-filter > li').removeClass('active');
+        //     jQuery('.activity-list > li').show();   
+        //  });
 
          jQuery(".btn-close").on("click", function() {
              var iteration = $(this).data('iteration') || 1;
@@ -1744,10 +1810,10 @@
             })
             
             opt.on("click", function() {
-                dd.hide();
-                var txt = $(this).text();
-                opt.removeClass("active");
-                $(this).addClass("active");
+               dd.hide();
+               var txt = $(this).text();
+               opt.removeClass("active");
+               $(this).addClass("active");
                 btn.text(txt);
             });
     }
@@ -1767,16 +1833,21 @@
         $('.de-preloader').delay(500).fadeOut(500);
          'use strict';
          f_rtl();
+          menu_arrow();
          load_magnificPopup();
          center_xy();
          init_de();
+        
 		 grid_gallery();
          init_resize();
          de_progress();
          de_countdown();
          dropdown('#item_category');
+             dropdown('#item_category1');
          dropdown('#item_collection');
          dropdown('#buy_category');
+         dropdown('#buy_category1');
+         dropdown('#buy_category2');
          dropdown('#items_type');
          dropdown('#filter_by_duration');
          dropdown('#filter_by_category');
@@ -1787,9 +1858,9 @@
          image_preview();
          load_owl();  
          $(".jarallax").jarallax();
-        $(function() {
-            $('.lazy').lazy();
-        });
+        // $(function() {
+        //     $('.lazy').lazy();
+        // });
 
          // --------------------------------------------------
          // custom positiion
@@ -2031,7 +2102,7 @@
          video_autosize();
          masonry();
          custom_bg();
-         menu_arrow();
+        
          filter_gallery();
          custom_elements();
          init(); 
@@ -2074,6 +2145,10 @@
 
         $('#click_banner_img').click(function(){
             $('#upload_banner_img').click();
+        });
+
+         $('#click_avatar_img').click(function(){
+            $('#upload_avatar_img').click();
         });
 
         $('#upload_file').change(function(){
