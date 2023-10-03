@@ -19,36 +19,37 @@ export const SectionDesigner = () => {
                 show: true,
                 desinger: response.data.payload.data
             })
-        })
-        setTimeout(() => {
-            const jquery = jQuery(`#collection-carousel-design`) as any
-            jquery.owlCarousel({
-                center: false,
-                items: 5,
-                rewind: true,
-                margin: 25,
-                autoplay: true,
-                autoplayTimeout: 3700,
-                nav: true,
+            setTimeout(() => {
+                const jquery = jQuery(`#collection-carousel-design`) as any
+                jquery.owlCarousel({
+                    center: false,
+                    items: 5,
+                    rewind: true,
+                    margin: 25,
+                    autoplay: true,
+                    autoplayTimeout: 3700,
+                    nav: true,
 
-                navText: [
-                    "<div class='fa fa-chevron-left'></div>",
-                    "<div class='fa fa-chevron-right'></div>",
-                ],
-                dots: false,
-                responsive: {
-                    1000: {
-                        items: 5,
+                    navText: [
+                        "<div class='fa fa-chevron-left'></div>",
+                        "<div class='fa fa-chevron-right'></div>",
+                    ],
+                    dots: false,
+                    responsive: {
+                        1000: {
+                            items: 5,
+                        },
+                        600: {
+                            items: 2,
+                        },
+                        0: {
+                            items: 1,
+                        },
                     },
-                    600: {
-                        items: 2,
-                    },
-                    0: {
-                        items: 1,
-                    },
-                },
-            });
-        }, 1000)
+                });
+            }, 1000)
+        })
+
     }, [])
     return (<section id="section-collections" className="no-bottom">
         <div className="container">

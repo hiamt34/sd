@@ -1,29 +1,19 @@
 
-import { Paginate } from "@/components/commons/paginate";
 import { ProductItem, User } from "@/components/commons/product";
-import LoginPage from "@/pages/design/auth";
-import { FilterMyProfile } from "@/components/design/my-profile.tsx/filter";
 import { TableWallet } from "@/components/design/my-profile.tsx/table";
-import DialogCreateOneDesign from "@/components/pogup/create_prod";
 import DesignerLayout from "@/layouts/designer_layout";
 import { RootState } from "@/store/store";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { Box, ButtonBase, CircularProgress, Icon, LinearProgress, Pagination } from "@mui/material";
-import FilterListIcon from '@mui/icons-material/FilterList';
 import { FilterProduct } from "@/components/commons/filter_product";
-import { FilterWalletHistory } from "@/components/commons/filter_wallet";
-import { designerAction } from "@/store/designer/designerSlice";
-import React, { useEffect, useState } from 'react'
-import { useRef } from 'react';
-import { ApiService } from "@/services/api/http";
-import { Product } from "@/services/api/inteface/product.inteface";
-import { localStorageService } from "@/services/storage";
-import Config from "@/config";
-import { Bank } from "@/services/api/inteface/bank.interface";
 import { RequestPayment } from "@/components/design/my-profile.tsx/payment_request";
-import { ProductItemDetail } from "@/components/commons/product_detail";
+import Config from "@/config";
+import { ApiService } from "@/services/api/http";
+import { Bank } from "@/services/api/inteface/bank.interface";
+import { Product } from "@/services/api/inteface/product.inteface";
+import { LinearProgress } from "@mui/material";
+import { useEffect, useState } from 'react';
 
 interface State {
       productsAll: Array<Product>,
@@ -43,26 +33,7 @@ const MyProfilePage = () => {
             filterYear: 0
       })
       const designerState = useSelector((state: RootState) => state.designer)
-      const dispatch = useDispatch()
-      const [isPopupOpen, setIsPopupOpen] = useState(false);
-      useEffect(() => {
-            let isMounted = true
 
-
-            ApiService.getProduct({ page: 1, pageSize: 20, filter: [`user_id=${designerState.designer.id}`] }).then((response) => {
-
-                  if (response?.data?.status === 200) {
-                        setState({
-                              ...state,
-                              productsAll: response.data.payload.data,
-                              productHasBeenSide: response.data.payload.data.filter((x) => x.status === "SUCCESS"),
-                              productWaitingForSide: response.data.payload.data.filter((x) => x.status === "PENDING")
-                        })
-                  }
-
-            })
-
-      }, [])
       return (
             <>
                   {
@@ -112,7 +83,7 @@ const MyProfilePage = () => {
                                                                                     <Link href='design/edit-profile'>
                                                                                           <div className="profile_avatar" >
                                                                                                 <img
-                                                                                                      src={designerState.designer.photo.path}
+                                                                                                      src={`${Config.apiDomain}${designerState.designer.photo ? designerState.designer.photo.path : designerState.designer.photo_avatar_default}`}
                                                                                                       alt=""
                                                                                                       style={{ height: '150px', width: '150px' }}
                                                                                                 />
@@ -205,7 +176,7 @@ const MyProfilePage = () => {
                                                                                           }}
                                                                                     />
                                                                                     <div className="row">
-                                                                                          {state.productHasBeenSide.map((x, y) =>
+                                                                                          {designerState.productHasBeenSide.map((x, y) =>
                                                                                                 <div key={y} className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                                                                                                       <ProductItem
                                                                                                             product_id={x.id}
@@ -253,7 +224,7 @@ const MyProfilePage = () => {
                                                                                     />
                                                                                     <div className="row">
                                                                                           {
-                                                                                                state.productWaitingForSide.map((x, y) =>
+                                                                                                designerState.productWaitingForSide.map((x, y) =>
                                                                                                       <div key={y} className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                                                                                                             <ProductItem
                                                                                                                   product_id={x.id}

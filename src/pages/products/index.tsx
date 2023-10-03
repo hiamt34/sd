@@ -17,6 +17,7 @@ interface State {
     filter: Array<string>
 }
 const ProductsPage = () => {
+
     const [state, setState] = useState<State>({
         product: [],
         page: 0,
@@ -97,6 +98,7 @@ const ProductsPage = () => {
                                 onfilter(filter)
 
                             }}
+
                         />
                     </div>
                 </div>

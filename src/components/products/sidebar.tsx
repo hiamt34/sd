@@ -1,5 +1,5 @@
 import { RootState } from "@/store/store"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { ApiService } from "@/services/api/http"
@@ -16,14 +16,29 @@ export const SideBar = (props: Prop) => {
         category: [],
         filter: [],
     })
+    let tick: number
+
+    let refArray: Array<{ id: number, ref: any }> = []
     useEffect(() => {
         ApiService.getCategory().then((response) => {
             setState({
                 ...state,
-                category: response?.data?.payload
+                category: response?.data?.payload,
+                filter: [response.data.payload.find((x) => x.id === tick)?.name as string]
             })
+
         })
+
+
+        if (window) {
+            tick = parseInt(window.location.href.split('=')[1])
+        }
+
+
+
+
     }, [])
+
     return (
         <aside className="col-md-3">
             <div className="item_filter_group">
@@ -33,9 +48,11 @@ export const SideBar = (props: Prop) => {
                         state.category.map((x, y) =>
                             <div className="de_checkbox" key={y}>
                                 <input
+                                    ref={refArray.find((z) => z.id === x.id)?.ref as any}
                                     id={`check_cat_${y}`}
                                     type="checkbox"
                                     defaultValue={`check_cat_${y}`}
+                                    checked={state.filter.includes(x.name) ? true : false}
                                     onChange={(event) => {
                                         if (state.filter.includes(x.name)) {
                                             setState({

@@ -1,18 +1,11 @@
 
+import { ApiService } from "@/services/api/http"
+import { Designer } from "@/services/api/inteface/designer.interface"
 import { designerAction } from "@/store/designer/designerSlice"
 import { RootState } from "@/store/store"
-import { useDispatch, useSelector } from "react-redux"
-import React, { useEffect, useState } from 'react'
-import Link from "next/link"
-import { useRef } from 'react';
-import { ApiService } from "@/services/api/http"
-import CircularProgress from '@mui/material/CircularProgress';
-import { Button, ButtonBase } from '@mui/material'
-import LinearProgress from '@mui/material/LinearProgress';
-import OtpInput from 'react18-input-otp';
 import { AxiosResponse } from "axios"
-import { Designer } from "@/services/api/inteface/designer.interface"
-import { LoadSyncJs } from "@/ultis/load-sync-js"
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux"
 
 
 export const InitState = () => {
@@ -20,21 +13,29 @@ export const InitState = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         ApiService.setAuthorization(designerState.token)
-        ApiService.getDesigner().then((response: AxiosResponse<{ payload: Designer }>) => {
-            if (response.status === 200) {
-                dispatch(designerAction.loginInit({ designer: response.data.payload, categories: undefined }))
+        Promise.all([ApiService.getDesigner().then((response1: AxiosResponse<{ payload: Designer }>) => {
+            if (response1.status === 200) {
+                ApiService.getProduct({ page: 1, pageSize: 20, filter: [`user_id=${response1.data.payload.id}`] }).then((response2) => {
+                    dispatch(designerAction.loginInit({ designer: response1.data.payload, categories: undefined, product: response2?.data?.payload?.data }))
+                })
+
                 return
             }
             dispatch(designerAction.loginExpire())
-        })
+        }),
         ApiService.getCategory().then((response) => {
             if (response.data.status === 200) {
-                dispatch(designerAction.loginInit({ designer: undefined, categories: response.data.payload.map((x) => x.name) }))
+                dispatch(designerAction.loginInit({ designer: undefined, categories: response.data.payload.map((x) => x.name), product: undefined }))
             }
-        })
+        }),
+
+        ])
+
+
         setTimeout(() => {
             dispatch(designerAction.loadingApp())
-        }, 3000);
+        }, 1000);
+
 
     }, [])
     return (

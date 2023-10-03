@@ -5,6 +5,7 @@ import { Designer } from "@/services/api/inteface/designer.interface";
 import { ApiService } from "@/services/api/http";
 import Config from "@/config";
 import { Category } from "@/services/api/inteface/category.interface";
+import { Product } from "@/services/api/inteface/product.inteface";
 export interface DesignerState {
       designer: Designer
       token: string
@@ -12,6 +13,9 @@ export interface DesignerState {
       loading_app: boolean
       categories: Array<string>
       phone: string
+      productHasBeenSide: Array<Product>
+      productWaitingForSide: Array<Product>
+      productAll: Array<Product>
 };
 
 
@@ -21,7 +25,10 @@ let initialState: DesignerState = {
       is_login: localStorageService.is_login,
       loading_app: true,
       categories: [],
-      phone: localStorageService.phone
+      phone: localStorageService.phone,
+      productHasBeenSide: [],
+      productWaitingForSide: [],
+      productAll: []
 }
 
 const designerSlice = createSlice({
@@ -37,40 +44,19 @@ const designerSlice = createSlice({
                   localStorageService.setPhoneNumber(action.payload.phone)
             },
 
-            loginInit(state, action: PayloadAction<{ designer: Designer | undefined, categories: Array<string> | undefined }, string>) {
+            loginInit(state, action: PayloadAction<{ designer: Designer | undefined, categories: Array<string> | undefined, product: Array<Product> | undefined }, string>) {
+
                   if (action.payload?.designer) {
                         state.is_login = true
-                        state.designer = {
-                              ...state.designer,
-                              ...action.payload.designer
-                        }
-
-                        if (action.payload.designer.photo !== null) {
-                              state.designer.photo.path = `${Config.apiDomain}${action.payload.designer.photo.path}`
-
-                        } else {
-                              state.designer.photo = {
-                                    id: "",
-                                    path: `${Config.apiDomain}/${action.payload.designer.photo_avatar_default}`,
-                                    createdAt: "",
-                                    user_id: action.payload.designer.id
-                              }
-                        }
-                        if (action.payload.designer.banner !== null) {
-                              state.designer.banner.path = `${Config.apiDomain}${action.payload.designer.banner.path}`
-                        } else {
-                              state.designer.banner = {
-                                    id: "",
-                                    path: `${Config.apiDomain}${action.payload.designer.photo_banner_default}`,
-                                    createdAt: "",
-                                    user_id: action.payload.designer.id
-                              }
-                        }
-                        console.log('Khởi tạo app', state.designer);
-                        return
+                        state.designer = action.payload.designer
                   }
                   if (action.payload?.categories) {
                         state.categories = action.payload.categories
+                  }
+                  if (action.payload?.product) {
+                        state.productAll = action.payload.product
+                        state.productHasBeenSide = action.payload.product.filter((x) => x.status === "SUCCESS")
+                        state.productWaitingForSide = action.payload.product.filter((x) => x.status === "PENDING")
                   }
 
 
@@ -85,31 +71,6 @@ const designerSlice = createSlice({
 
             login(state, action: PayloadAction<{ token: string, user: Designer }, string>) {
                   localStorageService.setStorage(action.payload.token, action.payload.user.id)
-                  state.is_login = true
-                  state.token = action.payload.token
-
-                  state.designer = action.payload.user
-                  if (action.payload.user.photo !== null) {
-                        state.designer.photo.path = `${Config.apiDomain}${action.payload.user.photo.path}`
-
-                  } else {
-                        state.designer.photo = {
-                              id: "",
-                              path: `${Config.apiDomain}${action.payload.user.photo_avatar_default}`,
-                              createdAt: "",
-                              user_id: action.payload.user.id
-                        }
-                  }
-                  if (action.payload.user.banner !== null) {
-                        state.designer.banner.path = `${Config.apiDomain}${action.payload.user.banner.path}`
-                  } else {
-                        state.designer.banner = {
-                              id: "",
-                              path: `${Config.apiDomain}${action.payload.user.photo_banner_default}`,
-                              createdAt: "",
-                              user_id: action.payload.user.id
-                        }
-                  }
             }
 
       },

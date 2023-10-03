@@ -9,6 +9,7 @@ import { ProductDetail } from "@/services/api/inteface/product_detail.interface"
 import { designerAction } from "@/store/designer/designerSlice";
 import { RootState } from "@/store/store";
 import { Autocomplete, Button, ButtonBase, Checkbox, LinearProgress, TextField, withStyles } from "@mui/material"
+import { count } from "console";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRef } from 'react';

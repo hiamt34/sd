@@ -9,6 +9,7 @@ import { ApiService } from "@/services/api/http"
 import CircularProgress from '@mui/material/CircularProgress';
 import { Button, ButtonBase } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress';
+import { localStorageService } from "@/services/storage"
 interface Login {
     email: string
     password: string
@@ -69,10 +70,15 @@ export const Login = (prop: Props) => {
             password: state.password
         })
         if (response.status === 200) {
+            localStorageService.setStorage(response.data.payload.token, response.data.payload.user.id)
+            ApiService.setAuthorization(response.data.payload.token)
+            ApiService.getProduct({ page: 1, pageSize: 20, filter: [`user_id=${response.data.payload.user.id}`] }).then((response2) => {
+                dispatch(designerAction.loginInit({ designer: response.data.payload.user, categories: undefined, product: response2?.data?.payload?.data }))
 
+            })
 
-            refToDesignPage.current?.click()
-            dispatch(designerAction.login(response.data.payload))
+            window.location.href = '/design'
+            // refToDesignPage.current?.click()
             return
         }
 

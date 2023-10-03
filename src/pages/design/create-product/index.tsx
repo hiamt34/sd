@@ -33,7 +33,6 @@ interface State {
 }
 export const createProduct = () => {
       const designerState = useSelector((state: RootState) => state.designer)
-      const dispatch = useDispatch()
       const [state, setState] = useState<State>({
             image1: "",
             image2: "",

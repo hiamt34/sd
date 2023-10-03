@@ -50,7 +50,7 @@ const DesignPage = () => {
                 <div className="de-flex-col">
                   <div className="profile_avatar">
                     <img
-                      src="images/author/author-1.jpg"
+                      src={`${Config.apiDomain}${state.designer?.photo ? state.designer.photo.path : state.designer.photo_avatar_default}`}
                       alt=""
                     />
 

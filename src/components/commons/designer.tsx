@@ -18,7 +18,7 @@ export const DesignerItem = (prop: props) => {
                 </Link>
             </div>
             <div className="nft_coll_pp">
-                <Link href={{ pathname: `/products/design` }}>
+                <Link href={{ pathname: `/products/design/${prop.designer.id}` }}>
                     <img
                         className="lazy pp-coll"
                         src={prop.designer.photo ? `${Config.apiDomain}${prop.designer.photo.path}` : `${Config.apiDomain}${prop.designer.photo_avatar_default}`}
