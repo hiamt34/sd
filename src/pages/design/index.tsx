@@ -73,7 +73,7 @@ const MyProfilePage = () => {
                               </DesignerLayout > :
                               !designerState.loading_app && designerState.is_login === true ?
                                     <DesignerLayout type_class="" is_login={true}>
-                                          <section aria-label="section" className="pt40" >
+                                          <section aria-label="section" className="pt40" style={{ minHeight: '800px' }}>
                                                 <div className="container">
                                                       <div className="row">
                                                             <div className="col-md-12">

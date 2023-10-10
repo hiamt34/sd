@@ -20,7 +20,8 @@ const Home = ({ }) => {
             <SectionProduct name='Bộ sưu tập hot' type_carousel='items-carousel-hot' />
             <SectionDesigner />
             <SectionProduct name='Bộ sưu tập mới' type_carousel='items-carousel' />
-            <SectionPopular />
+            <div style={{ height: "100px" }}></div>
+            {/* <SectionPopular /> */}
         </CustomerLayout>
 
     )

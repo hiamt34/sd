@@ -15,8 +15,8 @@ export const InitState = () => {
         ApiService.setAuthorization(designerState.token)
         Promise.all([ApiService.getDesigner().then((response1: AxiosResponse<{ payload: Designer }>) => {
             if (response1.status === 200) {
-                ApiService.getProduct({ page: 1, pageSize: 20, filter: [`user_id=${response1.data.payload.id}`] }).then((response2) => {
-                    dispatch(designerAction.loginInit({ designer: response1.data.payload, categories: undefined, product: response2?.data?.payload?.data }))
+                ApiService.getProduct({ page: 1, pageSize: 20, filter: [`user_id=${response1.data?.payload?.id}`] }).then((response2) => {
+                    dispatch(designerAction.loginInit({ designer: response1?.data.payload, categories: undefined, product: response2?.data?.payload?.data }))
                 })
 
                 return
@@ -24,17 +24,16 @@ export const InitState = () => {
             dispatch(designerAction.loginExpire())
         }),
         ApiService.getCategory().then((response) => {
-            if (response.data.status === 200) {
-                dispatch(designerAction.loginInit({ designer: undefined, categories: response.data.payload.map((x) => x.name), product: undefined }))
+            if (response?.status === 200) {
+                dispatch(designerAction.loginInit({ designer: undefined, categories: response.data?.payload.map((x) => x?.name), product: undefined }))
             }
         }),
+        ]).then(() => {
+            setTimeout(() => {
+                dispatch(designerAction.loadingApp())
+            }, 1000);
+        })
 
-        ])
-
-
-        setTimeout(() => {
-            dispatch(designerAction.loadingApp())
-        }, 1000);
 
 
     }, [])

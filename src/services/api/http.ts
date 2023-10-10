@@ -38,7 +38,7 @@ export class ApiService {
       static getDesigner = (): Promise<AxiosResponse<{ payload: Designer, status: number, errors: Array<string> }>> => Axios.get(Url.getDesign)
 
 
-      static getListDesigner = (data: GetProductDto): Promise<AxiosResponse<{ payload: { data: Array<Designer> }, status: number, errors: Array<string> }>> => Axios.get(Url.getListDesigner(data))
+      static getListDesigner = (data: GetProductDto): Promise<AxiosResponse<{ payload: { data: Array<Designer>, meta: { page: number, pageSize: number, totalItem: number, totalPage: number } }, status: number, errors: Array<string> }>> => Axios.get(Url.getListDesigner(data))
 
       static uploadFile = (data: any): Promise<AxiosResponse<{ payload: FileUpload, status: number, errors: Array<string> }>> => Axios.post(Url.uploadFile, data, { headers: { ...Axios.defaults.headers.common } })
 

@@ -47,7 +47,7 @@ const CreatePage = () => {
                   pageSize: 1,
                   filter: [`id=${product_id}`]
             }).then((response) => {
-                  if (response.data.payload.data.length !== 0 && response.data.status === 200) {
+                  if (response.data?.payload?.data?.length !== 0 && response?.data?.status === 200) {
                         response.data.payload.data[0].photo.path = `${Config.apiDomain}${response.data.payload.data[0].photo.path}`
                         response.data.payload.data[0].products_item = response.data.payload.data[0].products_item.map((x) => {
                               return {

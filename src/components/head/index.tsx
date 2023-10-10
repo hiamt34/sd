@@ -36,23 +36,23 @@ const Header = (prop: Props) => {
                                         !prop.is_designer &&
                                         <>
                                             <li>
-                                                <a href="/" onBlur={() => console.log('hover')}>
+                                                <Link href="/" onBlur={() => console.log('hover')}>
                                                     Trang chủ
                                                     <span />
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
-                                                <a href="/products">
+                                                <Link href="/products">
                                                     Sản phẩm
                                                     <span />
-                                                </a>
+                                                </Link>
 
                                             </li>
                                             <li>
-                                                <a href="customer" className="">
+                                                <Link href="customer" className="">
                                                     Giỏ hàng
                                                     <span />
-                                                </a>
+                                                </Link>
                                             </li>
                                         </>
 
@@ -62,9 +62,9 @@ const Header = (prop: Props) => {
                                         <>
 
                                             <li>
-                                                <Link href='/design/notification'>
+                                                <Link href='/design'>
 
-                                                    Thông báo
+                                                    Trang chủ
                                                     <span />
                                                 </Link>
 
@@ -83,8 +83,8 @@ const Header = (prop: Props) => {
                                     }
 
                                     <li>
-                                        <Link href="/" className="">
-                                            Điều khoản
+                                        <Link href="/design/description" className="">
+                                            Hướng dẫn
                                             <span />
                                         </Link>
                                     </li>

@@ -8,6 +8,8 @@ import { ButtonBase, LinearProgress } from "@mui/material"
 import Link from "next/link"
 import { useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { saveAs } from 'file-saver'
+import Config from "@/config"
 interface State {
       image1: string
       image2: string
@@ -287,7 +289,21 @@ export const createProduct = () => {
             })
       }
 
+      const onDownload = () => {
+            // Tạo một thẻ a ẩn
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', `${Config.fileDessignDownload}`, true);
+            xhr.responseType = 'blob';
 
+            xhr.onload = function () {
+                  if (xhr.status === 200) {
+                        const blob = new Blob([xhr.response], { endings: 'native', type: 'application/x-rar-compressed' });
+                        saveAs(blob, 'Mau_thiet_ke.rar');
+                  }
+            };
+
+            xhr.send();
+      }
 
       return (
             <>
@@ -328,11 +344,11 @@ export const createProduct = () => {
                               !designerState.loading_app && designerState.is_login === true ?
                                     <DesignerLayout is_login={true}>
                                           <Link href={`/design/product-detail/${state.product_id}`} ref={refRedirect as any}></Link>
-                                          <section aria-label="section" style={{ marginTop: 0, paddingTop: 20 }}>
+                                          <section aria-label="section" style={{ marginTop: 0, paddingTop: 20, minHeight: '900px' }}>
                                                 <div className="container">
                                                       <div className="row wow fadeIn">
                                                             <div className="col-lg-7 offset-lg-1">
-                                                                  <form id="form-item" className="form-border" method="post" action="https://gigaland.io/email.php">
+                                                                  <form id="form-item" className="form-border" >
                                                                         <div className="field-set">
                                                                               <div className="col-md-12">
                                                                                     <div className="row">
@@ -350,7 +366,7 @@ export const createProduct = () => {
                                                                                                 </div>
 
                                                                                           </div>
-                                                                                          <h5 style={{ fontWeight: 1 }}>Upload thiết kế</h5>
+                                                                                          <h5 style={{ fontWeight: 1, marginTop: 5 }}>Upload thiết kế</h5>
                                                                                           {
                                                                                                 ['file1', 'file2', 'file3', 'file4'].map((x: string, y: number) =>
                                                                                                       <>
@@ -418,7 +434,12 @@ export const createProduct = () => {
 
 
                                                                               <div style={{ display: 'flex', marginTop: 50 }}>
-
+                                                                                    <div className="field-set" style={{ width: '30%', marginRight: 20 }}>
+                                                                                          <ButtonBase
+                                                                                                style={{ borderRadius: 5, backgroundColor: 'black' }}
+                                                                                                onClick={() => onDownload()}
+                                                                                          >Tải mẫu nền áo</ButtonBase>
+                                                                                    </div>
                                                                                     <div className="field-set" style={{ width: '30%' }}>
                                                                                           <ButtonBase
                                                                                                 style={{ borderRadius: 5, backgroundColor: 'black' }}
@@ -443,6 +464,7 @@ export const createProduct = () => {
 
                                                                                     </div>
 
+
                                                                               </div>
 
 
@@ -452,7 +474,7 @@ export const createProduct = () => {
 
                                                             <div className="col-lg-3 col-sm-6 col-xs-12">
                                                                   <h5 style={{ fontWeight: 1 }}>Preview item</h5>
-                                                                  <ProductItem product_id={state.product_id} imgAfter={state.image2 === "" ? 'images/mau_ao_nen/trang.jpg' : state.image2} imgBefor={state.image1 === "" ? 'images/mau_ao_nen/trang.jpg' : state.image1} type={User.Designer} name={state.name === "" ? "Eg.Unisex" : state.name} price={180.000} is_show_info={true} is_none_name={false} />
+                                                                  <ProductItem product_id={state.product_id} imgAfter={state.image2 === "" ? 'images/mau_ao_nen/Màu trắng.jpg' : state.image2} imgBefor={state.image1 === "" ? 'images/mau_ao_nen/Màu trắng.jpg' : state.image1} type={User.Designer} name={state.name === "" ? "Eg.Unisex" : state.name} price={180.000} is_show_info={true} is_none_name={false} />
                                                                   <h5 style={{ fontWeight: 1 }}>Chủ đề</h5>
                                                                   <div className="d-item col-lg-12 col-md-6 col-sm-6 col-xs-12" >
                                                                         {

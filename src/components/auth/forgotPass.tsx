@@ -43,7 +43,7 @@ export const ForgotPass = (prop: Props) => {
             return
         }
         ApiService.forgotPassword({ email: state.email }).then((response) => {
-            if (response.status === 200) {
+            if (response?.status === 200) {
                 setState({
                     ...state,
                     on_loading: false,

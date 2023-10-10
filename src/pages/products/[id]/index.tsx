@@ -74,9 +74,9 @@ const ProductDetailPage = () => {
                 const province = await ApiService.getProvices()
                 setState({
                     ...state,
-                    productItem: response.data.payload.data[0].products_item[0],
-                    product: response.data.payload.data[0],
-                    designer: response.data.payload.data[0].user,
+                    productItem: response.data?.payload?.data[0]?.products_item[0],
+                    product: response.data?.payload?.data[0],
+                    designer: response.data?.payload?.data[0]?.user,
                     is_carosel: true,
                     province: province?.data?.payload ?? []
                 })
@@ -436,7 +436,7 @@ const ProductDetailPage = () => {
                                                                 ...state,
                                                                 validAdress: "",
                                                                 provinceCurent: newValue,
-                                                                district: response.data.payload
+                                                                district: response.data?.payload
                                                             })
                                                             return
                                                         }
@@ -468,7 +468,7 @@ const ProductDetailPage = () => {
                                                                 ...state,
                                                                 validAdress: "",
                                                                 districtCurent: newValue,
-                                                                ward: response.data.payload
+                                                                ward: response?.data?.payload
                                                             })
                                                             return
                                                         }

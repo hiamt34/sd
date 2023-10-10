@@ -14,7 +14,7 @@ export const SectionCategory = () => {
     useEffect(() => {
         ApiService.getCategory().then((response) => {
             setState({
-                categories: response.data.payload
+                categories: response.data?.payload
             })
         })
     }, [])

@@ -17,7 +17,7 @@ export const SectionDesigner = () => {
         ApiService.getListDesigner({ page: 1, pageSize: 20 }).then((response) => {
             setState({
                 show: true,
-                desinger: response.data.payload.data
+                desinger: response.data?.payload?.data
             })
             setTimeout(() => {
                 const jquery = jQuery(`#collection-carousel-design`) as any

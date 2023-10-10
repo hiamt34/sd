@@ -34,17 +34,19 @@ const ProductsPage = () => {
             if (response?.status === 200) {
                 setState({
                     ...state,
-                    product: response.data.payload.data,
-                    page: response.data.payload.meta.page,
-                    pageSize: response.data.payload.meta.pageSize,
-                    totalItem: response.data.payload.meta.totalItem,
-                    totalPage: response.data.payload.meta.totalPage
+                    product: response.data?.payload?.data,
+                    page: response.data?.payload.meta?.page,
+                    pageSize: response.data?.payload?.meta?.pageSize,
+                    totalItem: response.data?.payload?.meta?.totalItem,
+                    totalPage: response.data?.payload?.meta?.totalPage
                 })
             }
         })
 
     }
     const onfilter = (filter: Array<string>) => {
+        console.log('filter', filter);
+
         if (filter.length === 0) {
             onChangePage(1)
             return
@@ -54,11 +56,11 @@ const ProductsPage = () => {
             if (response?.status === 200) {
                 setState({
                     ...state,
-                    product: response.data.payload.data,
-                    page: response.data.payload.meta.page,
-                    pageSize: response.data.payload.meta.pageSize,
-                    totalItem: response.data.payload.meta.totalItem,
-                    totalPage: response.data.payload.meta.totalPage,
+                    product: response.data?.payload?.data,
+                    page: response.data?.payload?.meta?.page,
+                    pageSize: response.data?.payload?.meta?.pageSize,
+                    totalItem: response.data?.payload?.meta?.totalItem,
+                    totalPage: response.data?.payload?.meta?.totalPage,
                 })
             }
         })
@@ -69,7 +71,7 @@ const ProductsPage = () => {
                 <div className="container">
                     <div className="row wow fadeIn">
 
-                        <div className="col-md-9 ">
+                        <div className="col-md-9 " style={{ marginBottom: 30 }}>
                             <div className="row">
                                 {state.product.map((x, y) =>
                                     <div key={y} className="col-lg-3 col-md-6 col-sm-6 col-xs-12" >

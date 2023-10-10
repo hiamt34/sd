@@ -45,7 +45,7 @@ export const RequestPayment = (props: Props) => {
       })
       useEffect(() => {
             ApiService.getBanks().then((response) => {
-                  if (response.data.status === 200) {
+                  if (response.status === 200) {
 
                         setState({
                               ...state,
@@ -107,7 +107,7 @@ export const RequestPayment = (props: Props) => {
                   }
             }
             ApiService.createTransation(dataCreate).then((response) => {
-                  if (response.data?.status === 201) {
+                  if (response.status === 201) {
                         setState({
                               ...state,
                               money: "",
@@ -159,7 +159,7 @@ export const RequestPayment = (props: Props) => {
 
                               {
                                     state.curent.logo !== "" &&
-                                    <img src={state.curent.logo} style={{ height: '40px', width: '100px', marginLeft: 20 }} />
+                                    <img src={state.curent.logo} alt="" style={{ height: '40px', width: '100px', marginLeft: 20 }} />
                               }
 
 

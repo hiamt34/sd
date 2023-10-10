@@ -1,4 +1,30 @@
+import { RootState } from "@/store/store"
+import { useSelector } from "react-redux"
+import { useEffect, useState } from 'react'
+import { ApiService } from "@/services/api/http"
 export const SectionHero = () => {
+    const [state, setState] = useState({
+        countProduct: 120,
+        countDessigner: 25
+    })
+    useEffect(() => {
+        ApiService.getProduct({ page: 1, pageSize: 20 }).then((response) => {
+            if (response.status === 200) {
+                setState({
+                    ...state,
+                    countProduct: response.data?.payload?.meta?.totalItem
+                })
+            }
+        })
+        ApiService.getListDesigner({ page: 1, pageSize: 20 }).then((response) => {
+            if (response.status === 201) {
+                setState({
+                    ...state,
+                    countDessigner: response.data.payload.meta.totalItem
+                })
+            }
+        })
+    }, [])
     return (
         <section id="section-hero" aria-label="section" className="pt60">
             <div className="container">
@@ -25,7 +51,7 @@ export const SectionHero = () => {
                                 >
                                     <div className="de_count text-left">
                                         <h3>
-                                            <span>1000</span>
+                                            <span>{state.countProduct}</span>
                                         </h3>
                                         <h5 className="id-color">Mẫu sản phẩm</h5>
                                     </div>
@@ -36,7 +62,7 @@ export const SectionHero = () => {
                                 >
                                     <div className="de_count text-left">
                                         <h3>
-                                            <span>27</span>k
+                                            <span>7</span>k
                                         </h3>
                                         <h5 className="id-color">Lượt mua</h5>
                                     </div>
@@ -47,7 +73,7 @@ export const SectionHero = () => {
                                 >
                                     <div className="de_count text-left">
                                         <h3>
-                                            <span>1</span>k
+                                            <span>{state.countDessigner}</span>
                                         </h3>
                                         <h5 className="id-color">Designer</h5>
                                     </div>
@@ -62,12 +88,12 @@ export const SectionHero = () => {
                                 className="owl-carousel wow fadeIn"
                             >
                                 <div className="nft_pic style-2">
-                                    <a href="04_retro-item-details.html">
-                                        <span className="nft_pic_info">
-                                            <span className="nft_pic_title">The Era of 90s</span>
-                                            <span className="nft_pic_by">Gayle Hicks</span>
-                                        </span>
-                                    </a>
+
+                                    <span className="nft_pic_info">
+                                        <span className="nft_pic_title">The Era of 90s</span>
+                                        <span className="nft_pic_by">Gayle Hicks</span>
+                                    </span>
+
                                     <div className="nft_pic_wrap">
                                         <img
                                             src="images/mau_ao/bia/anhbia_1.jpg"
@@ -77,12 +103,12 @@ export const SectionHero = () => {
                                     </div>
                                 </div>
                                 <div className="nft_pic style-2">
-                                    <a href="04_retro-item-details.html">
-                                        <span className="nft_pic_info">
-                                            <span className="nft_pic_title">Live Arts</span>
-                                            <span className="nft_pic_by">Nicholas Daniels</span>
-                                        </span>
-                                    </a>
+
+                                    <span className="nft_pic_info">
+                                        <span className="nft_pic_title">Live Arts</span>
+                                        <span className="nft_pic_by">Nicholas Daniels</span>
+                                    </span>
+
                                     <div className="nft_pic_wrap">
                                         <img
                                             src="images/mau_ao/bia/anhbia_2.jpg"
@@ -92,12 +118,12 @@ export const SectionHero = () => {
                                     </div>
                                 </div>
                                 <div className="nft_pic style-2">
-                                    <a href="04_retro-item-details.html">
-                                        <span className="nft_pic_info">
-                                            <span className="nft_pic_title">Red Ocean</span>
-                                            <span className="nft_pic_by">Monica Lucas</span>
-                                        </span>
-                                    </a>
+
+                                    <span className="nft_pic_info">
+                                        <span className="nft_pic_title">Red Ocean</span>
+                                        <span className="nft_pic_by">Monica Lucas</span>
+                                    </span>
+
                                     <div className="nft_pic_wrap">
                                         <img
                                             src="images/mau_ao/bia/anhbia_3.jpg"

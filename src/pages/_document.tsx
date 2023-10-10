@@ -16,8 +16,8 @@ const Document = () => {
                 <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
                 <link rel="icon" sizes="16x16" href="favicon.ico" />
                 <base href="/" />
-                <title>Layouts Example</title>
-                <link rel="icon" href="images/icon-black.png" type="image/gif" sizes="16x16" />
+                <title>Scarlet Design</title>
+                <link rel="icon" href="images/icon/scarlet_logo.jpg" type="image/gif" sizes="50x50" />
                 <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
                 <meta content="width=device-width, initial-scale=1.0" name="viewport" />
                 <meta content="Scarlet design" name="description" />
