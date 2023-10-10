@@ -78,16 +78,17 @@ const Header = (prop: Props) => {
                                                     <span />
                                                 </Link>
                                             </li>
+                                            <li>
+                                                <Link href="/design/description" className="">
+                                                    Hướng dẫn
+                                                    <span />
+                                                </Link>
+                                            </li>
+
                                         </>
 
                                     }
 
-                                    <li>
-                                        <Link href="/design/description" className="">
-                                            Hướng dẫn
-                                            <span />
-                                        </Link>
-                                    </li>
 
                                 </ul>
                                 <div className="menu_side_area">
