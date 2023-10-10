@@ -30,7 +30,7 @@ export const SectionProduct = (props: Props) => {
             if (response.status === 200) {
                 setState({
                     ...state,
-                    product: response.data.payload.data,
+                    product: response.data?.payload?.data,
                     show: true
                 })
 

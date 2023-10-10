@@ -69,11 +69,11 @@ export const Login = (prop: Props) => {
             email: state.email,
             password: state.password
         })
-        if (response.status === 200) {
-            localStorageService.setStorage(response.data.payload.token, response.data.payload.user.id)
-            ApiService.setAuthorization(response.data.payload.token)
+        if (response?.status === 200) {
+            localStorageService.setStorage(response?.data?.payload?.token, response?.data?.payload?.user.id)
+            ApiService.setAuthorization(response?.data?.payload?.token)
             ApiService.getProduct({ page: 1, pageSize: 20, filter: [`user_id=${response.data.payload.user.id}`] }).then((response2) => {
-                dispatch(designerAction.loginInit({ designer: response.data.payload.user, categories: undefined, product: response2?.data?.payload?.data }))
+                dispatch(designerAction.loginInit({ designer: response?.data?.payload?.user, categories: undefined, product: response2?.data?.payload?.data }))
 
             })
 
@@ -83,7 +83,7 @@ export const Login = (prop: Props) => {
         }
 
 
-        if (response.data?.errors.includes('incorrectPassword') || response.data?.errors.includes("emailNotExists")) {
+        if (response?.data?.errors.includes('incorrectPassword') || response?.data?.errors.includes("emailNotExists")) {
             setState({
                 ...state,
                 validLogin: "*Tài khoản hoặc mật khẩu không đúng",

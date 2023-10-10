@@ -110,7 +110,7 @@ export const Register = (pros: Props) => {
             return
         }
 
-        if (response.data?.errors?.includes('emailAlreadyExists')) {
+        if (response?.data?.errors?.includes('emailAlreadyExists')) {
             setState({
                 ...state,
                 validEmail: "*Tài khoản này đã tồn tại",

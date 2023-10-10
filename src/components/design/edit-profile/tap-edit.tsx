@@ -149,8 +149,8 @@ export const TapEditProfile = () => {
             bannerFrom.append('file', state.bannerUpdate)
             const responseUploadBanner = await ApiService.uploadFile(bannerFrom)
 
-            if (responseUploadBanner && responseUploadBanner.data.status === 201) {
-                dataSend.banner = { id: responseUploadBanner.data.payload.id }
+            if (responseUploadBanner && responseUploadBanner.status === 201) {
+                dataSend.banner = { id: responseUploadBanner.data?.payload?.id }
             } else {
                 setState({
                     ...state,
@@ -163,8 +163,8 @@ export const TapEditProfile = () => {
             const avatarFrom = new FormData()
             avatarFrom.append('file', state.avatarUpdate)
             const responseUploadAvatar = await ApiService.uploadFile(avatarFrom)
-            if (responseUploadAvatar && responseUploadAvatar.data.status === 201) {
-                dataSend.photo = { id: responseUploadAvatar.data.payload.id }
+            if (responseUploadAvatar && responseUploadAvatar.status === 201) {
+                dataSend.photo = { id: responseUploadAvatar.data?.payload?.id }
             } else {
                 setState({
                     ...state,
@@ -176,19 +176,19 @@ export const TapEditProfile = () => {
 
         ApiService.updateDesigner(dataSend).then(async (response) => {
             if (response.data.status === 200) {
-                dispatch(designerAction.loginInit(response.data.payload as any))
+                dispatch(designerAction.loginInit(response.data?.payload as any))
                 setState({
                     ...state,
-                    name: response.data.payload.firstName,
-                    bio: response.data.payload.bio,
-                    avatar: response.data.payload.photo?.path ? `${Config.apiDomain}${response.data.payload.photo?.path}` : `${Config.apiDomain}${response.data.payload.photo_avatar_default}`,
-                    banner: response.data.payload.banner?.path ? `${Config.apiDomain}${response.data.payload.banner?.path}` : `${Config.apiDomain}${response.data.payload.photo_banner_default}`,
+                    name: response.data?.payload?.firstName,
+                    bio: response.data?.payload?.bio,
+                    avatar: response.data?.payload?.photo?.path ? `${Config.apiDomain}${response.data?.payload?.photo?.path}` : `${Config.apiDomain}${response.data?.payload?.photo_avatar_default}`,
+                    banner: response.data?.payload?.banner?.path ? `${Config.apiDomain}${response.data?.payload?.banner?.path}` : `${Config.apiDomain}${response.data?.payload.photo_banner_default}`,
                     on_loading: false,
                     on_success: "Cập nhật thành công"
                 })
                 return
             }
-            if (response.data.status === 422 && response.data.errors.includes('incorrectOldPassword')) {
+            if (response.data?.status === 422 && response.data?.errors.includes('incorrectOldPassword')) {
                 setState({
                     ...state,
                     on_loading: false,

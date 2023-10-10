@@ -1,7 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
+import { RootState } from '@/store/store'
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const Footer = ({ }) => {
+    const designerState = useSelector((state: RootState) => state.designer)
     return (
         <footer>
 
@@ -11,24 +14,13 @@ const Footer = ({ }) => {
                         <div className="widget">
                             <h5>Danh mục</h5>
                             <ul>
-                                <li>
-                                    <a href="#">Áo Free style</a>
-                                </li>
-                                <li>
-                                    <a href="#">Áo đôi</a>
-                                </li>
-                                <li>
-                                    <a href="#">Hoodie</a>
-                                </li>
-                                <li>
-                                    <a href="#">Áo chữ</a>
-                                </li>
-                                <li>
-                                    <a href="#">Áo lớp</a>
-                                </li>
-                                <li>
-                                    <a href="#">Khác</a>
-                                </li>
+                                {
+                                    designerState.categories.map((x) =>
+                                        <li>
+                                            <span>{x}</span>
+                                        </li>
+                                    )
+                                }
                             </ul>
                         </div>
                     </div>
@@ -37,10 +29,10 @@ const Footer = ({ }) => {
                             <h5>Thông tin nổi bật</h5>
                             <ul>
                                 <li>
-                                    <a href="#">Công nghệ in ấn</a>
+                                    <span>Công nghệ in ấn</span>
                                 </li>
                                 <li>
-                                    <a href="#">Chế độ bảo hành</a>
+                                    <span>Chế độ bảo hành</span>
                                 </li>
 
                             </ul>
@@ -51,16 +43,16 @@ const Footer = ({ }) => {
                             <h5>Thông tin</h5>
                             <ul>
                                 <li>
-                                    <a href="#">Địa chỉ: Tự nhiên, Thường Tín, Hà Nội</a>
+                                    <span>Địa chỉ: Tự nhiên, Thường Tín, Hà Nội</span>
                                 </li>
                                 <li>
-                                    <a href="#">Hotline: 0879434998</a>
+                                    <span>Hotline: 0879434998</span>
                                 </li>
                                 <li>
-                                    <a href="#">Gmail: quangtuan070598@gmail.com</a>
+                                    <span>Gmail: quangtuan070598@gmail.com</span>
                                 </li>
                                 <li>
-                                    <a href="#">LinkFanPage: http://scarlet.com</a>
+                                    <span>LinkFanPage: http://scarlet.com</span>
                                 </li>
                             </ul>
                         </div>
@@ -78,29 +70,30 @@ const Footer = ({ }) => {
                                         <img
                                             alt=""
                                             className="f-logo"
-                                            src="images/logo-retro-light.png"
+                                            src="images/SDlogo.png"
+                                            height={40}
                                         />
                                         <span className="copy">
-                                            © Copyright 2023 - Gigaland by Designesia
+                                            © Scarlet Design 2023
                                         </span>
                                     </a>
                                 </div>
                                 <div className="de-flex-col">
                                     <div className="social-icons">
-                                        <a href="#">
+                                        <a href="https://www.facebook.com/profile.php?id=100086752471755">
                                             <i className="fa fa-facebook fa-lg" />
                                         </a>
                                         <a href="#">
-                                            <i className="fa fa-twitter fa-lg" />
+                                            <i className="fa fa-instagram fa-lg" />
                                         </a>
                                         <a href="#">
-                                            <i className="fa fa-linkedin fa-lg" />
+                                            <i className="fa fa-telegram fa-lg" />
                                         </a>
                                         <a href="#">
                                             <i className="fa fa-pinterest fa-lg" />
                                         </a>
-                                        <a href="#">
-                                            <i className="fa fa-rss fa-lg" />
+                                        <a href="">
+                                            <img src='images/SDlogo.png' height={5} className="fa fa-rss fa-lg" />
                                         </a>
                                     </div>
                                 </div>

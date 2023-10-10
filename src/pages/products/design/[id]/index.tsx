@@ -29,14 +29,14 @@ const DesignPage = () => {
       if (response.status === 200) {
         setState({
           ...state,
-          designer: response.data.payload.data[0]
+          designer: response?.data?.payload?.data[0]
         })
       }
     })
     ApiService.getProduct({ page: 1, pageSize: 50, filter: [`user_id=${parseInt(match[1])}`] }).then((response) => {
       setState({
         ...state,
-        product: response.data.payload.data
+        product: response?.data?.payload?.data
       })
     })
   }, [])

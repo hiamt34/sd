@@ -21,10 +21,17 @@ export const SideBar = (props: Prop) => {
     let refArray: Array<{ id: number, ref: any }> = []
     useEffect(() => {
         ApiService.getCategory().then((response) => {
+            if (tick) {
+                setState({
+                    ...state,
+                    category: response?.data?.payload,
+                    filter: [response.data?.payload.find((x) => x?.id === tick)?.name as string]
+                })
+                return
+            }
             setState({
                 ...state,
-                category: response?.data?.payload,
-                filter: [response.data.payload.find((x) => x.id === tick)?.name as string]
+                category: response?.data?.payload
             })
 
         })
@@ -38,6 +45,7 @@ export const SideBar = (props: Prop) => {
 
 
     }, [])
+    console.log('filter after ', state.filter);
 
     return (
         <aside className="col-md-3">

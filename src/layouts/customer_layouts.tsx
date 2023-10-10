@@ -26,7 +26,7 @@ const CustomerLayout: React.FC<LayoutProps> = ({ children, is_no_footer = false,
     }, [])
     return (
         <>
-            <div id="wrapper">
+            <div id="wrapper" >
                 <Header is_designer={false} is_login={false} />
                 <div className={type_class} id="content">
                     <div id="top" />

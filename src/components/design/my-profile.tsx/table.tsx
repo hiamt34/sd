@@ -31,14 +31,14 @@ export const TableWallet = (props: Props) => {
     const dispatch = useDispatch()
     useEffect(() => {
         ApiService.getTransactions({ page: 1, pageSize: 5 }).then((response) => {
-            if (response.data?.status === 200) {
+            if (response.status === 200) {
                 setState({
                     ...state,
-                    transactionsRender: response.data.payload.data,
-                    transactionAll: response.data.payload.data,
-                    totalPage: response.data.payload.meta.totalPage,
-                    totalItem: response.data.payload.meta.totalItem,
-                    page: response.data.payload.meta.page
+                    transactionsRender: response.data?.payload?.data,
+                    transactionAll: response.data?.payload?.data,
+                    totalPage: response.data?.payload.meta?.totalPage,
+                    totalItem: response.data?.payload.meta?.totalItem,
+                    page: response.data?.payload?.meta?.page
                 })
             }
         })
@@ -57,11 +57,11 @@ export const TableWallet = (props: Props) => {
             if (response.data?.status === 200) {
                 setState({
                     ...state,
-                    transactionsRender: response.data.payload.data,
-                    transactionAll: response.data.payload.data,
-                    totalPage: response.data.payload.meta.totalPage,
-                    totalItem: response.data.payload.meta.totalItem,
-                    page: response.data.payload.meta.page
+                    transactionsRender: response.data?.payload?.data,
+                    transactionAll: response.data?.payload?.data,
+                    totalPage: response.data?.payload.meta?.totalPage,
+                    totalItem: response.data?.payload?.meta?.totalItem,
+                    page: response.data?.payload?.meta?.page
                 })
                 return
             }
@@ -91,11 +91,11 @@ export const TableWallet = (props: Props) => {
                             if (response.data?.status === 200) {
                                 setState({
                                     ...state,
-                                    transactionsRender: response.data.payload.data,
-                                    transactionAll: response.data.payload.data,
-                                    totalPage: response.data.payload.meta.totalPage,
-                                    totalItem: response.data.payload.meta.totalItem,
-                                    page: response.data.payload.meta.page
+                                    transactionsRender: response?.data?.payload?.data,
+                                    transactionAll: response.data?.payload?.data,
+                                    totalPage: response.data?.payload.meta?.totalPage,
+                                    totalItem: response.data?.payload.meta?.totalItem,
+                                    page: response.data?.payload?.meta?.page
                                 })
                                 return
                             }
@@ -118,14 +118,14 @@ export const TableWallet = (props: Props) => {
 
 
                         ApiService.getTransactions(dataSend).then((response) => {
-                            if (response.data?.status === 200) {
+                            if (response.status === 200) {
                                 setState({
                                     ...state,
-                                    transactionsRender: response.data.payload.data,
-                                    transactionAll: response.data.payload.data,
-                                    totalPage: response.data.payload.meta.totalPage,
-                                    totalItem: response.data.payload.meta.totalItem,
-                                    page: response.data.payload.meta.page
+                                    transactionsRender: response.data?.payload?.data,
+                                    transactionAll: response.data?.payload?.data,
+                                    totalPage: response.data?.payload?.meta?.totalPage,
+                                    totalItem: response.data?.payload?.meta?.totalItem,
+                                    page: response.data?.payload?.meta?.page
                                 })
                                 return
                             }
@@ -148,14 +148,14 @@ export const TableWallet = (props: Props) => {
                             dateTo: new Date(year, state.filterMonth, 0, 23, 59, 59, 303).toISOString()
                         }
                         ApiService.getTransactions(dataSend).then((response) => {
-                            if (response.data?.status === 200) {
+                            if (response.status === 200) {
                                 setState({
                                     ...state,
-                                    transactionsRender: response.data.payload.data,
-                                    transactionAll: response.data.payload.data,
-                                    totalPage: response.data.payload.meta.totalPage,
-                                    totalItem: response.data.payload.meta.totalItem,
-                                    page: response.data.payload.meta.page
+                                    transactionsRender: response.data?.payload?.data,
+                                    transactionAll: response.data?.payload?.data,
+                                    totalPage: response.data?.payload?.meta?.totalPage,
+                                    totalItem: response.data?.payload?.meta?.totalItem,
+                                    page: response.data?.payload?.meta?.page
                                 })
                                 return
                             }

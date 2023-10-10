@@ -38,8 +38,8 @@ class LocalStorageService {
       ApiService.getDesigner().then((response) => {
         if (response.status === 200) {
           this.is_login = true
-          this.designer = response.data.payload
-          this.user_id = response.data.payload.id
+          this.designer = response?.data?.payload
+          this.user_id = response?.data?.payload?.id
         }
 
       })
